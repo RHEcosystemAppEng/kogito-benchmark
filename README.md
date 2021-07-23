@@ -30,9 +30,26 @@ The following diagram illustrates the basic architecture of the testing scenario
 **Note**: `Data-Index` infrastructure is not part of this initial setup. Also, the initial metrics will not 
 validate that the Kafka broker actually sends the expected events.
 
+## Business Process Model
+The Business Process Model under test comes from the [Process + Quarkus example](https://github.com/kiegroup/kogito-examples/tree/stable/process-quarkus-example)
+application, that is a simple process service for ordering items.
+In particular, we  will create new instances of the `Order` data element using a POST REST request, defined by the [orders](https://github.com/kiegroup/kogito-examples/blob/stable/process-quarkus-example/src/main/resources/org/kie/kogito/examples/orders.bpmn2)
+process:
+![Orders process](./OrdersProcess.png)
+
 ## Test strategy
+**TBD**
+How many executions?
+What is the Gatling execution plan? (e.g., `atOnceUsers`?)
+
+**TODO** Move to some troubleshooting section in the test procedure doc
+Every time a new `Order` is defined, the related Pod in the OCP platform will log a message like:
+```text
+Order has been created Order[12345] with assigned approver JOHN
+```
 
 ## Metrics specifications
+**TBD**
 
 ## Procedures
 * [Configuration](./deploy/README.md)
