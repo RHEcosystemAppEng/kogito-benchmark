@@ -1,0 +1,45 @@
+---
+apiVersion: mongodb.com/v1
+kind: MongoDB
+metadata:
+  name: kogito-mongodb
+spec:
+  members: 3
+  type: ReplicaSet
+  version: "4.4.1"
+  security:
+    authentication:
+      modes: ["SCRAM"]
+  users:
+    - name: developer
+      db: admin
+      passwordSecretRef:
+        name: kogito-mongodb-secret
+      roles:
+        - name: dbOwner
+          db: kogito_dataindex
+        - name: clusterAdmin
+          db: kogito_dataindex
+        - name: userAdminAnyDatabase
+          db: kogito_dataindex
+  statefulSet:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: "mongodb-agent"
+              env:
+                - name: MANAGED_SECURITY_CONTEXT
+                  value: "true"
+            - name: "mongod"
+              env:
+                - name: MANAGED_SECURITY_CONTEXT
+                  value: "true"
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: kogito-mongodb-secret
+type: Opaque
+stringData:
+  password: mypass
