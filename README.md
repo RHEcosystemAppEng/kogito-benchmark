@@ -31,8 +31,10 @@ The following diagram illustrates the basic architecture of the testing scenario
 validate that the Kafka broker actually sends the expected events.
 
 ## Test strategy
+**TODO**
 
 ## Metrics specifications
+**TODO**
 
 ## Procedures
 * [Configuration](./deploy/README.md)
