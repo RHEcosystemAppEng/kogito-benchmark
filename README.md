@@ -1,6 +1,7 @@
 # Table of Contents
 * [Kogito Benchmark](#kogito-benchmark)
  * [System Architecture](#system-architecture)
+ * [Business Process Model](#business-process-model)  
  * [Test strategy](#test-strategy)
  * [Metrics specifications](#metrics-specifications)
  * [Procedures](#procedures)
