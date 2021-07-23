@@ -7,7 +7,8 @@
   * [Install the Kafka operator](#install-the-kafka-operator)
   * [Deploy the Kafka instance](#deploy-the-kafka-instance)  
   * [Install Kafka infra in Kogito operator](#install-kafka-infra-in-kogito-operator)
-* Deploying the Kogito App  
+* [Deploying the Kogito App] (#deploying-the-kogito-app)
+* [References](#references)
     
 # Deploying the Kogito infrastructure
 **Following steps have been validated against Kogito version 1.8.0.Final**
