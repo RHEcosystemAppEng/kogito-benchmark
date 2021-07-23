@@ -3,3 +3,4 @@
 /test/gatling-maven-plugin-demo.iml
 /.idea/
 /test/target/
+*.DS_Store
