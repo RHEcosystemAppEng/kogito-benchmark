@@ -7,7 +7,7 @@
   * [Install the Kafka operator](#install-the-kafka-operator)
   * [Deploy the Kafka instance](#deploy-the-kafka-instance)  
   * [Install Kafka infra in Kogito operator](#install-kafka-infra-in-kogito-operator)
-* [Deploying the Kogito App] (#deploying-the-kogito-app)
+* [Deploying the Kogito App](#deploying-the-kogito-app)
 * [References](#references)
     
 # Deploying the Kogito infrastructure
