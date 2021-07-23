@@ -49,7 +49,7 @@ Order has been created Order[12345] with assigned approver JOHN
 ```
 
 ## Metrics specifications
-**TBD**
+**TODO**
 
 ## Procedures
 * [Configuration](./deploy/README.md)
