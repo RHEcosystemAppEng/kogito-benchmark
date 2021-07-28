@@ -8,6 +8,8 @@
   * [Deploy the Kafka instance](#deploy-the-kafka-instance)  
   * [Install Kafka infra in Kogito operator](#install-kafka-infra-in-kogito-operator)
 * [Deploying the Kogito App](#deploying-the-kogito-app)
+* [Troubleshooting Tips](#troubleshooting-tips)  
+  * [MondoDB Collections](#mondodb-collections)  
 * [References](#references)
     
 # Deploying the Kogito infrastructure
@@ -117,13 +119,23 @@ cd process-quarkus-example
 
 kogito deploy-service process-quarkus-example . --infra kogito-mongodb-infra --infra kogito-kafka-infra
 ```
-**TBD**: we made some changes to the example to integrate with MongoDB, where should we push them?
-
 Once the builds succeeds, you should see one Pod named `process-quarkus-example-NNN` in `Running` state, and one Route named 
-'process-quarkus-example' to expose the REST APIs outside the OCP cluster.
+`process-quarkus-example` to expose the REST APIs outside the OCP cluster.
 You can access the Swagger API by adding `/q/swagger-ui` to the route location, and test them out.
 
-## References
+# Troubleshooting Tips
+## MondoDB Collections
+Enter the Terminal tab of one of the running `kogito-mongodb-NN` pods, and select the `mongod` container.
+Then run the following commands to verify the content of the database:
+```shell
+mongo -u developer
+show dbs
+use kogito_dataindex
+show collections
+db.demo.orders.count()
+```
+
+# References
 * [Kogito docs](https://docs.jboss.org/kogito/release/latest/html_single)
 * [QE test code in kogito-operator repository](https://github.com/kiegroup/kogito-operator/tree/master/test)
   * [Travel Agency example](https://github.com/kiegroup/kogito-operator/blob/master/test/features/deploy_travel_agency.feature)
