@@ -39,9 +39,11 @@ process:
 ![Orders process](./OrdersProcess.png)
 
 ## Test strategy
-**TBD**
-How many executions?
-What is the Gatling execution plan? (e.g., `atOnceUsers`?)
+Strategy 1: 
+Running a fixed amount of concurrent users for a fixed amount of time using `constantConcurrentUsers`
+establishing concurrent user limit with reasonable execution time
+
+Strategy 2:
 
 **TODO** Move to some troubleshooting section in the test procedure doc
 Every time a new `Order` is defined, the related Pod in the OCP platform will log a message like:
@@ -50,7 +52,33 @@ Order has been created Order[12345] with assigned approver JOHN
 ```
 
 ## Metrics specifications
-**TODO**
+
+###Test Cases
+
+| Test Case | Details |
+|----------|------|
+|  | Strategy 1 - prelim tests |
+| ccu100 | constantConcurrentUsers: 100; duration 5 minutes |
+| ccu500 | constantConcurrentUsers: 500; duration 5 minutes |
+| ccu1000 | constantConcurrentUsers: 1000; duration 5 minutes |
+
+###Results
+| Target   |    ccu100    | ccu500 | ccu1000 |
+|----------|------|----|---|
+| Latency 95% PCT (ms)  |  1129 | 
+| Latency 99% PCT (ms)  |  1231 |
+| Av. Response (ms) | 1214 | 
+| Peak Response (ms) | 1232 |
+| Error Rate (%) | 0 | 
+| Throughput (transactions / s - TPS) | 10 |
+| Runtime memory (MB / pod) | |
+| Runtime startup (ms) | |
+| CPU Usage (% / pod) | |
+
+###Gatling Report Data
+![Gatling Report](./GatlingReportData.png)
+
+![Gatling Report2](./GatlingReportData2.png)
 
 ## Procedures
 * [Configuration](./deploy/README.md)
