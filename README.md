@@ -51,23 +51,56 @@ Gatling: `rampUsers`
 Strategy 3: constant number of requests at all times
 Gatling: `constantUsersPerSec`
 
-## Metrics specifications and results
-[Daniele] can we have a dedicated section for the metrics and one for the results?
-[Daniele] can we have one table for each strategy, to simplify the reading? (table formatting with Markdown is not very flexible)
+## Metrics specifications
 
-| pods | users | time (min) | Latency 95% PCT (ms) | Latency 99% PCT (ms) | Av. Response (ms) | Peak Response (ms) | Error Rate (%)  | Throughput (transactions / s - TPS) | Runtime memory (MiB / pod) | CPU Usage (m / pod) | Runtime startup (ms) |   
-|----------|----|----|----|----|----|----|----|----|----|----|----|
-| S1 | |
-| 1 | 100 | 5 | 1253 | 1948 | 617 | 6782 | 0 | 160 | 1107 | 768 | |  
-| 2 | 100 | 5 | 644 | 1414 | 518 | 3557 | 0 | 191 | 1287 (639,648) | 598 (275,323) | |  
-| 3 | 100 | 5 | 1004 | 1648 | 557 | 4122 | 0 | 178 | 1385 (501,512,372) | 928 (268,258,402) | |
-| 1 | 100 | 15 | 1438 | 2021 | 636 | 7770 | 0 | 156 | 3096 | 423 | |  
-| 3 | 100 | 15 | 734 | 1499 | 534 | 5406 | 0 | 186 | 3668 (1416,1038,1432) | 973 (271,437,265) | |
-| S2 | |
-| 1 | 50000 | 10 | 986 | 5690 | 608 | 8454 | 0 | 83 | 1216 | 586 | |  
-| S3 | |
-| 1 | 700 | 5 | 25000 | 36900 | 12000 | 84000 | 46 | 648 | - | - | |  
-| 3 | 700 | 5 | 61000 | 63000 | 20000 | 68000 | 92 | 600 | - | - | |  
+**Strategy 1**
+
+| test run | pods | users | time (min) |
+|----------|----|----|----|
+| 1 | 1 | 100 | 5 |
+| 2 | 2 | 100 | 5 |
+| 3 | 3 | 100 | 5 |
+| 4 | 1 | 100 | 15 |
+| 5 | 3 | 100 | 15 |
+
+**Strategy 2**
+
+| test run | pods | users | time (min) |
+|----------|----|----|----|
+| 1 | 1 | 50000 | 10 |
+
+**Strategy 2**
+
+| test run | pods | users | time (min) |
+|----------|----|----|----|
+| 1 | 1 | 700 | 5 | 
+| 2 | 3 | 700 | 5 |
+
+## Results
+
+**Strategy 1**
+
+| Run | Latency 95% PCT (ms) | Latency 99% PCT (ms) | Av. Response (ms) | Peak Response (ms) | Error Rate (%)  | Throughput (transactions / s - TPS) | Runtime memory (MiB / pod) | CPU Usage (m / pod) | Runtime startup (ms) |   
+|----|----|----|----|----|----|----|----|----|----|
+| 1 | 1253 | 1948 | 617 | 6782 | 0 | 160 | 1107 | 768 | |  
+| 2 | 644 | 1414 | 518 | 3557 | 0 | 191 | 1287 (639,648) | 598 (275,323) | |  
+| 3 | 1004 | 1648 | 557 | 4122 | 0 | 178 | 1385 (501,512,372) | 928 (268,258,402) | |
+| 4 | 1438 | 2021 | 636 | 7770 | 0 | 156 | 3096 | 423 | |  
+| 5 | 734 | 1499 | 534 | 5406 | 0 | 186 | 3668 (1416,1038,1432) | 973 (271,437,265) | |
+
+**Strategy 2**
+
+| Run | Latency 95% PCT (ms) | Latency 99% PCT (ms) | Av. Response (ms) | Peak Response (ms) | Error Rate (%)  | Throughput (transactions / s - TPS) | Runtime memory (MiB / pod) | CPU Usage (m / pod) | Runtime startup (ms) |   
+|----|----|----|----|----|----|----|----|----|----|
+| 1 | 986 | 5690 | 608 | 8454 | 0 | 83 | 1216 | 586 | |  
+
+**Strategy 3**
+
+| Run | Latency 95% PCT (ms) | Latency 99% PCT (ms) | Av. Response (ms) | Peak Response (ms) | Error Rate (%)  | Throughput (transactions / s - TPS) | Runtime memory (MiB / pod) | CPU Usage (m / pod) | Runtime startup (ms) |   
+|----|----|----|----|----|----|----|----|----|----|
+| 1 | 25000 | 36900 | 12000 | 84000 | 46 | 648 | - | - | |  
+| 2 | 61000 | 63000 | 20000 | 68000 | 92 | 600 | - | - | |  
+
 
 ## Procedures
 * [Configuration](./deploy/README.md)
