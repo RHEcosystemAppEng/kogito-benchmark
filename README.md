@@ -3,15 +3,16 @@
   * [System Architecture](#system-architecture)
   * [Business Process Model](#business-process-model)  
   * [Test strategy](#test-strategy)
-  * [Metrics specifications](#metrics-specifications)
+  * [Metrics specifications and results](#metrics-specifications-and-results)
   * [Procedures](#procedures)
   * [References](#references)
+  * [Troubleshooting](#troubleshooting)
 
 # Kogito Benchmark
 
 Purpose of this project is benchmarking [Kogito](https://kogito.kie.org/) application for a defined business process model 
 using MongoDB as persistence store.
-The objective is to define a repeatable procedure to generate structured data for the metrics defined in [Metrics specifications](#metrics-specifications),
+The objective is to define a repeatable procedure to generate structured data for the metrics defined in [Metrics specifications and results](#metrics-specifications-and-results),
 to easily monitor system performance as the product evolves.  
 
 The following table shows the configuration of the test environment, 
@@ -39,6 +40,7 @@ process:
 ![Orders process](./OrdersProcess.png)
 
 ## Test strategy
+[Daniele]: can we add more details? Maybe an example of how the requests are distributed along the time
 
 Strategy 1: constant number of users at all times 
 Gatling:  `constantConcurrentUsers`
@@ -49,13 +51,9 @@ Gatling: `rampUsers`
 Strategy 3: constant number of requests at all times
 Gatling: `constantUsersPerSec`
 
-**TODO** Move to some troubleshooting section in the test procedure doc
-Every time a new `Order` is defined, the related Pod in the OCP platform will log a message like:
-```text
-Order has been created Order[12345] with assigned approver JOHN
-```
-
 ## Metrics specifications and results
+[Daniele] can we have a dedicated section for the metrics and one for the results?
+[Daniele] can we have one table for each strategy, to simplify the reading? (table formatting with Markdown is not very flexible)
 
 | pods | users | time (min) | Latency 95% PCT (ms) | Latency 99% PCT (ms) | Av. Response (ms) | Peak Response (ms) | Error Rate (%)  | Throughput (transactions / s - TPS) | Runtime memory (MiB / pod) | CPU Usage (m / pod) | Runtime startup (ms) |   
 |----------|----|----|----|----|----|----|----|----|----|----|----|
@@ -79,3 +77,12 @@ Order has been created Order[12345] with assigned approver JOHN
 * [Project Requirements](https://docs.google.com/document/d/1AtAfTiFSB2VcI84zg-ocPTnYy_1HCK556FiWt_iPkiM/edit?usp=sharing)
 * [Asana Board](https://app.asana.com/0/1200541157872337/board)
 * [GitHub repository](https://github.com/RHEcosystemAppEng/kogito-benchmark)
+
+## Troubleshooting
+* Fetch Orders from REST API: the URL is `ROUTE_OF_APPLICATION/orders`
+* Access `Swagger UI`: the URL is `ROUTE_OF_APPLICATION/swagger-ui`
+* Every time a new `Order` is defined, the related Pod in the OCP platform will log a message like:
+```text
+Order has been created Order[12345] with assigned approver JOHN
+```
+
