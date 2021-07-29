@@ -39,11 +39,15 @@ process:
 ![Orders process](./OrdersProcess.png)
 
 ## Test strategy
-Strategy 1: 
-Running a fixed amount of concurrent users for a fixed amount of time using `constantConcurrentUsers`
-establishing concurrent user limit with reasonable execution time
 
-Strategy 2:
+Strategy 1: constant number of users at all times 
+Gatling:  `constantConcurrentUsers`
+
+Strategy 2: number of users achieved during given time
+Gatling: `rampUsers`
+
+Strategy 3: constant number of requests at all times
+Gatling: `constantUsersPerSec`
 
 **TODO** Move to some troubleshooting section in the test procedure doc
 Every time a new `Order` is defined, the related Pod in the OCP platform will log a message like:
@@ -51,34 +55,21 @@ Every time a new `Order` is defined, the related Pod in the OCP platform will lo
 Order has been created Order[12345] with assigned approver JOHN
 ```
 
-## Metrics specifications
+## Metrics specifications and results
 
-###Test Cases
-
-| Test Case | Details |
-|----------|------|
-|  | Strategy 1 - prelim tests |
-| ccu100 | constantConcurrentUsers: 100; duration 5 minutes |
-| ccu500 | constantConcurrentUsers: 500; duration 5 minutes |
-| ccu1000 | constantConcurrentUsers: 1000; duration 5 minutes |
-
-###Results
-| Target   |    ccu100    | ccu500 | ccu1000 |
-|----------|------|----|---|
-| Latency 95% PCT (ms)  |  1129 | 
-| Latency 99% PCT (ms)  |  1231 |
-| Av. Response (ms) | 1214 | 
-| Peak Response (ms) | 1232 |
-| Error Rate (%) | 0 | 
-| Throughput (transactions / s - TPS) | 10 |
-| Runtime memory (MB / pod) | |
-| Runtime startup (ms) | |
-| CPU Usage (% / pod) | |
-
-###Gatling Report Data
-![Gatling Report](./GatlingReportData.png)
-
-![Gatling Report2](./GatlingReportData2.png)
+| pods | users | time (min) | Latency 95% PCT (ms) | Latency 99% PCT (ms) | Av. Response (ms) | Peak Response (ms) | Error Rate (%)  | Throughput (transactions / s - TPS) | Runtime memory (MiB / pod) | CPU Usage (m / pod) | Runtime startup (ms) |   
+|----------|----|----|----|----|----|----|----|----|----|----|----|
+| S1 | |
+| 1 | 100 | 5 | 1253 | 1948 | 617 | 6782 | 0 | 160 | 1107 | 768 | |  
+| 2 | 100 | 5 | 644 | 1414 | 518 | 3557 | 0 | 191 | 1287 (639,648) | 598 (275,323) | |  
+| 3 | 100 | 5 | 1004 | 1648 | 557 | 4122 | 0 | 178 | 1385 (501,512,372) | 928 (268,258,402) | |
+| 1 | 100 | 15 | 1438 | 2021 | 636 | 7770 | 0 | 156 | 3096 | 423 | |  
+| 3 | 100 | 15 | 734 | 1499 | 534 | 5406 | 0 | 186 | 3668 (1416,1038,1432) | 973 (271,437,265) | |
+| S2 | |
+| 1 | 50000 | 10 | 986 | 5690 | 608 | 8454 | 0 | 83 | 1216 | 586 | |  
+| S3 | |
+| 1 | 700 | 5 | 25000 | 36900 | 12000 | 84000 | 46 | 648 | - | - | |  
+| 3 | 700 | 5 | 61000 | 63000 | 20000 | 68000 | 92 | 600 | - | - | |  
 
 ## Procedures
 * [Configuration](./deploy/README.md)
