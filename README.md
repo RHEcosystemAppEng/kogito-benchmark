@@ -69,12 +69,12 @@ Gatling: `constantUsersPerSec`
 |----------|----|----|----|
 | 1 | 1 | 50000 | 10 |
 
-**Strategy 2**
+**Strategy 3**
 
 | test run | pods | users | time (min) |
 |----------|----|----|----|
 | 1 | 1 | 700 | 5 | 
-| 2 | 3 | 700 | 5 |
+| 2 | 3 | 700 | 5 |origin 
 
 ## Results
 
@@ -99,7 +99,9 @@ Gatling: `constantUsersPerSec`
 | Run | Latency 95% PCT (ms) | Latency 99% PCT (ms) | Av. Response (ms) | Peak Response (ms) | Error Rate (%)  | Throughput (transactions / s - TPS) | Runtime memory (MiB / pod) | CPU Usage (m / pod) | Runtime startup (ms) |   
 |----|----|----|----|----|----|----|----|----|----|
 | 1 | 25000 | 36900 | 12000 | 84000 | 46 | 648 | - | - | |  
-| 2 | 61000 | 63000 | 20000 | 68000 | 92 | 600 | - | - | |  
+| 2 | 61000 | 63000 | 20000 | 68000 | 92 | 600 | - | - | | 
+
+* [Example Run](./results/exRun.png)
 
 
 ## Procedures
