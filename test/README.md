@@ -28,7 +28,7 @@ val baseURL = scala.util.Properties.envOrElse("baseURL", "http://process-quarkus
 val baseURL = scala.util.Properties.envOrElse("baseURL", "http://localhost:8080")
 ```
 
-### Kogito Process Load Testing Example.
+### Kogito Order Process Load Testing Example.
 
 We have `KogitoOrderProcessLoadTestSimulation` class to invoke gatling simulation. Make sure to run the Kogito process instance before running this simulation. Please follow instruction on [kogito-examples --> process-springboot-example](https://github.com/kiegroup/kogito-examples/tree/stable/process-springboot-example) project to start the service.
 
@@ -38,7 +38,30 @@ or simply use below command if you have only one simulation class:
 
     $mvn gatling:test
 
-### Kogito Process Load Testing Example.
+### Running process-quarkus-example using mongo database as persistence layer:
+
+Please find the full code @[process-quarkus-example-mongo](https://github.com/lokeshrangineni/kogito-gatling-load-testing/tree/master/kogito-examples-app/process-quarkus-example)
+
+* Please remove infinispan dependencies and add below mongodb dependencies to the pom file. This code is for the kogito-examples, version 1.8.0
+  ```xml
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-mongodb-client</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.kie.kogito</groupId>
+      <artifactId>mongodb-persistence-addon</artifactId>
+    </dependency>
+  ```
+* Add below properties file to enable mongo DB persistence to application.properties file.
+```properties
+kogito.persistence.type=mongodb
+quarkus.mongodb.connection-string = mongodb://localhost:27017
+quarkus.mongodb.database=kogito_db
+```
+
+
+### Kogito Travel Agency Example.
 
 We have `KogitoTravelAgencyLoadTestSimulation` class to invoke gatling simulation. Make sure to run the Kogito process instance before running this simulation. Please follow instruction on [kogito-travel-agency](https://github.com/kiegroup/kogito-examples/tree/stable/kogito-travel-agency) project to start the service.
 
