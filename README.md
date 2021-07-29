@@ -101,7 +101,7 @@ Gatling: `constantUsersPerSec`
 | 1 | 25000 | 36900 | 12000 | 84000 | 46 | 648 | - | - | |  
 | 2 | 61000 | 63000 | 20000 | 68000 | 92 | 600 | - | - | | 
 
-* [Example Run](./results/exRun.png)
+![Example Run](./results/exRun.png)
 
 
 ## Procedures
