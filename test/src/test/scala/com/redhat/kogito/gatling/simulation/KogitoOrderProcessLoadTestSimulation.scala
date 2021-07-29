@@ -17,19 +17,19 @@ import scala.language.postfixOps
 class KogitoOrderProcessLoadTestSimulation extends Simulation {
   val logger = LoggerFactory.getLogger(classOf[KogitoOrderProcessLoadTestSimulation])
 
-  logger.info(" KogitoOrderProcessLoadTestSimulation - Logging the environemnt variables-")
+  logger.info("  KogitoOrderProcessLoadTestSimulation - Logging the environemnt variables - ")
   logger.info(s" baseURL=${Environemnt.baseURL}")
   logger.info(s" numberOfUsers=${Environemnt.numberOfUsers}")
   logger.info(s" duration=${Environemnt.duration}")
+  logger.info(s" maxDuration=${Environemnt.maxDuration}")
   logger.info(s" maxResponseTime=${Environemnt.maxResponseTime}")
 
   val httpConf: HttpProtocolBuilder = http.baseUrl(Environemnt.baseURL)
                       .headers(Headers.commonHeader)
 
-
-  setUp(PostOrder.postOrder.inject(atOnceUsers(1)))
+  setUp(PostOrder.postOrder.inject(atOnceUsers(Environemnt.numberOfUsers.toInt)))
     .protocols(httpConf)
-    .maxDuration(5 minutes)
+    .maxDuration(Environemnt.maxDuration.toInt minutes)
     .assertions(
       global.responseTime.max.lt(Environemnt.maxResponseTime.toInt)
     )
