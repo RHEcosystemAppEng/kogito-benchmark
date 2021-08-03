@@ -83,3 +83,19 @@ val postTravel = scenario("Travel Request Scenario ")
     .exec(getTravelConfirmTasks)
     .exec(postConfirmTravelRequestHttp)
 ```
+
+## Running Gatling in the Docker environment.
+
+We have added Dockerfile to include entire current project source code into docker image so that later we can invoke the command to trigger the gatling performance test.
+
+Run below commands from the test directory to build and run the gatling tests in Docker environment.  
+
+```dockerfile
+#Build docker image from Dockerfile.
+docker build -t kogito-gatling-benchmark:1.0-beta .
+
+# Run the docker image you built in above step. Following command is also mounting the working directory on docker image so that we can access the gatling reports later.
+docker run -it --mount src="$(pwd)/",target=/src/kogito-gatling,type=bind kogito-gatling-benchmark:1.0-beta
+
+
+```
