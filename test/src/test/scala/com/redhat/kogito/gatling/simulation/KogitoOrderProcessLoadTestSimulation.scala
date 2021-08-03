@@ -27,11 +27,11 @@ class KogitoOrderProcessLoadTestSimulation extends Simulation {
   val httpConf: HttpProtocolBuilder = http.baseUrl(Environemnt.baseURL)
                       .headers(Headers.commonHeader)
 
-  setUp(PostOrder.postOrder.inject(atOnceUsers(Environemnt.numberOfUsers.toInt)))
+  setUp(PostOrder.postOrder.inject(atOnceUsers(Environemnt.numberOfUsers)))
     .protocols(httpConf)
-    .maxDuration(Environemnt.maxDuration.toInt minutes)
+    .maxDuration(Environemnt.maxDuration minutes)
     .assertions(
-      global.responseTime.max.lt(Environemnt.maxResponseTime.toInt)
+      global.responseTime.max.lt(Environemnt.maxResponseTime)
     )
 
 
