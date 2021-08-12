@@ -1,0 +1,1 @@
+##Deploying the Kogito Gatling Benchmarking project to Open Shift. 

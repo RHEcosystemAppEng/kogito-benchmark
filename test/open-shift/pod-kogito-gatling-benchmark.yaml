@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-kogito-gatling-benchmark
+  namespace: dmartino-kogito-benchmarking
+  labels:
+    app: kogito-gatling-benchmark
+spec:
+  restartPolicy: Never
+  volumes:
+    - name: shared-file-storage
+      emptyDir: {}      
+  containers:
+    - name: gatling-testing-status
+      image: quay.io/lrangine/busybox:latest
+      command: ['sh', '-c', 'echo Kogito Gatling Testing is completed. Exiting successfully']
+  initContainers:
+    - name: run-kogito-gatling-tests
+      image: image-registry.openshift-image-registry.svc:5000/dmartino-kogito-benchmarking/kogito-benchmark:latest      
+      volumeMounts:
+      - name: shared-file-storage
+        mountPath: /src/kogito-gatling/target
+    - name: upload-gatling-reports-to-nooba
+      image: quay.io/lrangine/aws-cli:latest      
+      args: ['s3','sync','/src/kogito-gatling/target','s3://$(BUCKET_NAME)','--endpoint','https://$(BUCKET_HOST)']
+      envFrom:
+      - configMapRef:
+          name: obc-kogito-gatling-claim
+      - secretRef:
+          name: obc-kogito-gatling-claim
+      env:
+      - name: AWS_CA_BUNDLE
+        value: /run/secrets/kubernetes.io/serviceaccount/service-ca.crt
+      volumeMounts:
+       - name: shared-file-storage
+         mountPath: /src/kogito-gatling/target
