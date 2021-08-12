@@ -96,6 +96,8 @@ docker build -t kogito-gatling-benchmark:1.0-beta .
 
 # Run the docker image you built in above step. Following command is also mounting the working directory on docker image so that we can access the gatling reports later.
 docker run -it --mount src="$(pwd)/",target=/src/kogito-gatling,type=bind kogito-gatling-benchmark:1.0-beta
-
-
 ```
+
+## Running Gatling on the OpenShift environment.
+
+Please refer instructions [here](./open-shift).
