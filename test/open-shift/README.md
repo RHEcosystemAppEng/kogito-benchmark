@@ -1,4 +1,4 @@
-##Deploying the Kogito Gatling Benchmarking project to Open Shift.
+## Deploying the Kogito Gatling Benchmarking project to Open Shift.
 
 #### Build config to create image of the kogito gatling benchmark project.
 
