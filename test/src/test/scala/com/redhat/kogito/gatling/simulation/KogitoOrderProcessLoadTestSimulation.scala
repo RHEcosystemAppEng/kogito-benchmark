@@ -26,7 +26,7 @@ class KogitoOrderProcessLoadTestSimulation extends Simulation {
                       .headers(Headers.commonHeader)
 
   if(Environemnt.testCase == "WARM_UP") {
-    setUp(PostOrder.postOrder.inject(atOnceUsers(Environemnt.numberOfUsers)))
+    setUp(PostOrder.postOrder.inject(constantUsersPerSec(Environemnt.numberOfUsers).during(Environemnt.duration minutes)))
       .protocols(httpConf)
       .maxDuration(Environemnt.maxDuration minutes)
       .assertions(
