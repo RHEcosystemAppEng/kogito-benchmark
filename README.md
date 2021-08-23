@@ -27,7 +27,7 @@ The following table shows the configuration of the test environment,
 ## System Architecture
 The following diagram illustrates the basic architecture of the testing scenario:
 
-![Test Architecture](./BenchmarkArchitecture.png)
+![Test Architecture](./BenchmarkArchitecture.png) ![Kogito-Gatling-Pod-Sequence-Diagram](./test/open-shift/Kogito-Gatling-Pod-Sequence-Diagram.jpeg)
 
 **Note**: `Data-Index` infrastructure is not part of this initial setup. Also, the initial metrics will not 
 validate that the Kafka broker actually sends the expected events.
