@@ -34,3 +34,18 @@ spec:
       volumeMounts:
        - name: shared-file-storage
          mountPath: /src/kogito-gatling/target
+    - name: persist-gatling-reports-to-mongodb
+        image: quay.io/almoglevi0/persist-gatling-reports-to-mongodb
+        envFrom:
+          - secretRef:
+              name: obc-kogito-gatling-claim
+        env:
+        - name: GATLING_FILE_PATH_ENV
+          value: /src/kogito-gatling/target/gatling
+        - name: MONGODB_NAME
+          value: kogito_gatling_results_db
+        - name: MONGODB_COLLECTION_NAME
+          value: benchmark_results
+        volumeMounts:
+          - name: shared-file-storage
+            mountPath: /src/kogito-gatling/target
