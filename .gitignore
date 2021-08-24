@@ -2,5 +2,8 @@
 *.log
 /test/gatling-maven-plugin-demo.iml
 /.idea/
-/test/target/
+*/target/
 *.DS_Store
+/stub-projects/stub-quarkus-rest-mongo/target/
+/stub-projects/gatling-test/target/
+/test/.idea/
