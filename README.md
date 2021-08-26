@@ -48,7 +48,7 @@ Gatling:  `constantConcurrentUsers`
 Strategy 2: number of users achieved during given time
 Gatling: `rampUsers`
 
-Strategy 3: constant number of requests at all times
+Strategy 3: constant number of requests per second
 Gatling: `constantUsersPerSec`
 
 ## Metrics specifications
