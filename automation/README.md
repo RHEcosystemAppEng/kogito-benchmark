@@ -29,3 +29,14 @@ Summarized list of steps that can be executed as part of the automated suite to:
 | MongoDB db password | mypass |
 | MongoDB db schema | kogito_dataindex |
 
+## Test run parameters
+| Parameter | Default Value | Possible Values | Description |
+|:----|:----|:----|:----|
+| baseURL - string | http://localhost:8080 |  |the url where the tested application is running |
+| testCase - string - all testCase options require numberOfUsers, duration to be set | CONST_USERS_PER_SEC | CONST_USERS_PER_SEC | Injects users at a constant rate, defined in users per second, during a given duration. Users will be injected at regular intervals |
+| |  | RAMP_USERS | Injects a given number of users distributed evenly on a time window of a given duration. |
+|  |  | CONST_CONCURRENT_USERS | Injects so that number of concurrent users in the system is constant |
+| maxDuration - number in minutes | 1 | no limit | The time after which the simulation is stopped |
+| maxResponseTime - number in milliseconds | 50000 | no limit | The maximum response time allowed - evaluated after simulation, if greater, simulation deemed failed | 
+| numberOfUsers - number | 1 | no limit | depending on scenario if concurrent or total number of users |
+| duration - number in minutes | 1 | no limit | how long a scenario is to be run |
