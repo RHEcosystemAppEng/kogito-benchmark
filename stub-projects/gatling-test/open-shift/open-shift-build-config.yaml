@@ -1,0 +1,29 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: kogito-gatling-benchmark-build
+  app: kogito-gatling-benchmark
+  namespace: dmartino-kogito-benchmarking
+spec:
+  triggers:
+    - type: GitHub
+      github:
+        secret: secret101
+    - type: ImageChange
+      imageChange: {}
+    - type: ConfigChange
+  source:
+    git:
+      ref: main
+      uri: 'https://github.com/RHEcosystemAppEng/kogito-benchmark.git'
+    contextDir: '/test'
+    type: Git
+  strategy:
+    type: Docker
+    contextDir: '/test'
+    dockerStrategy:
+        dockerfilePath: Dockerfile
+  output:
+    to:
+      kind: ImageStreamTag
+      name: 'kogito-gatling-benchmark:latest'
