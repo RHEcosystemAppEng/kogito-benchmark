@@ -17,6 +17,12 @@ Summarized list of steps that can be executed as part of the automated suite to:
 * [Deploying the Kogito App](../deploy#deploying-the-kogito-app)
   * In case multiple tests are executed with different options, it can be deleted
   and restarted before every test execution
+* Build the Gatling application (build-config)
+* Build the Persist Gatling report to MongoDB
+ * Image is uploaded in personal Quay.io 
+* Run the Gatling test
+* Fetch results from Nooba/MongoDB and update result page in Git repo
+* Fetch system metrics from OCP platform manually for the Kogito App pod and update result page in Git repo
 
 ## Runtime parameters
 | Parameter | Default Value |
