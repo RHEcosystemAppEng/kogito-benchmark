@@ -42,83 +42,63 @@ process:
 ![Orders process](./OrdersProcess.png)
 
 ## Test strategy
-[Daniele]: can we add more details? Maybe an example of how the requests are distributed along the time
 
-Strategy 1: constant number of users at all times 
+Strategy 1 (ccu): constant number of users at all times 
 Gatling:  `constantConcurrentUsers`
 
-Strategy 2: number of users achieved during given time
+Strategy 2 (ru): number of users achieved during given time
 Gatling: `rampUsers`
 
-Strategy 3: constant number of requests per second
+Strategy 3 (cups): constant number of requests per second
 Gatling: `constantUsersPerSec`
 
 ## Metrics specifications
 
-**Strategy 1**
-
-| test run | pods | users | time (min) |
-|----------|----|----|----|
-| 1 | 1 | 100 | 5 |
-| 2 | 2 | 100 | 5 |
-| 3 | 3 | 100 | 5 |
-| 4 | 1 | 100 | 15 |
-| 5 | 3 | 100 | 15 |
-
-**Strategy 2**
-
-| test run | pods | users | time (min) |
-|----------|----|----|----|
-| 1 | 1 | 50000 | 10 |
-
-**Strategy 3**
-
-Gatling external
-
-| test run | pods | users | time (min) |
-|----------|----|----|----|
-| 1 | 1 | 700 | 5 | 
-| 2 | 3 | 700 | 5 |
-
+The different strategies are executed with varying pod numbers, number of users and duration of test runs. Those metrics can be found in the Run column in the Results section.
 
 ## Results
 
-**Strategy 1**
+Note:
+Run column contains - pods-users-time in minutes
+
+A warmup run needs to be executed as a separate test before each test for a newly created application pod
+
+**Strategy 1 - ccu**
 
 | Run | Latency 95% PCT (ms) | Latency 99% PCT (ms) | Av. Response (ms) | Peak Response (ms) | Error Rate (%)  | Throughput (transactions / s - TPS) | Runtime memory (MiB / pod) | CPU Usage (m / pod) | Runtime startup (ms) |   
 |----|----|----|----|----|----|----|----|----|----|
-| 1 | 1253 | 1948 | 617 | 6782 | 0 | 160 | 1107 | 768 | |  
-| 2 | 644 | 1414 | 518 | 3557 | 0 | 191 | 1287 (639,648) | 598 (275,323) | |  
-| 3 | 1004 | 1648 | 557 | 4122 | 0 | 178 | 1385 (501,512,372) | 928 (268,258,402) | |
-| 4 | 1438 | 2021 | 636 | 7770 | 0 | 156 | 3096 | 423 | |  
-| 5 | 734 | 1499 | 534 | 5406 | 0 | 186 | 3668 (1416,1038,1432) | 973 (271,437,265) | |
+| 1-100-5 | 1253 | 1948 | 617 | 6782 | 0 | 160 | 1107 | 768 | |  
+| 2-100-5 | 644 | 1414 | 518 | 3557 | 0 | 191 | 1287 (639,648) | 598 (275,323) | |  
+| 3-100-5 | 1004 | 1648 | 557 | 4122 | 0 | 178 | 1385 (501,512,372) | 928 (268,258,402) | |
+| 1-100-15 | 1438 | 2021 | 636 | 7770 | 0 | 156 | 3096 | 423 | |  
+| 3-100-15 | 734 | 1499 | 534 | 5406 | 0 | 186 | 3668 (1416,1038,1432) | 973 (271,437,265) | |
 
-**Strategy 2**
-
-| Run | Latency 95% PCT (ms) | Latency 99% PCT (ms) | Av. Response (ms) | Peak Response (ms) | Error Rate (%)  | Throughput (transactions / s - TPS) | Runtime memory (MiB / pod) | CPU Usage (m / pod) | Runtime startup (ms) |   
-|----|----|----|----|----|----|----|----|----|----|
-| 1 | 986 | 5690 | 608 | 8454 | 0 | 83 | 1216 | 586 | |  
-
-**Strategy 3**
+**Strategy 2 - ru**
 
 | Run | Latency 95% PCT (ms) | Latency 99% PCT (ms) | Av. Response (ms) | Peak Response (ms) | Error Rate (%)  | Throughput (transactions / s - TPS) | Runtime memory (MiB / pod) | CPU Usage (m / pod) | Runtime startup (ms) |   
 |----|----|----|----|----|----|----|----|----|----|
-| 1 | 25000 | 36900 | 12000 | 84000 | 46 | 648 | - | - | |  
-| 2 | 61000 | 63000 | 20000 | 68000 | 92 | 600 | - | - | | 
+| 1-50000-10 | 986 | 5690 | 608 | 8454 | 0 | 83 | 1216 | 586 | |  
 
-Gatling in same OCP project - 1 pod - 15 minutes test runs
+**Strategy 3 - cups**
 
 | Run | Latency 95% PCT (ms) | Latency 99% PCT (ms) | Av. Response (ms) | Peak Response (ms) | Error Rate (%)  | Throughput (transactions / s - TPS) | Runtime memory (MiB / pod) | CPU Usage (m / pod) | Runtime startup (ms) |   
 |----|----|----|----|----|----|----|----|----|----|
-|20210821073521681|100|376|32|1183|0|20| | | |
-|20210821075409461|85|360|30|1309|0|20| | | |
-|20210821081717675|125|451|38|2098|0|30| | | |
-|20210821084740136|30004|33084|2214|45681|24|50| | | |
-|20210821090817631|200|579|47|2228|0|40| | | |
-|20210821111043247|375|1009|69|2372|0|50| | | |
-|20210823050706449|28355|30004|8742|30036|3|58| | | |
-|20210823053549281|30004|30006|4161|30047|20|49| | | |
-|20210824095741895|22026|29282|3738|30015|2|49| | | |
+| 1-700-5 | 25000 | 36900 | 12000 | 84000 | 46 | 648 | - | - | |  
+| 3-700-5 | 61000 | 63000 | 20000 | 68000 | 92 | 600 | - | - | | 
+
+**Gatling in same OCP project - strategy cups - 1 pod - 15 minutes test runs**
+
+| Run | Latency 95% PCT (ms) | Latency 99% PCT (ms) | Av. Response (ms) | Peak Response (ms) | Error Rate (%)  | Throughput (transactions / s - TPS) | Runtime memory (MiB / pod) | CPU Usage (m / pod) | Runtime startup (ms) |   
+|----|----|----|----|----|----|----|----|----|----|
+|1-20-15 (20210821073521681)|100|376|32|1183|0|20| | | |
+|1-20-15 (20210821075409461)|85|360|30|1309|0|20| | | |
+|1-30-15 (20210821081717675)|125|451|38|2098|0|30| | | |
+|1-50-15 (20210821084740136)|30004|33084|2214|45681|24|50| | | |
+|1-40-15 (20210821090817631)|200|579|47|2228|0|40| | | |
+|1-50-15 (20210821111043247)|375|1009|69|2372|0|50| | | |
+|1-60-15 (20210823050706449)|28355|30004|8742|30036|3|58| | | |
+|1-50-15 (20210823053549281)|30004|30006|4161|30047|20|49| | | |
+|1-50-15 (20210824095741895)|22026|29282|3738|30015|2|49| | | |
 
 
 ![Example Run](./results/exRun.png)
