@@ -109,7 +109,7 @@ kogito install data-index --image kogito-data-index-mongodb --infra kogito-mongo
 ```
 
 # Deploying the Kogito App
-Starting from the `process-mongodb-persistence-quarkus` repository folder, build and deploy the application leveraging on
+Starting from any folder, we can checkout the `kogito-examples` repository and then build and deploy the application leveraging on
 the s2i feature of OCP:
 ```shell
 git clone git@github.com:kiegroup/kogito-examples.git
