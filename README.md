@@ -43,13 +43,13 @@ process:
 
 ## Test strategy
 
-Strategy 1 (ccu): constant number of users at all times 
+Strategy 1 (ccu): maintain a constant number of concurrent users during a given duration
 Gatling:  `constantConcurrentUsers`
 
-Strategy 2 (ru): number of users achieved during given time
+Strategy 2 (ru): inject a given number of users with a linear ramp during a given duration
 Gatling: `rampUsers`
 
-Strategy 3 (cups): constant number of requests per second
+Strategy 3 (cups): inject users at a constant rate, defined in users per second, during a given duration
 Gatling: `constantUsersPerSec`
 
 ## Metrics specifications
