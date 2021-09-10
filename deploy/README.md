@@ -62,7 +62,7 @@ oc create -f deploy/
 To fix the issue [Unable to deploy Mongodb Replica Set on Openshift](https://github.com/mongodb/mongodb-kubernetes-operator/issues/212#issuecomment-704744307),
 we have to execute the following command:
 ```sh
-oc adm policy add-scc-to-user anyuid system:serviceaccount:PROJECT_NAME:mongodb-kubernetes-operator
+oc adm policy add-scc-to-user anyuid system:serviceaccount:`oc project -q`:mongodb-kubernetes-operator
 ```
 ## Deploy the MongoDB instance
 We create the MongoDB instance using the given [kogito-mongodb.yml](./kogito-mongodb.yml) YAML configuration:
@@ -91,7 +91,7 @@ in the project namespace.
 Once the Kafka operator is installed, we create one instance `kogito-kafla` of the managed type `Kafka`, from the given [kogito-kafka.yml](./kogito-kafka.yml)
 YAML configuration:
 ```shell
-oc create -f kogito-benchmarking/kogito-kafka.yml --namespace PROJECT_NAME
+oc create -f kogito-benchmarking/kogito-kafka.yml --namespace `oc project -q`
 ```
 In case of successful deployment, you can see 2 Pods named `kogito-kafka-[0-1]` and 2 Pods `kogito-kafka-zookeeper-[0-1]`
 in `Running` state.
