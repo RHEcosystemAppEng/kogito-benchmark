@@ -93,21 +93,32 @@
     <profile>
       <id>persistence</id>
       <activation>
+        <activeByDefault>true</activeByDefault>
         <property>
           <name>persistence</name>
         </property>
       </activation>
+      <!--
       <properties>
         <enable.resource.infinispan>true</enable.resource.infinispan>
       </properties>
+      -->
       <dependencies>
-        <dependency>
+        <!--dependency>
           <groupId>io.quarkus</groupId>
           <artifactId>quarkus-infinispan-client</artifactId>
         </dependency>
         <dependency>
           <groupId>org.kie.kogito</groupId>
           <artifactId>kogito-addons-persistence-infinispan</artifactId>
+        </dependency-->
+        <dependency>
+          <groupId>io.quarkus</groupId>
+          <artifactId>quarkus-mongodb-client</artifactId>
+        </dependency>
+        <dependency>
+          <groupId>org.kie.kogito</groupId>
+          <artifactId>kogito-addons-persistence-mongodb</artifactId>
         </dependency>
       </dependencies>
     </profile>
