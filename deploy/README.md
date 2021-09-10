@@ -65,9 +65,10 @@ we have to execute the following command:
 oc adm policy add-scc-to-user anyuid system:serviceaccount:`oc project -q`:mongodb-kubernetes-operator
 ```
 ## Deploy the MongoDB instance
-We create the MongoDB instance using the given [kogito-mongodb.yml](./kogito-mongodb.yml) YAML configuration:
+We create the MongoDB instance using the given [kogito-mongodb.yml](./kogito-mongodb.yml) YAML configuration from 
+the root of the `kogito-benchmark` repository:
 ```shell
-oc create -f kogito-mongodb.yml
+oc create -f deploy/kogito-mongodb.yml
 ```
 This creates one instance `kogito-mongodb` of type `MongoDB` named in the OCP cluster.
 In case of successful deployment, you can see 3 Pods named `kogito-mongodb-[0-2]` in `Running` state.
@@ -89,9 +90,9 @@ in the project namespace.
 
 ## Deploy the Kafka instance
 Once the Kafka operator is installed, we create one instance `kogito-kafla` of the managed type `Kafka`, from the given [kogito-kafka.yml](./kogito-kafka.yml)
-YAML configuration:
+YAML configuration, starting from the root of the `kogito-benchmark` repository::
 ```shell
-oc create -f kogito-benchmarking/kogito-kafka.yml --namespace `oc project -q`
+oc create -f deploy/kogito-kafka.yml --namespace `oc project -q`
 ```
 In case of successful deployment, you can see 2 Pods named `kogito-kafka-[0-1]` and 2 Pods `kogito-kafka-zookeeper-[0-1]`
 in `Running` state.
