@@ -42,6 +42,9 @@ In particular, we  will create new instances of the `Order` data element using a
 process:
 ![Orders process](./OrdersProcess.png)
 
+To reduce the number of external dependencies and simplify the customizations, the original project has been copied to
+[test/process-quarkus-example](./test/process-quarkus-example), starting from the branch 1.11.0.Final
+
 ## Test strategy
 
 Strategy 1 (ccu): maintain a constant number of concurrent users during a given duration
@@ -107,7 +110,7 @@ A warmup run needs to be executed as a separate test before each test for a newl
 
 ## Procedures
 * [Configuration](./deploy/README.md)
-* [Test procedure](./test/README.md) **WIP**
+* [Test procedure](./test/kogito-gatling-load-testing/README.md)
 
 ## References
 * [Project Requirements](https://docs.google.com/document/d/1AtAfTiFSB2VcI84zg-ocPTnYy_1HCK556FiWt_iPkiM/edit?usp=sharing)
