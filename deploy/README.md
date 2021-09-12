@@ -62,12 +62,13 @@ oc create -f deploy/
 To fix the issue [Unable to deploy Mongodb Replica Set on Openshift](https://github.com/mongodb/mongodb-kubernetes-operator/issues/212#issuecomment-704744307),
 we have to execute the following command:
 ```sh
-oc adm policy add-scc-to-user anyuid system:serviceaccount:PROJECT_NAME:mongodb-kubernetes-operator
+oc adm policy add-scc-to-user anyuid system:serviceaccount:`oc project -q`:mongodb-kubernetes-operator
 ```
 ## Deploy the MongoDB instance
-We create the MongoDB instance using the given [kogito-mongodb.yml](./kogito-mongodb.yml) YAML configuration:
+We create the MongoDB instance using the given [kogito-mongodb.yml](./kogito-mongodb.yml) YAML configuration from 
+the root of the `kogito-benchmark` repository:
 ```shell
-oc create -f kogito-mongodb.yml
+oc create -f deploy/kogito-mongodb.yml
 ```
 This creates one instance `kogito-mongodb` of type `MongoDB` named in the OCP cluster.
 In case of successful deployment, you can see 3 Pods named `kogito-mongodb-[0-2]` in `Running` state.
@@ -89,9 +90,9 @@ in the project namespace.
 
 ## Deploy the Kafka instance
 Once the Kafka operator is installed, we create one instance `kogito-kafla` of the managed type `Kafka`, from the given [kogito-kafka.yml](./kogito-kafka.yml)
-YAML configuration:
+YAML configuration, starting from the root of the `kogito-benchmark` repository::
 ```shell
-oc create -f kogito-benchmarking/kogito-kafka.yml --namespace PROJECT_NAME
+oc create -f deploy/kogito-kafka.yml --namespace `oc project -q`
 ```
 In case of successful deployment, you can see 2 Pods named `kogito-kafka-[0-1]` and 2 Pods `kogito-kafka-zookeeper-[0-1]`
 in `Running` state.
@@ -109,7 +110,7 @@ kogito install data-index --image kogito-data-index-mongodb --infra kogito-mongo
 ```
 
 # Deploying the Kogito App
-Starting from the `process-mongodb-persistence-quarkus` repository folder, build and deploy the application leveraging on
+Starting from any folder, we can checkout the `kogito-examples` repository and then build and deploy the application leveraging on
 the s2i feature of OCP:
 ```shell
 git clone git@github.com:kiegroup/kogito-examples.git

@@ -40,9 +40,9 @@ or simply use below command if you have only one simulation class:
 
 ### Running process-quarkus-example using mongo database as persistence layer:
 
-Please find the full code @[process-quarkus-example-mongo](https://github.com/lokeshrangineni/kogito-gatling-load-testing/tree/master/kogito-examples-app/process-quarkus-example)
-
-* Please remove infinispan dependencies and add below mongodb dependencies to the pom file. This code is for the kogito-examples, version 1.8.0
+Please find the full code at [process-quarkus-example](../process-quarkus-example)
+The following changes were done to activate persistence on the MongoDB storage:
+* Removed infinispan dependencies and added below mongodb dependencies to the pom file.
   ```xml
     <dependency>
       <groupId>io.quarkus</groupId>
@@ -53,13 +53,12 @@ Please find the full code @[process-quarkus-example-mongo](https://github.com/lo
       <artifactId>mongodb-persistence-addon</artifactId>
     </dependency>
   ```
-* Add below properties file to enable mongo DB persistence to application.properties file.
+* Added below properties file to enable mongo DB persistence to application.properties file.
 ```properties
 kogito.persistence.type=mongodb
 quarkus.mongodb.connection-string = mongodb://localhost:27017
 quarkus.mongodb.database=kogito_db
 ```
-
 
 ### Kogito Travel Agency Example.
 
@@ -100,4 +99,4 @@ docker run -it --mount src="$(pwd)/",target=/src/kogito-gatling,type=bind kogito
 
 ## Running Gatling on the OpenShift environment.
 
-Please refer instructions [here](./open-shift).
+Please refer instructions [here](open-shift).

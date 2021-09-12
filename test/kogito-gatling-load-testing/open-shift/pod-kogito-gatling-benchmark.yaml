@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: pod-kogito-gatling-benchmark
+  name: pod-kogito-gatling-benchmark-0823-cups-10-2
   namespace: dmartino-kogito-benchmarking
   labels:
     app: kogito-gatling-benchmark
@@ -20,6 +20,15 @@ spec:
       volumeMounts:
       - name: shared-file-storage
         mountPath: /src/kogito-gatling/target
+      env:
+        - name: testCase
+          value: 'CONST_USERS_PER_SEC'
+        - name: numberOfUsers
+          value: '10'
+        - name: duration
+          value: '1'
+        - name: maxDuration
+          value: '1'
     - name: upload-gatling-reports-to-nooba
       image: quay.io/lrangine/aws-cli:latest      
       args: ['s3','sync','/src/kogito-gatling/target','s3://$(BUCKET_NAME)','--endpoint','https://$(BUCKET_HOST)']
