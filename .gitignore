@@ -7,3 +7,7 @@
 /stub-projects/stub-quarkus-rest-mongo/target/
 /stub-projects/gatling-test/target/
 /test/.idea/
+*/target/*
+/test/process-quarkus-example/target/*
+/test/process-quarkus-example/target/generated-sources/*
+/test/process-quarkus-example/target/classes/*

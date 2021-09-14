@@ -22,68 +22,39 @@ When using native image compilation, you will also need:
   - Environment variable GRAALVM_HOME set accordingly
   - Note that GraalVM native image compilation typically requires other packages (glibc-devel, zlib-devel and gcc) to be installed too.  You also need 'native-image' installed in GraalVM (using 'gu install native-image'). Please refer to [GraalVM installation documentation](https://www.graalvm.org/docs/reference-manual/aot-compilation/#prerequisites) for more details.
 
+
+Run the below command to spin up infinispan and mongo databases.
+```shell
+ cd ./docker
+ docker-compose up 
+```
+
+### Compile and Run in Production Mode
+We have crated two profiles - infinispan and mongo to run the application using mongo and infinispan as persistence layer.
+
+Below command is used to run the application using infinispan as persistence layer.
+```shell
+mvn -Dquarkus.profile=infinispan -P infinispan clean package
+java -Dquarkus.profile=infinispan -jar target/quarkus-app/quarkus-run.jar
+```
+
+Below command is used to run the application using mongo as persistence layer.
+```shell
+mvn -Dquarkus.profile=mongo -P mongo clean package
+java -Dquarkus.profile=mongo -jar target/quarkus-app/quarkus-run.jar
+```
+
+
 ### Compile and Run in Local Dev Mode
-
-```
-mvn clean compile quarkus:dev
-```
-
-### Package and Run in JVM mode
-
-```
-mvn clean package
-java -jar target/quarkus-app/quarkus-run.jar
+Below command is used to run the application using infinispan as persistence layer.
+```shell
+ mvn -Dquarkus.profile=infinispan -P infinispan quarkus:dev
 ```
 
-or on windows
-
+Below command is used to run the application using mongo as persistence layer.
+```shell
+ mvn -Dquarkus.profile=mongo -P mongo quarkus:dev
 ```
-mvn clean package
-java -jar target\quarkus-app\quarkus-run.jar
-```
-
-### Package and Run using Local Native Image
-Note that this requires GRAALVM_HOME to point to a valid GraalVM installation
-
-```
-mvn clean package -Pnative
-```
-
-To run the generated native executable, generated in `target/`, execute
-
-```
-./target/process-quarkus-example-runner
-```
-
-Note: This does not yet work on Windows, GraalVM and Quarkus should be rolling out support for Windows soon.
-
-### Running with persistence enabled
-
-Kogito runtime supports multiple persistence types, including Infinispan.
-In order to use the Infinispan based persistence, you need to have a Infinispan server installed and available over the network.
-The default configuration, expects the server to be running on:
-```
-quarkus.infinispan-client.server-list=localhost:11222
-```
-If you need to change it, you can do so by updating the application.properties file located in src/main/resources.
-
-You can install Infinispan server by downloading version 12.x from the [official website](https://infinispan.org/download/).
-
-Once Infinispan is up and running you can build this project with `-Ppersistence` to enable additional processing during the build. Next you start it in exact same way as without persistence.
-
-This extra profile in maven configuration adds additional dependencies needed to work with Infinispan as persistent store.
-
-### Running with events enabled
-
-Kogito supports cloud events using Kafka as message broker. So to be able to enable this you need to have
-Kafka cluster installed and available over the network. Refer to [Kafka Apache site](https://kafka.apache.org/quickstart) to more information about how to install. 
-
-Kogito will use the following Kafka topics to listen for cloud events:
-
-* `kogito-processinstances-events` - used to emit events by Kogito that can be consumed by data index service and other services
-* `kogito-usertaskinstances-events` - used to emit events by Kogito that can be consumed by data index service and other services
-
-Once Kafka is up and running you can build this project with `-Pevents` to enable additional processing during the build. This extra profile in maven configuration adds additional dependencies needed to work with Cloud Events.
 
 ## OpenAPI (Swagger) documentation
 [Specification at swagger.io](https://swagger.io/docs/specification/about/)

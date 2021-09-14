@@ -1,0 +1,22 @@
+version: '2.1'
+
+services:
+  kogito-mongodb:
+    container_name: kogito-mongodb
+    image: mongo
+    ports:
+      - "27017:27017"
+      
+  infinispan:
+    image: infinispan/server:11.0.4.Final
+    container_name: infinispan
+    ports:
+        - 11222:11222
+    command: "/opt/infinispan/bin/server.sh -c infinispan-demo.xml"
+    volumes:
+      - ./infinispan.xml:/opt/infinispan/server/conf/infinispan-demo.xml:z
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:11222/rest/v2/cache-managers/default/health/status" ]
+      interval: 1s
+      timeout: 1s
+      retries: 50
