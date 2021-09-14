@@ -124,6 +124,11 @@ Once the builds succeeds, you should see one Pod named `process-quarkus-example-
 `process-quarkus-example` to expose the REST APIs outside the OCP cluster.
 You can access the Swagger API by adding `/q/swagger-ui` to the route location, and test them out.
 
+Before redeploying the service, it should be first deleted:
+```shell
+kogito delete-service process-quarkus-example
+```
+
 # Troubleshooting Tips
 ## MondoDB Collections
 Enter the Terminal tab of one of the running `kogito-mongodb-NN` pods, and select the `mongod` container.

@@ -7,11 +7,12 @@ object Environemnt {
   // the url where the tested application is running
   // val baseURL = scala.util.Properties.envOrElse("baseURL", "http://localhost:8080")
   val baseURL: String = Properties.envOrElse("baseURL", "http://process-quarkus-example-dmartino-kogito-benchmarking.apps.mw-ocp4.cloud.lab.eng.bos.redhat.com/")
-  // the test case strategy useecho $d - default is WARM_UP - required parameters: numberOfUsers
+  val serviceName: String = Properties.envOrElse("serviceName", "order")  // order, emptyProcess, notPersistedProcess
+
   // test strategies are: CONST_CONCURRENT_USERS - required parameters: numberOfUsers, duration
   //                      RAMP_USERS - required parameters: numberOfUsers, duration
   //                      CONST_USERS_PER_SEC - required parameters: numberOfUsers, duration
-  val testCase: String = Properties.envOrElse("testCase", "WARM_UP")
+  val testCase: String = Properties.envOrElse("testCase", "CONST_USERS_PER_SEC")
 
   // simulation specific parameters
   // The maximum duration of the simulation
