@@ -1,8 +1,29 @@
 # Issues / Troubleshooting
 
-1) Break down of the request times using curl (request made from outside OCP env through OCP Route):
+## Test through different interfaces
 
-**Example request:**
+1. test app pod locally (terminal):
+```shell
+oc rsh PODNAME
+curl -w '%{time_total}' -d '{"approver" : "john", "order" : {"orderNumber" : "12345", "shipped" : false}}' -H "Content-Type: application/json" -X POST http://localhost:8080/orders
+```
+**avg : 0.056 seconds**
+
+
+2. test OCP Service
+```shell
+oc port-forward service/process-quarkus-example 9000:80
+curl -w '%{time_total}' -d '{"approver" : "john", "order" : {"orderNumber" : "12345", "shipped" : false}}' -H "Content-Type: application/json" -X POST http://localhost:9000/orders
+```
+**avg : 0.75 seconds**
+
+3. test OCP Route
+```shell
+curl -w '%{time_total}' -d '{"approver" : "john", "order" : {"orderNumber" : "12345", "shipped" : false}}' -H "Content-Type: application/json" -X POST http://ROUTE/orders
+```
+**avg : 0.56 seconds**
+
+**Example break down** of the request times using curl (request made from outside OCP env through OCP Route):
 
 ```shell
 curl -L --output /dev/null --silent --show-error --write-out 'lookup: %{time_namelookup}\nconnect: %{time_connect}\nappconnect: %{time_appconnect}\npretransfer: %{time_pretransfer}\nredirect: %{time_redirect}\nstarttransfer: %{time_starttransfer}\ntotal: %{time_total}\n' -d '{"approver" : "john", "order" : {"orderNumber" : "12345", "shipped" : false}}' -H "Content-Type: application/json" -X POST http://process-quarkus-example-fsi-kogito-benchmarking.apps.mw-ocp4.cloud.lab.eng.bos.redhat.com/orders
