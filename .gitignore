@@ -13,3 +13,4 @@
 /test/process-quarkus-example/target/classes/*
 /test/kogito-gatling-load-testing/target/*
 *.idea
+*.iml
