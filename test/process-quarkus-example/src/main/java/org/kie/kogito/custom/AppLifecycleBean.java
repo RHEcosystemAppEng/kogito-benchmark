@@ -17,7 +17,6 @@ package org.kie.kogito.custom;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
-import javax.inject.Inject;
 
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.slf4j.Logger;
@@ -27,6 +26,8 @@ import io.quarkus.runtime.ShutdownEvent;
 import io.quarkus.runtime.StartupEvent;
 import io.quarkus.runtime.configuration.*;
 
+
+
 @ApplicationScoped
 public class AppLifecycleBean {
 
@@ -34,20 +35,15 @@ public class AppLifecycleBean {
 
     void onStart(@Observes StartupEvent ev) {
         String activeProfile = ProfileManager.getActiveProfile();
-        LOGGER.info("The application is starting with the profile -", activeProfile);
+        LOGGER.info("The application is starting with the profile - [{}]", activeProfile);
 
         if ("infinispan".equalsIgnoreCase(activeProfile)) {
-            LOGGER.info(" Infinispan config - [quarkus.infinispan-client.server-list] -", ConfigProvider.getConfig().getValue("quarkus.infinispan-client.server-list", String.class) );
+            LOGGER.info(" Infinispan config - [quarkus.infinispan-client.server-list] - [{}]", ConfigProvider.getConfig().getValue("quarkus.infinispan-client.server-list", String.class));
         }
 
         if ("mongo".equalsIgnoreCase(activeProfile)) {
-            LOGGER.info(" Mongo Database config - [quarkus.mongodb.database] -", ConfigProvider.getConfig().getValue("quarkus.mongodb.database", String.class) );
-            LOGGER.info(" Mongo Database config - [quarkus.mongodb.connection-string] -", ConfigProvider.getConfig().getValue("quarkus.mongodb.connection-string", String.class) );
+            LOGGER.info(" Mongo Database config - [quarkus.mongodb.database] - [{}]", ConfigProvider.getConfig().getValue("quarkus.mongodb.database", String.class));
+            LOGGER.info(" Mongo Database config - [quarkus.mongodb.connection-string] - [{}]", ConfigProvider.getConfig().getValue("quarkus.mongodb.connection-string", String.class));
         }
     }
-
-    void onStop(@Observes ShutdownEvent ev) {
-        LOGGER.info("The application is stopping -", ProfileManager.getActiveProfile());
-    }
-
 }
