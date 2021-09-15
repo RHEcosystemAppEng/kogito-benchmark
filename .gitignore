@@ -11,3 +11,5 @@
 /test/process-quarkus-example/target/*
 /test/process-quarkus-example/target/generated-sources/*
 /test/process-quarkus-example/target/classes/*
+/test/kogito-gatling-load-testing/target/*
+*.idea

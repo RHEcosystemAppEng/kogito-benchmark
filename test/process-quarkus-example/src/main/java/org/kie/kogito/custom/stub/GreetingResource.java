@@ -13,16 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.redhat.kogito.benchmark.stub;
+package org.kie.kogito.custom.stub;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.Date;
 
 @Path("/greeting")
 public class GreetingResource {
+    private static final Logger LOGGER = LoggerFactory.getLogger(GreetingResource.class);
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Greetings hello() {
+        LOGGER.info("inside GET dummy API...{}", new Date());
         Greetings greetings = new Greetings();
         greetings.setMessage("Quarkus RestEasy without Mongo");
         return greetings;
@@ -33,6 +39,7 @@ public class GreetingResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Greetings postMessage(Greetings greetings) {
+        LOGGER.info("inside POST dummy API...{}", new Date());
         greetings.setMessage("Your message is updated - " + greetings.getMessage());
         return greetings;
     }
