@@ -8,7 +8,7 @@ import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 
 import scala.concurrent.duration._
-import com.redhat.kogito.gatling.util.{Environemnt, Headers, PopulationBuilderFactory}
+import com.redhat.kogito.gatling.util.{Environment, Headers, PopulationBuilderFactory}
 import io.gatling.http.protocol.HttpProtocolBuilder
 import io.gatling.core.structure.PopulationBuilder
 
@@ -22,23 +22,23 @@ class KogitoOrderProcessLoadTestSimulation extends Simulation {
 
   def logParams (logger: Logger) {
     logger.info("  KogitoOrderProcessLoadTestSimulation - Logging the environment variables - ")
-    logger.info(s" baseURL=${Environemnt.baseURL}")
-    logger.info(s" serviceName=${Environemnt.serviceName}")
-    logger.info(s" testCase=${Environemnt.testCase}")
-    logger.info(s" maxDuration=${Environemnt.maxDuration}")
-    logger.info(s" maxResponseTime=${Environemnt.maxResponseTime}")
-    logger.info(s" numberOfUsers=${Environemnt.numberOfUsers}")
-    logger.info(s" duration=${Environemnt.duration}")
+    logger.info(s" baseURL=${Environment.baseURL}")
+    logger.info(s" serviceName=${Environment.serviceName}")
+    logger.info(s" testCase=${Environment.testCase}")
+    logger.info(s" maxDuration=${Environment.maxDuration}")
+    logger.info(s" maxResponseTime=${Environment.maxResponseTime}")
+    logger.info(s" numberOfUsers=${Environment.numberOfUsers}")
+    logger.info(s" duration=${Environment.duration}")
   }
 
-  val httpConf: HttpProtocolBuilder = http.baseUrl(Environemnt.baseURL)
+  val httpConf: HttpProtocolBuilder = http.baseUrl(Environment.baseURL)
     .headers(Headers.commonHeader)
 
   setUp(PopulationBuilderFactory.getTestCasePopulationBuilder())
     .protocols(httpConf)
-    .maxDuration(Environemnt.maxDuration minutes)
+    .maxDuration(Environment.maxDuration minutes)
     .assertions(
-      global.responseTime.max.lt(Environemnt.maxResponseTime)
+      global.responseTime.max.lt(Environment.maxResponseTime)
     )
 
 }

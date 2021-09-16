@@ -17,13 +17,13 @@ import io.gatling.http.request.builder.HttpRequestBuilder
 
 object StartStopBP  {
 
-  val orderJsonString: String = ""
+  val startStopBpBodyJsonString: String = ""
 
-  val postOrderHttp: HttpRequestBuilder = http("HTTP Post emptyProcess")
+  val startStopHttp: HttpRequestBuilder = http("HTTP Post emptyProcess")
     .post("/emptyProcess")
-    .body(StringBody(orderJsonString)).asJson
+    .body(StringBody(startStopBpBodyJsonString)).asJson
     .check(status is 201)
 
-  val postOrder: ScenarioBuilder = scenario(postOrderHttp.toString)
-    .exec(postOrderHttp)
+  val startStopBp: ScenarioBuilder = scenario(startStopHttp.toString)
+    .exec(startStopHttp)
 }

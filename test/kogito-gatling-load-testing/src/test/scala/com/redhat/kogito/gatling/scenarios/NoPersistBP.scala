@@ -18,7 +18,7 @@ import io.gatling.http.request.builder.HttpRequestBuilder
 
 object NoPersistBP {
 
-  val orderJsonString: String =
+  val NoPersistBpBodyJsonString: String =
     """
       |{
       |  "approver": "john",
@@ -29,11 +29,11 @@ object NoPersistBP {
       |}
       |""".stripMargin
 
-  val postOrderHttp: HttpRequestBuilder = http("HTTP Post notPersistedProcess")
+  val noPersistBpHttp: HttpRequestBuilder = http("HTTP Post notPersistedProcess")
     .post("/notPersistedProcess")
-    .body(StringBody(orderJsonString)).asJson
+    .body(StringBody(NoPersistBpBodyJsonString)).asJson
     .check(status is 201)
 
-  val postOrder: ScenarioBuilder = scenario(postOrderHttp.toString)
-    .exec(postOrderHttp)
+  val noPersistBp: ScenarioBuilder = scenario(noPersistBpHttp.toString)
+    .exec(noPersistBpHttp)
 }

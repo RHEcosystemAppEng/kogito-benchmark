@@ -3,7 +3,7 @@
 package com.redhat.kogito.gatling.util
 import scala.util.Properties
 
-object Environemnt {
+object Environment {
   // the url where the tested application is running
   // val baseURL = scala.util.Properties.envOrElse("baseURL", "http://localhost:8080")
   val baseURL: String = Properties.envOrElse("baseURL", "http://process-quarkus-example-dmartino-kogito-benchmarking.apps.mw-ocp4.cloud.lab.eng.bos.redhat.com/")
