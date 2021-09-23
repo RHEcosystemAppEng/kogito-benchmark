@@ -17,3 +17,4 @@
 /test/process-quarkus-example/nohup.out
 save_pid.txt
 process-quarkus-example.log
+/test/process-quarkus-example/target/
