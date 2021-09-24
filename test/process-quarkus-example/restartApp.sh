@@ -1,0 +1,2 @@
+./stopTheApp.sh
+./runAppInTheBackground.sh
