@@ -88,3 +88,16 @@ For each test listed in the [baseline report](https://docs.google.com/spreadshee
 * Run actual test case (once)
 * Collect the execution metrics in the baseline report
 * Stop Kogito app
+
+# VM configuration
+```
+lscpu
+Architecture:          x86_64
+CPU op-mode(s):        32-bit, 64-bit
+Byte Order:            Little Endian
+CPU(s):                4
+On-line CPU(s) list:   0-3
+Thread(s) per core:    1
+Core(s) per socket:    1
+...
+```
