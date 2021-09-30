@@ -118,7 +118,8 @@ cd kogito-examples
 git checkout 1.8.0.Final
 cd process-quarkus-example
 
-kogito deploy-service process-quarkus-example . --infra kogito-mongodb-infra --infra kogito-kafka-infra
+kogito deploy-service process-quarkus-example . --infra kogito-mongodb-infra --infra kogito-kafka-infra \
+--build-env MAVEN_ARGS_APPEND="-Dquarkus.profile=mongo -Pmongo" --replicas 2 
 ```
 Once the builds succeeds, you should see one Pod named `process-quarkus-example-NNN` in `Running` state, and one Route named 
 `process-quarkus-example` to expose the REST APIs outside the OCP cluster.
@@ -139,6 +140,15 @@ show dbs
 use kogito_dataindex
 show collections
 db.demo.orders.count()
+```
+
+## Route not working because of broken Node
+* Error message was: `curl: (52) Empty reply from server`
+* Root cause: the Node hosting the pod of the Route was failing because of `open /var/run/containers/storage/overlay-layers/.tmp-mountpoints.json121923199: no space left on device`
+* Solution: schedule the pod on a different Node:
+```shell
+oc get pods -n openshift-ingress
+oc delete pod <PROBLEM_POD> -n openshift-ingress
 ```
 
 # References

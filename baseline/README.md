@@ -8,6 +8,9 @@
 * [Test procedure](#test-procedure)
 
 # VM configuration
+* Number of CPUs: 4 (`lscpu`)
+* Threads per core: 1
+* RAM: 16G (`cat /etc/meminfo`)
 ```
 lscpu
 Architecture:          x86_64
@@ -88,6 +91,12 @@ sudo /usr/local/bin/docker-compose up -d
 ```
 cd /opt/fsi-kogito/kogito-benchmark/test/process-quarkus-example
 ./runAppInTheBackground.sh
+```
+
+## Run Kogito app on OCP
+``` shell
+kogito deploy-service process-quarkus-example . --infra kogito-mongodb-infra --infra kogito-kafka-infra \
+--build-env MAVEN_ARGS_APPEND="-Dquarkus.profile=mongo -Pmongo" --replicas 2 
 ```
 
 **Note**: remember to include the ``-Dquarkus.http.host=`hostname` `` option in the command if missing!
