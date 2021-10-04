@@ -1,9 +1,13 @@
 package com.redhat.fsi.kogito.benchmark;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class OrderItem {
+    @JsonIgnore
+    public long id;
+
     public String approver;
     public Order order;
 

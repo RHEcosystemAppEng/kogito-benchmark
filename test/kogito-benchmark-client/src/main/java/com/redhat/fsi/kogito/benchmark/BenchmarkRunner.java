@@ -29,61 +29,79 @@ public class BenchmarkRunner {
     private BenchmarkService benchmarkService;
 
     public String run(String testType, int noOfTests, int noOfThreads) throws JsonProcessingException {
-        logger.info("Ready to run from {}: {} tests of type '{}' in {} threads", serverUrl, noOfTests, testType,
-                noOfThreads);
-        itemsCounter = 0;
-
-        Stats stats = new Stats();
-        ExecutorService executor = Executors.newFixedThreadPool(noOfThreads);
-        Collection<Callable<Void>> callables =
-                IntStream.rangeClosed(1, noOfTests).mapToObj(n -> newCallable(stats, testType)).collect(Collectors.toList());
-        try {
-            executor.invokeAll(callables);
-        } catch (InterruptedException e) {
-            logger.error("Execution interrupted: {}", e.getMessage());
-        }
-
-        TestMetrics metrics = stats.build();
-        logger.info("Completed {} tests in {}ms", metrics.noOfExecutions, metrics.totalTimeMillis);
-
+        TestMetrics metrics = new Worker(testType, noOfTests, noOfThreads).run();
         return new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT).writeValueAsString(metrics);
     }
 
-    private Callable<Void> newCallable(Stats stats, String testType) {
-        return () -> {
-            Execution execution = stats.startOne();
+    private class Worker {
+        private String testType;
+        private int noOfTests;
+        private int noOfThreads;
+        private long itemsCounter;
+
+        private Stats stats;
+
+        private Worker(String testType, int noOfTests, int noOfThreads) {
+            this.testType = testType;
+            this.noOfTests = noOfTests;
+            this.noOfThreads = noOfThreads;
+            this.stats = new Stats();
+        }
+
+        private TestMetrics run() {
+            logger.info("Ready to run from {}: {} tests of type '{}' in {} threads", serverUrl, noOfTests, testType,
+                    noOfThreads);
+            ExecutorService executor = Executors.newFixedThreadPool(noOfThreads);
+            Collection<Callable<Void>> callables =
+                    IntStream.rangeClosed(1, noOfTests).mapToObj(n -> newCallable(n)).collect(Collectors.toList());
             try {
-                logger.info("Executing: {}", stats.noOfRequests);
-                executorOfType(testType).execute();
-                execution.stop();
-            } catch (Exception e) {
-                logger.error("Failed to run: {}", e.getMessage());
-                execution.failed();
+                executor.invokeAll(callables);
+            } catch (
+                    InterruptedException e) {
+                logger.error("Execution interrupted: {}", e.getMessage());
             }
-            return null;
+
+            TestMetrics metrics = stats.build();
+            logger.info("Completed {} tests in {}ms", metrics.noOfExecutions, metrics.totalTimeMillis);
+            return metrics;
+        }
+
+        private Callable<Void> newCallable(int index) {
+            return () -> {
+                Execution execution = stats.startOne();
+                try {
+                    logger.info("Executing: {}", index);
+                    executorOfType().execute();
+                    execution.stop();
+                } catch (Exception e) {
+                    logger.error("Failed to run: {}", e.getMessage());
+                    execution.failed();
+                }
+                return null;
+            };
+        }
+
+        private RestExecutor executorOfType() {
+            return "hello".equals(testType) ? hello : newOrder;
+        }
+
+        private Supplier<OrderItem> newOrderItem = () -> {
+            OrderItem orderItem = new OrderItem();
+            orderItem.id = ++itemsCounter;
+            orderItem.approver = "john - " + orderItem.id;
+            orderItem.order = new OrderItem.Order();
+            orderItem.order.orderNumber = "12345";
+            orderItem.order.shipped = false;
+            return orderItem;
         };
+
+        private final RestExecutor hello = () ->
+                benchmarkService.hello();
+        private final RestExecutor newOrder = () ->
+                benchmarkService.newOrderItem(newOrderItem.get());
     }
 
-    private RestExecutor executorOfType(String testType) {
-        return "hello".equals(testType) ? hello : newOrder;
-    }
-
-    private final RestExecutor hello = () ->
-            benchmarkService.hello();
-    private final RestExecutor newOrder = () ->
-            benchmarkService.newOrderItem(newOrderItem.get());
-
-    private static long itemsCounter = 0;
-    private static Supplier<OrderItem> newOrderItem = () -> {
-        OrderItem orderItem = new OrderItem();
-        itemsCounter++;
-        orderItem.approver = "john - " + itemsCounter;
-        orderItem.order = new OrderItem.Order();
-        orderItem.order.orderNumber = "12345";
-        orderItem.order.shipped = false;
-        return orderItem;
-    };
-
+    @FunctionalInterface
     interface RestExecutor {
         String execute() throws Exception;
     }
