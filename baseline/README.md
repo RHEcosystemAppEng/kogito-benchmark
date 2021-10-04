@@ -8,6 +8,8 @@
 * [Test procedure](#test-procedure)
 
 # VM configuration
+* VM01: appeng-vm01.cloud.lab.eng.bos.redhat.com
+* VM02: appeng-vm02.cloud.lab.eng.bos.redhat.com
 * Number of CPUs: 4 (`lscpu`)
 * Threads per core: 1
 * RAM: 16G (`cat /etc/meminfo`)
