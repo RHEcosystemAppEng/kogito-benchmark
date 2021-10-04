@@ -2,6 +2,8 @@ package com.redhat.fsi.kogito.benchmark;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,13 +21,16 @@ import java.util.stream.IntStream;
 @ApplicationScoped
 public class BenchmarkRunner {
     private Logger logger = LoggerFactory.getLogger(BenchmarkRunner.class);
+    @ConfigProperty(name = "process-api/mp-rest/url")
+    private String serverUrl;
 
     @RestClient
     @Inject
     private BenchmarkService benchmarkService;
 
     public String run(String testType, int noOfTests, int noOfThreads) throws JsonProcessingException {
-        logger.info("Ready to run {} tests of type '{}' in {} threads", noOfTests, testType, noOfThreads);
+        logger.info("Ready to run from {}: {} tests of type '{}' in {} threads", serverUrl, noOfTests, testType,
+                noOfThreads);
         itemsCounter = 0;
 
         Stats stats = new Stats();
@@ -35,13 +40,13 @@ public class BenchmarkRunner {
         try {
             executor.invokeAll(callables);
         } catch (InterruptedException e) {
-            logger.error("RExecution interrupted: {}", e.getMessage());
+            logger.error("Execution interrupted: {}", e.getMessage());
         }
 
         TestMetrics metrics = stats.build();
         logger.info("Completed {} tests in {}ms", metrics.noOfExecutions, metrics.totalTimeMillis);
 
-        return new ObjectMapper().writeValueAsString(metrics);
+        return new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT).writeValueAsString(metrics);
     }
 
     private Callable<Void> newCallable(Stats stats, String testType) {
@@ -55,7 +60,6 @@ public class BenchmarkRunner {
                 logger.error("Failed to run: {}", e.getMessage());
                 execution.failed();
             }
-            // TODO
             return null;
         };
     }
