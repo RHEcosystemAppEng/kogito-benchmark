@@ -110,3 +110,12 @@ For each test listed in the [baseline report](https://docs.google.com/spreadshee
 * Run actual test case (once)
 * Collect the execution metrics in the baseline report
 * Stop Kogito app
+
+db.demo.orders.count();
+db.demo.orderItems.count();
+
+db.demo.orders.remove({});db.demo.orders.reIndex();
+db.demo.orderItems.remove({});db.demo.orderItems.reIndex();
+
+db.demo.orders.count();
+db.demo.orderItems.count();
