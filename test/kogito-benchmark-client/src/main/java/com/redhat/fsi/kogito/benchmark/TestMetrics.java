@@ -46,6 +46,8 @@ public class TestMetrics {
     private ResponseTimeAndID minResponseTime;
     private ResponseTimeAndID maxResponseTime;
     private long averageResponseTime;
+    private long percentile95;
+    private long percentile99;
     private long totalTimeMillis;
     private long elapsedTimeMillis;
 
