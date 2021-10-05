@@ -1,13 +1,18 @@
 package com.redhat.fsi.kogito.benchmark;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import lombok.Data;
+
+@JsonPropertyOrder
+@Data
 public class TestMetrics {
-    public long noOfExecutions;
-    public long noOfFailures;
-    public long minResponseTime;
-    public long maxResponseTime;
-    public long averageResponseTime;
-    public long totalTimeMillis;
+    private long noOfExecutions;
+    private long noOfFailures;
+    private long minResponseTime;
+    private long maxResponseTime;
+    private long averageResponseTime;
+    private long totalTimeMillis;
+    private long elapsedTimeMillis;
 
-
-    public double requestsPerSecond;
+    private double requestsPerSecond;
 }

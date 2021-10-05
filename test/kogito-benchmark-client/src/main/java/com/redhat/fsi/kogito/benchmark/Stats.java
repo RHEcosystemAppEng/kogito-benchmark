@@ -7,7 +7,7 @@ import java.util.function.Consumer;
 public class Stats {
     private Instant startTime = Instant.now();
 
-    long noOfRequests;
+    private long noOfRequests;
     private long noOfFailures;
     private long minTimeMillis = Long.MAX_VALUE;
     private long maxTimeMillis = 0;
@@ -34,13 +34,14 @@ public class Stats {
         Duration testDuration = Duration.between(startTime, endTime);
 
         TestMetrics metrics = new TestMetrics();
-        metrics.noOfExecutions = noOfRequests;
-        metrics.noOfFailures = noOfFailures;
-        metrics.totalTimeMillis = totalTimeMillis;
-        metrics.minResponseTime = minTimeMillis;
-        metrics.maxResponseTime = maxTimeMillis;
-        metrics.averageResponseTime = totalTimeMillis / noOfRequests;
-        metrics.requestsPerSecond = 1000 * noOfRequests / testDuration.toMillis();
+        metrics.setNoOfExecutions(noOfRequests);
+        metrics.setNoOfFailures(noOfFailures);
+        metrics.setTotalTimeMillis(totalTimeMillis);
+        metrics.setElapsedTimeMillis(testDuration.toMillis());
+        metrics.setMinResponseTime(minTimeMillis);
+        metrics.setMaxResponseTime(maxTimeMillis);
+        metrics.setAverageResponseTime(totalTimeMillis / noOfRequests);
+        metrics.setRequestsPerSecond(1000 * noOfRequests / testDuration.toMillis());
 
         return metrics;
     }

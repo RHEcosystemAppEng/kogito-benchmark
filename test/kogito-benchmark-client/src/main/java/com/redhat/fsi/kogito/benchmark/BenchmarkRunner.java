@@ -11,9 +11,13 @@ import org.slf4j.LoggerFactory;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.util.Collection;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -28,54 +32,64 @@ public class BenchmarkRunner {
     @Inject
     private BenchmarkService benchmarkService;
 
-    public String run(String testType, int noOfTests, int noOfThreads) throws JsonProcessingException {
+    public String run(String testType, int noOfTests, int noOfThreads) throws JsonProcessingException,
+            InterruptedException {
         TestMetrics metrics = new Worker(testType, noOfTests, noOfThreads).run();
         return new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT).writeValueAsString(metrics);
     }
 
     private class Worker {
         private String testType;
-        private int noOfTests;
+        private int durationInSeconds;
         private int noOfThreads;
-        private long itemsCounter;
+        private AtomicLong itemsCounter = new AtomicLong(0);
+        AtomicBoolean timerElapsed = new AtomicBoolean(false);
 
         private Stats stats;
 
-        private Worker(String testType, int noOfTests, int noOfThreads) {
+        private Worker(String testType, int durationInSeconds, int noOfThreads) {
             this.testType = testType;
-            this.noOfTests = noOfTests;
+            this.durationInSeconds = durationInSeconds;
             this.noOfThreads = noOfThreads;
             this.stats = new Stats();
         }
 
-        private TestMetrics run() {
-            logger.info("Ready to run from {}: {} tests of type '{}' in {} threads", serverUrl, noOfTests, testType,
+        private TestMetrics run() throws InterruptedException {
+            logger.info("Ready to run from {}: {} seconds of type '{}' in {} threads", serverUrl, durationInSeconds,
+                    testType,
                     noOfThreads);
             ExecutorService executor = Executors.newFixedThreadPool(noOfThreads);
+            Timer timer = new Timer("timer");
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    logger.info("Timer elapsed");
+                    timerElapsed.set(true);
+                    timer.cancel();
+                }
+            }, durationInSeconds * 1000);
+
             Collection<Callable<Void>> callables =
-                    IntStream.rangeClosed(1, noOfTests).mapToObj(n -> newCallable(n)).collect(Collectors.toList());
-            try {
-                executor.invokeAll(callables);
-            } catch (
-                    InterruptedException e) {
-                logger.error("Execution interrupted: {}", e.getMessage());
-            }
+                    IntStream.rangeClosed(1, noOfThreads).mapToObj(n -> newCallable()).collect(Collectors.toList());
+            executor.invokeAll(callables);
 
             TestMetrics metrics = stats.build();
-            logger.info("Completed {} tests in {}ms", metrics.noOfExecutions, metrics.totalTimeMillis);
+            logger.info("Completed {} tests in {}ms", metrics.getNoOfExecutions(), metrics.getElapsedTimeMillis());
             return metrics;
         }
 
-        private Callable<Void> newCallable(int index) {
+        private Callable<Void> newCallable() {
             return () -> {
-                Execution execution = stats.startOne();
-                try {
-                    logger.info("Executing: {}", index);
-                    executorOfType().execute();
-                    execution.stop();
-                } catch (Exception e) {
-                    logger.error("Failed to run: {}", e.getMessage());
-                    execution.failed();
+                while (!timerElapsed.get()) {
+                    Execution execution = stats.startOne();
+                    try {
+                        logger.info("Executing: {}", itemsCounter.incrementAndGet());
+                        executorOfType().execute();
+                        execution.stop();
+                    } catch (Exception e) {
+                        logger.error("Failed to run: {}", e.getMessage());
+                        execution.failed();
+                    }
                 }
                 return null;
             };
@@ -87,7 +101,7 @@ public class BenchmarkRunner {
 
         private Supplier<OrderItem> newOrderItem = () -> {
             OrderItem orderItem = new OrderItem();
-            orderItem.id = ++itemsCounter;
+            orderItem.id = itemsCounter.get();
             orderItem.approver = "john - " + orderItem.id;
             orderItem.order = new OrderItem.Order();
             orderItem.order.orderNumber = "12345";

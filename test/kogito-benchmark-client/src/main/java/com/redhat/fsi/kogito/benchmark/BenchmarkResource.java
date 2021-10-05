@@ -18,7 +18,7 @@ public class BenchmarkResource {
     @Produces(MediaType.TEXT_PLAIN)
     @Path("/{testType}/{noOfRequests}/{noOfThreads}")
     public String run(@PathParam("testType") String testType, @PathParam("noOfRequests") int noOfRequests,
-                      @PathParam("noOfThreads") int noOfThreads) throws JsonProcessingException {
+                      @PathParam("noOfThreads") int noOfThreads) throws JsonProcessingException, InterruptedException {
         return benchmarkRunner.run(testType, noOfRequests, noOfThreads);
     }
 }
