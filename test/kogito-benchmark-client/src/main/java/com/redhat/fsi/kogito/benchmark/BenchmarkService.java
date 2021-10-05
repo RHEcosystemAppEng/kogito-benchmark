@@ -17,4 +17,9 @@ public interface BenchmarkService {
     @Path("/orders")
     @Consumes("application/json")
     String newOrderItem(OrderItem orderItem);
+
+    @POST
+    @Path("/notPersistedProcess")
+    @Consumes("application/json")
+    String notPersistedProcess(OrderItem orderItem);
 }

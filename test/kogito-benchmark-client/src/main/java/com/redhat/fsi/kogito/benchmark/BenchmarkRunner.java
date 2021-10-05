@@ -96,7 +96,8 @@ public class BenchmarkRunner {
         }
 
         private RestExecutor executorOfType() {
-            return "hello".equals(testType) ? hello : newOrder;
+            return "hello".equals(testType) ? hello :
+                    "notPersisted".equals(testType) ? notPersistedProcess : newOrder;
         }
 
         private Supplier<OrderItem> newOrderItem = () -> {
@@ -113,6 +114,8 @@ public class BenchmarkRunner {
                 benchmarkService.hello();
         private final RestExecutor newOrder = () ->
                 benchmarkService.newOrderItem(newOrderItem.get());
+        private final RestExecutor notPersistedProcess = () ->
+                benchmarkService.notPersistedProcess(newOrderItem.get());
     }
 
     @FunctionalInterface
