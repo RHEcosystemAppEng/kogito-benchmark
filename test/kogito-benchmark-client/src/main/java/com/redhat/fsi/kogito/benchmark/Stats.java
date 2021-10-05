@@ -9,13 +9,13 @@ public class Stats {
 
     private long noOfRequests;
     private long noOfFailures;
-    private long minTimeMillis = Long.MAX_VALUE;
-    private long maxTimeMillis = 0;
+    private TestMetrics.ResponseTimeAndID minResponseTime = TestMetrics.ResponseTimeAndID.defaultMinResponseTime();
+    private TestMetrics.ResponseTimeAndID maxResponseTime = TestMetrics.ResponseTimeAndID.defaultMaxResponseTime();
     private long totalTimeMillis;
 
-    public Execution startOne() {
+    public Execution startOne(long index) {
         noOfRequests++;
-        return new Execution(callback);
+        return new Execution(index, callback);
     }
 
     private Consumer<Execution> callback = execution -> completed(execution);
@@ -23,8 +23,8 @@ public class Stats {
     private void completed(Execution execution) {
         long responseTime = execution.duration().toMillis();
         totalTimeMillis += responseTime;
-        minTimeMillis = Math.min(minTimeMillis, responseTime);
-        maxTimeMillis = Math.max(maxTimeMillis, responseTime);
+        minResponseTime.minOf(execution);
+        maxResponseTime.maxOf(execution);
         noOfFailures += execution.isFailed() ? 1 : 0;
     }
 
@@ -38,8 +38,8 @@ public class Stats {
         metrics.setNoOfFailures(noOfFailures);
         metrics.setTotalTimeMillis(totalTimeMillis);
         metrics.setElapsedTimeMillis(testDuration.toMillis());
-        metrics.setMinResponseTime(minTimeMillis);
-        metrics.setMaxResponseTime(maxTimeMillis);
+        metrics.setMinResponseTime(minResponseTime);
+        metrics.setMaxResponseTime(maxResponseTime);
         metrics.setAverageResponseTime(totalTimeMillis / noOfRequests);
         metrics.setRequestsPerSecond(1000 * noOfRequests / testDuration.toMillis());
 

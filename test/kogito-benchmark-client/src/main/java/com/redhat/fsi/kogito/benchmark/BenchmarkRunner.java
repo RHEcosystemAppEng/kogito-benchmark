@@ -81,9 +81,10 @@ public class BenchmarkRunner {
         private Callable<Void> newCallable() {
             return () -> {
                 while (!timerElapsed.get()) {
-                    Execution execution = stats.startOne();
+                    long index = itemsCounter.incrementAndGet();
+                    Execution execution = stats.startOne(index);
                     try {
-                        logger.info("Executing: {}", itemsCounter.incrementAndGet());
+                        logger.info("Executing: {}", index);
                         executorOfType().execute();
                         execution.stop();
                     } catch (Exception e) {
