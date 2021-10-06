@@ -14,10 +14,12 @@ echo "Pulling the logs from open shift cluster. This may take some time dependin
 
 echo "Successfully downloaded logs from Open Shift cluster. Calculating metrics now."
 #2 - Filter the targeted logs.
-(grep -w 'Order has been created Order\[12345\]'  pod-logs.log) > pod-logs-filtered.log
+(grep -w 'Order has been created Order\[12345\]' pod-logs.log) > pod-logs-filtered.log
+#3 - Normalize the log
+sed -e 's/Order\[12345\].*/Order\[12345\]/' pod-logs-filtered.log > pod-logs-normalized.log
 
-#3 - Apply group by and count logic.
-(sort pod-logs-filtered.log | uniq -c) > pod-logs-count-results.log
+#4 - Apply group by and count logic.
+(sort pod-logs-normalized.log | uniq -c) > pod-logs-count-results.log
 
-#4 - Display the results.
+#5 - Display the results.
 more -100 pod-logs-count-results.log
