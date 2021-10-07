@@ -1,3 +1,5 @@
+# JMeter 
+
 ## General
 
 JMeter should be run in GUI mode for defining and debugging test cases.
@@ -41,7 +43,7 @@ When using plugin AggregateReport from CLI, one needs to also install the plugin
 ```shell script
 <JMETER_HOME>/bin/jmeter.sh
 ```
-
+# Load Test
 ## Running JMeter test from command line
 - cd into the <benchmark-home>/test/kogito-jmeter-load-testing
 - copy one of the provided example properties files (envLocal, envOCPlab) and change to your needs
