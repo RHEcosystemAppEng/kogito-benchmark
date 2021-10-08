@@ -22,4 +22,9 @@ public interface BenchmarkService {
     @Path("/notPersistedProcess")
     @Consumes("application/json")
     String notPersistedProcess(OrderItem orderItem);
+
+    @POST
+    @Path("/simpleHT")
+    @Consumes("application/json")
+    String simpleHT(TestData testData);
 }

@@ -98,7 +98,8 @@ public class BenchmarkRunner {
 
         private RestExecutor executorOfType() {
             return "hello".equals(testType) ? hello :
-                    "notPersisted".equals(testType) ? notPersistedProcess : newOrder;
+                    "notPersisted".equals(testType) ? notPersistedProcess :
+                            "simple".equals(testType) ? simpleHT : newOrder;
         }
 
         private Supplier<OrderItem> newOrderItem = () -> {
@@ -111,12 +112,21 @@ public class BenchmarkRunner {
             return orderItem;
         };
 
+        private Supplier<TestData> newTestData = () -> {
+            TestData testData = new TestData();
+            testData.testIndex = itemsCounter.get();
+            testData.name = "John Doe";
+            return testData;
+        };
+
         private final RestExecutor hello = () ->
                 benchmarkService.hello();
         private final RestExecutor newOrder = () ->
                 benchmarkService.newOrderItem(newOrderItem.get());
         private final RestExecutor notPersistedProcess = () ->
                 benchmarkService.notPersistedProcess(newOrderItem.get());
+        private final RestExecutor simpleHT = () ->
+                benchmarkService.simpleHT(newTestData.get());
     }
 
     @FunctionalInterface
