@@ -1,18 +1,29 @@
 package com.redhat.fsi.kogito.benchmark;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TestData {
-    public long testIndex;
-    public String name;
+    public Data data;
 
-    @java.lang.Override
-    public java.lang.String toString() {
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public static class Data {
+        public long testIndex;
+        public String name;
+
+        @java.lang.Override
+        public java.lang.String toString() {
+            return "{" +
+                    "testIndex=" + testIndex +
+                    ", name='" + name + '\'' +
+                    '}';
+        }
+    }
+
+    @Override
+    public String toString() {
         return "TestData{" +
-                "testIndex=" + testIndex +
-                ", name='" + name + '\'' +
+                "data=" + data +
                 '}';
     }
 }

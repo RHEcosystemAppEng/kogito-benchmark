@@ -113,9 +113,11 @@ public class BenchmarkRunner {
         };
 
         private Supplier<TestData> newTestData = () -> {
+            TestData.Data data = new TestData.Data();
+            data.testIndex = itemsCounter.get();
+            data.name = "John Doe";
             TestData testData = new TestData();
-            testData.testIndex = itemsCounter.get();
-            testData.name = "John Doe";
+            testData.data = data;
             return testData;
         };
 
