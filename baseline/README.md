@@ -111,11 +111,27 @@ For each test listed in the [baseline report](https://docs.google.com/spreadshee
 * Collect the execution metrics in the baseline report
 * Stop Kogito app
 
-db.demo.orders.count();
-db.demo.orderItems.count();
+# Troubleshooting
 
-db.demo.orders.remove({});db.demo.orders.reIndex();
-db.demo.orderItems.remove({});db.demo.orderItems.reIndex();
+## Managing missing index in MongoDB collections
+Adding missing index:
+```js
+db.demo.orders.createIndex({"id": 1});
+db.demo.orderItems.createIndex({"id": 1});
+db.demo.simpleHT.createIndex({"id": 1});
+```
 
-db.demo.orders.count();
-db.demo.orderItems.count();
+Drop the table to have next request creating the collection from scratch:
+```js
+db.demo.simpleHT.drop()
+```
+
+List existing indexes:
+```js
+db.demo.simpleHT.remove({})
+```
+
+
+```js
+db.demo.simpleHT.getIndexes()
+```
