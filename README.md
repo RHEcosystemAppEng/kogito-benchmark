@@ -5,8 +5,7 @@
   * [Test strategy](#test-strategy)
   * [Metrics specifications](#metrics-specifications)
   * [Results](#results)
-  * [Test Procedures](#test-procedures)
-  * [Results](#reults)
+  * [How to run benchmark tests](#how-to-run-benchmark-tests)
   * [References](#references)
   * [Troubleshooting](#troubleshooting)
 
@@ -57,10 +56,10 @@ Tests were run for a duration of 2 minutes.
 
 [📣 Click here to view benchmark results](./benchmark_results.md)
 
-## Procedures
-* [Deployment on OCP](test-envs/deploy-OCP/deploy-app/README.md)
-* [Deployment on VM](test-envs/deploy-VM/README.md)
-* [Test Run from VM](test-envs/test/README.md)
+## How to run benchmark tests
+* [Deploy kogito example app on OCP](test-envs/deploy-OCP/deploy-app/README.md)
+* [Deploy kogito example app on a VM](test-envs/deploy-VM/README.md)
+* [Running tests from a VM](test-envs/test/README.md)
 
 ## References
 * [Project Requirements](https://docs.google.com/document/d/1AtAfTiFSB2VcI84zg-ocPTnYy_1HCK556FiWt_iPkiM/edit?usp=sharing)
