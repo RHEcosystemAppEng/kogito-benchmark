@@ -38,7 +38,7 @@ For establishing of a baseline the following architecture was used:
 
 ## Business Process Model
 Originally the process-quarkus-example from the Kogito-Examples repository was used.
-It was then decided to use a model with only one process instead of the above model which contains a subprocess therefore persisting also 2 instead of 1 processes per test run.
+It was then decided to use a model with only one process instead of the above model which contains a subprocess therefore persisting 2 instead of 1 processes per test run.
 
 The Business Process Model under test consists of 1 script task and 1 human task.
 In particular, we  will create new instances of the `TestData` data element using a GET REST request.
