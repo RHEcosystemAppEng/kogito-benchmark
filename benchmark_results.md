@@ -14,6 +14,11 @@ Mainly 2 options were tested:
 - 16GB Memory
 - Red Hat Enterprise Linux Server release 7.9 (Maipo)
 
+#### Test Engines 🧰
+- Gatling
+- JMeter
+- Java-Quarkus ([Quarkus application written by us](https://github.com/RHEcosystemAppEng/kogito-benchmark/tree/main/test/kogito-benchmark-client))
+
 #### Common Config Details: ⚒️
 - Java version: openjdk 11.0.12 2021-07-20 LTS
 - Persistence: Mongo DB v4.4.9
