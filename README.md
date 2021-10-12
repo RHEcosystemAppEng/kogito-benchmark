@@ -17,30 +17,28 @@ using MongoDB as persistence store.
 The objective is to define a repeatable procedure to generate structured data for the metrics defined in [Metrics specifications and results](#metrics-specifications-and-results),
 to easily monitor system performance as the product evolves.  
 
-The following table shows the configuration of the test environment, 
+The following table shows the configuration of the test environment
+
 | Target   |      Specs      |
 |----------|:-------------:|
 | Kogito version |  1.11.0.Final |
 | Runtime environment |  [OpenShift](https://console-openshift-console.apps.mw-ocp4.cloud.lab.eng.bos.redhat.com) |
 | JVM runtime | Quarkus |
 | Data persistence | MongoDB | 
-| Test Client | todo [Gatling](https://gatling.io/) |
+| Test Client | [Quarkus Client](test-clients/quarkus-client) / [JMeter](test-clients/jmeter-client) |
 
 ## System Architecture
 The following diagram illustrates the basic architecture of the testing scenario:
 
-TODO: update image VM1 - OCP
-![Test Architecture](legacy/overview/BenchmarkArchitecture.jpg)
-
-**Note**: `Data-Index` infrastructure is not part of this initial setup. Also, the initial metrics will not 
-validate that the Kafka broker actually sends the expected events.
+![Test Architecture](test-envs/BenchmarkArchitecture-VM1-OCP.png)
 
 For establishing of a baseline the following architecture was used:
 
-TODO: VM1 - VM2 image
+![Test Architecture](test-envs/BenchmarkArchitecture-VM1-VM2.png)
 
 ## Business Process Model
-TODO: Mention that we started with the process-quarkus-example, but switched to a more simple process?
+Originally the process-quarkus-example from the Kogito-Examples repository was used.
+It was then decided to use a model with only one process instead of the above model which contains a subprocess therefore persisting also 2 instead of 1 processes per test run.
 
 The Business Process Model under test consists of 1 script task and 1 human task.
 In particular, we  will create new instances of the `TestData` data element using a GET REST request.
@@ -57,7 +55,8 @@ Tests were run for a duration of 2 minutes.
 
 ## Results
 
-???? A warmup run needs to be executed as a separate test before each test for a newly created application pod
+A warmup run needs to be executed before each test after an application pod is new created.
+The warmup test results should be verified to return valid data.
 
 TODO Integrate: Jude Results
 
@@ -72,12 +71,9 @@ TODO Integrate: Jude Results
 * [GitHub repository](https://github.com/RHEcosystemAppEng/kogito-benchmark)
 
 ## Troubleshooting
-
-TODO
-* Fetch Orders from REST API: the URL is `ROUTE_OF_APPLICATION/orders`
 * Access `Swagger UI`: the URL is `ROUTE_OF_APPLICATION/swagger-ui`
-* Every time a new `Order` is defined, the related Pod in the OCP platform will log a message like:
+* Every time a `simple` request is done, the related Pod in the OCP platform will log a message like:
 ```text
-Order has been created Order[12345] with assigned approver JOHN
+Received ...
 ```
 

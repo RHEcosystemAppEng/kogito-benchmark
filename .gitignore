@@ -11,7 +11,7 @@
 /test-apps/process-quarkus-example/target/*
 /test-apps/process-quarkus-example/target/generated-sources/*
 /test-apps/process-quarkus-example/target/classes/*
-/test-clients/gatling-client/target/*
+/legacy/gatling-client/target/*
 *.idea
 *.iml
 /test-apps/process-quarkus-example/nohup.out

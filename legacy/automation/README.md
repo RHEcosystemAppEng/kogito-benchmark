@@ -9,12 +9,12 @@ Summarized list of steps that can be executed as part of the automated suite to:
 * Install the operator `Strimzi 0.22.1 provided by Strimzi` in the `PROJECT_NAME` namespace
 
 ## Test Procedure
-* [Install the MongoDB operator](../test-envs/deploy-OCP#install-the-mongodb-operator)
-* [Deploy the MongoDB instance](../test-envs/deploy-OCP#deploy-the-mongodb-instance)
-* [Install MongoDB infra in Kogito operator](../test-envs/deploy-OCP#install-mongodb-infra-in-kogito-operator)
-* [Deploy the Kafka instance](../test-envs/deploy-OCP#deploy-the-kafka-instance)
-* [Install Kafka infra in Kogito operator](../test-envs/deploy-OCP#install-kafka-infra-in-kogito-operator)
-* [Deploying the Kogito App](../test-envs/deploy-OCP#deploying-the-kogito-app)
+* [Install the MongoDB operator](../../test-envs/deploy-OCP#install-the-mongodb-operator)
+* [Deploy the MongoDB instance](../../test-envs/deploy-OCP#deploy-the-mongodb-instance)
+* [Install MongoDB infra in Kogito operator](../../test-envs/deploy-OCP#install-mongodb-infra-in-kogito-operator)
+* [Deploy the Kafka instance](../../test-envs/deploy-OCP#deploy-the-kafka-instance)
+* [Install Kafka infra in Kogito operator](../../test-envs/deploy-OCP#install-kafka-infra-in-kogito-operator)
+* [Deploying the Kogito App](../../test-envs/deploy-OCP#deploying-the-kogito-app)
   * In case multiple tests are executed with different options, it can be deleted
   and restarted before every test execution
 * Build the Gatling application (build-config)

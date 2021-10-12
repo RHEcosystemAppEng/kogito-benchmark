@@ -1,19 +1,21 @@
 # Test procedure
 
 ### Before running a test confirm that
-- the application and its infrastructure are running (locally, VM2 or OCP lab) 
+- the Kogito application and its infrastructure are running (locally, VM2 or OCP lab) 
 
-- application properties `quarkus.vertx.worker-pool-size` and `quarkus.mongodb.max-pool-size` are defined as and if required
+- Kogito application properties `quarkus.vertx.worker-pool-size` and `quarkus.mongodb.max-pool-size` are defined as and if required
   - edit the application.properties file [Properties](../../test-apps/process-quarkus-example/src/main/resources/application-mongo.properties) and then redeploy the application 
 
-- application property `process-api/mp-rest/url` of Quarkus client is set to correct environment
+- Quarkus client application properties `quarkus.vertx.worker-pool-size` (same value like in Kogito application properties) and `process-api/mp-rest/url` are defined as required
   - edit the application.properties file [Properties](../../test-clients/quarkus-client/src/main/resources/application.properties) 
 
-- application properties of JMeter client are set to correct environment and test values
+- JMeter client application properties are set to correct environment and test values
   - use one of the predefined envXXX.properties files and change properties as needed [Properties](../../test-clients/jmeter-client)
 
-- application and db are reset to initial states
-  - restart application pod in OCP (scale deployment down/up)
+- Kogito application and persistence are reset to initial states
+  - restart application pod in OCP with required replicas 
+    - chose project `fsi-kogito-benchmarking` -> `Installed Operators` -> `kogito-operator.v1.11.1` -> `KogitoRuntime details`, open
+      process-quarkus-example YAML, update spec: replicas: x, save
   - run script [MongoDB Reset](../mongodb/cleanup-OCP.sh) - see  [MongoDB README](../mongodb/README.md) for more details
 
 ### Run Test
