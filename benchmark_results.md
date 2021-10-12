@@ -19,7 +19,7 @@ Mainly 2 options were tested:
 #### Test Engines 🧰
 - Gatling (3.6.0)
 - JMeter (5.4.1)
-- Java-Quarkus ([Quarkus application written by us](https://github.com/RHEcosystemAppEng/kogito-benchmark/tree/main/test/kogito-benchmark-client))
+- Java-Quarkus ([Quarkus application written by us](https://github.com/RHEcosystemAppEng/kogito-benchmark/tree/main/test-clients/quarkus-client))
 
 #### Common Config Details: ⚒️
 - Java version: openjdk 11.0.12 2021-07-20 LTS
