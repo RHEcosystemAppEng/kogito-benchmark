@@ -1,4 +1,4 @@
-# Benchmark Results
+# 📣 Benchmark Results
 
 Following numbers were gathered targeting the [forked version of process-quarkus-example](https://github.com/RHEcosystemAppEng/kogito-benchmark/tree/main/test-apps/process-quarkus-example) on different compute environments.
 The reason we use a forked version is we have added 3 additional business process definitions 
@@ -11,23 +11,23 @@ Mainly 2 options were tested:
 2. Kogito application deployed in a Red Hat Openshift cluster.
 
 
-#### VM Details: 🖥️
+### VM Details: 🖥️
 - Intel Core i7 9xx (Nehalem Class Core i7) @2.4GHz z (4 cores / 4 threads)
 - 16GB Memory
 - Red Hat Enterprise Linux Server release 7.9 (Maipo)
 
-#### Test Engines 🧰
+### Test Engines 🧰
 - Gatling (3.6.0)
 - JMeter (5.4.1)
 - Java-Quarkus ([Quarkus application written by us](https://github.com/RHEcosystemAppEng/kogito-benchmark/tree/main/test-clients/quarkus-client))
 
-#### Common Config Details: ⚒️
+### Common Config Details: ⚒️
 - Java version: openjdk 11.0.12 2021-07-20 LTS
 - Persistence: Mongo DB v4.4.9
 - Kogito version: 1.11.0.Final
 - Concurrence Strategy: CONST_CONCURRENT_USERS (Only for Gatling)
 
-#### Mongodb Caveats 🗄️
+### Mongodb Caveats 🗄️
 - **clean-before**: Delete all mongodb collections before the test
 - **id-index**: Manually create some missing mongodb indexes before the test
 
