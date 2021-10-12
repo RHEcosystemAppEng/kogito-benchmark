@@ -67,9 +67,6 @@ Mainly 2 options were tested:
 |   Gatling	|  emptyProcess ➙ default |  ❌ No persistence	|  1 	|  1 	|   1 min	|  13270 	|  13270/0 	|  4 ms 	|   221/sec	|
 |   Gatling	|  emptyProcess ➙ default |  ❌ No persistence	|  1 	|  4 	|   1 min	|  39136 	|  28244/10892 	|  5 ms 	|   641/sec	|
 |   Gatling	|  emptyProcess ➙ default |  ❌ No persistence	|  1 	|  8 	|   1 min	|  50958 	|  28232/22726 	|  5 ms 	|   849/sec	|
-|   Gatling	|  notPersistedProcess ➙ default |  ❌ No persistence	|  1 	|  4 	|   5 min	|  439752 	|  439752/0 	|  2 ms 	|   1465/sec	|
-|   Gatling	|  notPersistedProcess ➙ default |  ❌ No persistence	|  2 	|  4 	|   5 min	|  442718 	|  442718/0 	|  2 ms 	|   1475/sec	|
-|   Gatling	|  notPersistedProcess ➙ default |  ❌ No persistence	|  5 	|  4 	|   5 min	|  381256 	|  381256/0 	|  2 ms 	|   1270/sec	|
 |   Gatling	|  order ➙ default |  ✅ Mongo DB ➙ clean-before	|  5 	|  1 	|   5 min	|  8844 	|  8844/0 	|  33 ms 	|   29.38/sec	|
 |   Gatling	|  order ➙ default |  ✅ Mongo DB ➙ clean-before	|  5 	|  4 	|   5 min	|  19350 	|  19350/0 	|  62 ms 	|   64.28/sec	|
 |   Gatling	|  order ➙ default |  ✅ Mongo DB ➙ clean-before	|  5 	|  8 	|   5 min	|  22528 	|  22528/0 	|  106 ms 	|   74.84/sec	|
@@ -82,6 +79,9 @@ Mainly 2 options were tested:
 |   JMeter	|  order ➙ default |  ✅ Mongo DB ➙ clean-before	|  1 	|  8 	|   5 min	|  23387 	|  23387/0 	|  102 ms 	|   77.9/sec	|
 |   JMeter	|  order ➙ default |  ✅ Mongo DB ➙ clean-before	|  2 	|  8 	|   5 min	|  23650 	|  23650/0 	|  101 ms 	|   78.8/sec	|
 |   JMeter	|  order ➙ default |  ✅ Mongo DB ➙ clean-before	|  5 	|  8 	|   5 min	|  25064 	|  25064/0 	|  94 ms 	|   84/sec	|
+|   Java-Quarkus	|  notPersistedProcess ➙ default |  ❌ No persistence	|  1 	|  4 	|   5 min	|  439752 	|  439752/0 	|  2 ms 	|   1465/sec	|
+|   Java-Quarkus	|  notPersistedProcess ➙ default |  ❌ No persistence	|  2 	|  4 	|   5 min	|  442718 	|  442718/0 	|  2 ms 	|   1475/sec	|
+|   Java-Quarkus	|  notPersistedProcess ➙ default |  ❌ No persistence	|  5 	|  4 	|   5 min	|  381256 	|  381256/0 	|  2 ms 	|   1270/sec	|
 |   Java-Quarkus	|  simple ➙ default |  ✅ Mongo DB ➙ clean-before	|  1 	|  1 	|   2 min	|  8779 	|  8779/0 	|  13 ms 	|   73/sec	|
 |   Java-Quarkus	|  simple ➙ default |  ✅ Mongo DB ➙ clean-before	|  2 	|  1 	|   2 min	|  8278 	|  8278/0 	|  13 ms 	|   68/sec	|
 |   Java-Quarkus	|  simple ➙ default |  ✅ Mongo DB ➙ clean-before	|  5 	|  1 	|   2 min	|  6960 	|  6960/0 	|  16 ms 	|   57/sec	|
