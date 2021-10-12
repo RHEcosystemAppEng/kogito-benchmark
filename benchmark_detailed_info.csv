@@ -1,0 +1,91 @@
+Kogito version,Java version,Test Engine,Test Mode,Client Runtime,Server Runtime,#Replicas,Process,"Process 
+Config",Persistence,"Persistence
+Config",Strategy,#Users,Duration (min),request count,Ok - Count,KO - count,min response time,max response time,mean response time,std deviation,"response time 
+95th percentile","response time 
+99th percentile","mean 
+requests/sec",Used Memory,Errors
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,Gatling,On-premise,vm1,vm2,1,emptyProcess,,none,,CONST_CONCURRENT_USERS,1,5,30688,28232,2456,0,31,2,1,5,7,503.082,,"> j.n.ConnectException: connect(..) failed: Cannot assign reques   2456 (100.0%)
+ted address"
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,Gatling,On-premise,vm1,vm2,1,emptyProcess,,none,,CONST_CONCURRENT_USERS,4,5,54197,28232,25965,0,40,4,2,8,10,903.283,,"> j.n.ConnectException: connect(..) failed: Cannot assign reques  25965 (100.0%)
+ted address"
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,Gatling,On-premise,vm1,vm2,1,emptyProcess,,none,,CONST_CONCURRENT_USERS,8,5,60516,30875,29641,0,49,5,3,11,19,992.066,,"> j.n.ConnectException: connect(..) failed: Cannot assign reques  29641 (100.0%)
+ted address"
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,Gatling,On-premise,vm1,vm2,1,emptyProcess,,none,,CONST_CONCURRENT_USERS,20,5,65462,33255,32207,0,440,10,10,30,51,1073.148,,"> j.n.ConnectException: connect(..) failed: Cannot assign reques  32207 (100.0%)
+ted address"
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,Gatling,On-premise,vm1,vm2,1,emptyProcess,,none,,CONST_CONCURRENT_USERS,40,5,318394,148050,170344,0,1280,19,28,71,126,1057.787,,"> j.n.ConnectException: connect(..) failed: Cannot assign reques 170344 (100.0%)
+ted address"
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,Gatling,On-premise,vm1,vm2,1,emptyProcess,,none,,CONST_CONCURRENT_USERS,60,5,334250,147883,186367,0,843,28,38,103,175,1110.465,,"> j.n.ConnectException: connect(..) failed: Cannot assign reques 186367 (100.0%)
+ted address"
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,Gatling,On-premise,vm1,vm2,1,notPersistedProcess,,none,,CONST_CONCURRENT_USERS,1,5,150819,131159,19660,0,32,2,1,5,7,501.06,,">j.n.ConnectException: connect(..) failed: Cannot assign reques  19660 (100.0%)
+ted address"
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,Gatling,On-premise,vm1,vm2,1,notPersistedProcess,,none,,CONST_CONCURRENT_USERS,4,5,173586,144145,29441,0,38,2,2,7,10,576.698,,"> j.n.ConnectException: connect(..) failed: Cannot assign reques  29441 (100.0%)
+ted address"
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,Gatling,On-premise,vm1,vm2,1,notPersistedProcess,,none,,CONST_CONCURRENT_USERS,8,5,178186,146601,31585,0,1153,3,13,8,14,591.98,,"> j.n.ConnectException: connect(..) failed: Cannot assign reques  31585 (100.0%)
+ted address"
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,Gatling,On-premise,vm1,vm2,1,notPersistedProcess,,none,,CONST_CONCURRENT_USERS,20,5,181766,141168,40598,0,3441,12,48,23,226,603.874,,"> j.n.ConnectException: connect(..) failed: Cannot assign reques  40598 (100.0%)
+ted address"
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,Gatling,On-premise,vm1,vm2,1,notPersistedProcess,,none,,CONST_CONCURRENT_USERS,40,5,187024,153349,33675,0,4057,27,107,117,484,621.342,,"> j.n.ConnectException: connect(..) failed: Cannot assign reques  33675 (100.0%)
+ted address"
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,Gatling,On-premise,vm1,vm2,1,notPersistedProcess,,none,,CONST_CONCURRENT_USERS,60,5,194124,150145,43979,1,2282,43,117,257,628,644.93,,"> j.n.ConnectException: connect(..) failed: Cannot assign reques  43979 (100.0%)
+ted address"
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,Java-Quarkus,On-premise,vm1,vm2,1,simple,default,mongo,clean-before,CONST_CONCURRENT_USERS,1,2,10777,10777,0,6,936,10,,14,19,89,200M,
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,Java-Quarkus,On-premise,vm1,vm2,1,simple,default,mongo,clean-before,CONST_CONCURRENT_USERS,4,2,22855,22855,0,7,910,20,,35,46,190,350M,
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,Java-Quarkus,On-premise,vm1,vm2,1,simple,default,mongo,clean-before,CONST_CONCURRENT_USERS,8,2,26289,26289,0,8,991,35,,63,79,219,420M,
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,Java-Quarkus,On-premise,vm1,vm2,1,simple,default,mongo,clean-before,CONST_CONCURRENT_USERS,20,2,27221,27221,0,10,1233,87,,171,216,226,450M,
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,Java-Quarkus,On-premise,vm1,vm2,1,simple,default,mongo,clean-before,CONST_CONCURRENT_USERS,40,2,26563,26563,0,14,785,180,,364,462,221,440M,
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,Java-Quarkus,On-premise,vm1,vm2,1,simple,default,mongo,clean-before,CONST_CONCURRENT_USERS,60,2,26291,26291,0,17,1085,273,,526,668,218,390M,
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,Java-Quarkus,On-premise,vm1,vm2,1,simple,pool&workers=100,mongo,id-index,CONST_CONCURRENT_USERS,1,2,33402,33402,0,2,860,3,,5,10,278,480M,
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,Java-Quarkus,On-premise,vm1,vm2,1,simple,pool&workers=100,mongo,id-index,CONST_CONCURRENT_USERS,4,2,91318,91318,0,2,881,4,,9,23,760,1.3G,
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,Java-Quarkus,On-premise,vm1,vm2,1,simple,pool&workers=100,mongo,id-index,CONST_CONCURRENT_USERS,8,2,113305,113305,0,2,1004,7,,20,37,944,1.6G,
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,Java-Quarkus,On-premise,vm1,vm2,1,simple,pool&workers=100,mongo,id-index,CONST_CONCURRENT_USERS,20,2,126711,126711,0,1,1185,18,,43,105,1055,1.7G,
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,Java-Quarkus,On-premise,vm1,vm2,1,simple,pool&workers=100,mongo,id-index,CONST_CONCURRENT_USERS,40,2,130201,130201,0,3,636,36,,96,191,1084,1.9G,
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,Java-Quarkus,On-premise,vm1,vm2,1,simple,pool&workers=100,mongo,id-index,CONST_CONCURRENT_USERS,60,2,127817,127817,0,3,870,55,,143,259,1063,1.9G,
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,Gatling,Cloud,vm1,OpenShift,1,emptyProcess,,none,,CONST_CONCURRENT_USERS,1,1,13270,13270,0,2,76,4,2,6,11,221,,"> j.n.ConnectException: connect(..) failed: Cannot assign reques 186367 (100.0%)
+ted address"
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,Gatling,Cloud,vm1,OpenShift,1,emptyProcess,,none,,CONST_CONCURRENT_USERS,4,1,39136,28244,10892,0,1329,5,24,11,51,641,,"> j.n.ConnectException: connect(..) failed: Cannot assign reques 186367 (100.0%)
+ted address"
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,Gatling,Cloud,vm1,OpenShift,1,emptyProcess,,none,,CONST_CONCURRENT_USERS,8,1,50958,28232,22726,2,388,5,5,10,17,849,,"> j.n.ConnectException: connect(..) failed: Cannot assign reques 186367 (100.0%)
+ted address"
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,Gatling,Cloud,vm1,OpenShift,5,order,,mongo,,CONST_CONCURRENT_USERS,1,5,8844,8844,0,17,653,33,24,51,75,29.382,,
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,Gatling,Cloud,vm1,OpenShift,5,order,,mongo,,CONST_CONCURRENT_USERS,4,5,19350,19350,0,21,931,62,41,115,184,64.286,,
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,Gatling,Cloud,vm1,OpenShift,5,order,,mongo,,CONST_CONCURRENT_USERS,8,5,22528,22528,0,21,1333,106,84,250,440,74.844,,
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,JMeter,Cloud,vm1,OpenShift,1,order,,mongo,,CONST_CONCURRENT_USERS,1,5,10111,10111,0,8,860,29,29.06,56,107,33.7,,
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,JMeter,Cloud,vm1,OpenShift,2,order,,mongo,,CONST_CONCURRENT_USERS,1,5,10549,10549,0,8,888,28,27.55,48,81,35.2,,
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,JMeter,Cloud,vm1,OpenShift,5,order,,mongo,,CONST_CONCURRENT_USERS,1,5,9184,9184,0,14,988,31,,50,80,31,,
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,JMeter,Cloud,vm1,OpenShift,1,order,,mongo,,CONST_CONCURRENT_USERS,4,5,20024,20024,0,8,2865,59,70.89,132,235,66.8,,
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,JMeter,Cloud,vm1,OpenShift,2,order,,mongo,,CONST_CONCURRENT_USERS,4,5,20397,20397,0,9,1207,58,56.32,121,207,68,,
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,JMeter,Cloud,vm1,OpenShift,5,order,,mongo,,CONST_CONCURRENT_USERS,4,5,20291,20291,0,16,962,59,,122,242,68,,
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,JMeter,Cloud,vm1,OpenShift,1,order,,mongo,,CONST_CONCURRENT_USERS,8,5,23387,23387,0,9,5845,102,147.7,264,481,77.9,,
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,JMeter,Cloud,vm1,OpenShift,2,order,,mongo,,CONST_CONCURRENT_USERS,8,5,23650,23650,0,10,2265,101,97.81,234,395,78.8,,
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,JMeter,Cloud,vm1,OpenShift,5,order,,mongo,,CONST_CONCURRENT_USERS,8,5,25064,25064,0,18,1475,94,,191,314,84,,
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,Java-Quarkus,Cloud,vm1,OpenShift,1,notPersistedProcess,,none,,CONST_CONCURRENT_USERS,4,5,439752,439752,0,1,608,2,,,,1465,,
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,Java-Quarkus,Cloud,vm1,OpenShift,2,notPersistedProcess,,none,,CONST_CONCURRENT_USERS,4,5,442718,442718,0,1,693,2,,,,1475,,
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,Java-Quarkus,Cloud,vm1,OpenShift,5,notPersistedProcess,,none,,CONST_CONCURRENT_USERS,4,5,381256,381256,0,1,807,2,,,,1270,,
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,Java-Quarkus,Cloud,vm1,OpenShift,1,simple,default,mongo,clean-before,CONST_CONCURRENT_USERS,1,2,8779,8779,0,6,680,13,,22,38,73,370M,
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,Java-Quarkus,Cloud,vm1,OpenShift,2,simple,default,mongo,clean-before,CONST_CONCURRENT_USERS,1,2,8278,8278,0,4,552,13,,23,37,68,1.5G,
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,Java-Quarkus,Cloud,vm1,OpenShift,5,simple,default,mongo,clean-before,CONST_CONCURRENT_USERS,1,2,6960,6960,0,7,525,16,,25,38,57,1.2G,
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,Java-Quarkus,Cloud,vm1,OpenShift,1,simple,default,mongo,clean-before,CONST_CONCURRENT_USERS,4,2,17932,17932,0,6,643,26,,48,77,149,540M,
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,Java-Quarkus,Cloud,vm1,OpenShift,2,simple,default,mongo,clean-before,CONST_CONCURRENT_USERS,4,2,17750,17750,0,7,694,26,,49,94,147,350M,
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,Java-Quarkus,Cloud,vm1,OpenShift,5,simple,default,mongo,clean-before,CONST_CONCURRENT_USERS,4,2,15929,15929,0,9,634,29,,53,84,132,1.4G,
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,Java-Quarkus,Cloud,vm1,OpenShift,1,simple,default,mongo,clean-before,CONST_CONCURRENT_USERS,8,2,21394,21394,0,8,1163,44,,87,131,178,624M,
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,Java-Quarkus,Cloud,vm1,OpenShift,2,simple,default,mongo,clean-before,CONST_CONCURRENT_USERS,8,2,21532,21532,0,5,1116,44,,90,144,179,1G,
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,Java-Quarkus,Cloud,vm1,OpenShift,5,simple,default,mongo,clean-before,CONST_CONCURRENT_USERS,8,2,19577,19577,0,10,757,48,,98,150,163,1.5G,
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,Java-Quarkus,Cloud,vm1,OpenShift,1,simple,default,mongo,clean-before,CONST_CONCURRENT_USERS,100,2,25624,25624,0,13,4927,469,,1392,2188,212,755M,
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,Java-Quarkus,Cloud,vm1,OpenShift,2,simple,default,mongo,clean-before,CONST_CONCURRENT_USERS,100,2,25525,25525,0,9,5166,470,,1397,2227,211,1G,
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,Java-Quarkus,Cloud,vm1,OpenShift,5,simple,default,mongo,clean-before,CONST_CONCURRENT_USERS,100,2,23237,23237,0,12,5350,519,,1494,2304,191,1.5G,
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,Java-Quarkus,Cloud,vm1,OpenShift,1,simple,default,mongo,id-index,CONST_CONCURRENT_USERS,1,2,8129,8129,0,6,822,14,,34,71,67,367M,0.16
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,Java-Quarkus,Cloud,vm1,OpenShift,1,simple,default,mongo,id-index,CONST_CONCURRENT_USERS,4,2,20711,20711,0,6,1224,22,,62,147,172,594M,0.31
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,Java-Quarkus,Cloud,vm1,OpenShift,1,simple,default,mongo,id-index,CONST_CONCURRENT_USERS,8,2,34749,34749,0,5,1028,27,,74,129,289,816M,0.35
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,Java-Quarkus,Cloud,vm1,OpenShift,1,simple,default,mongo,id-index,CONST_CONCURRENT_USERS,100,2,35653,35653,0,7,15502,336,,1663,4728,296,983M,
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,Java-Quarkus,Cloud,vm1,OpenShift,1,simple,pool&workers=100,mongo,id-index,CONST_CONCURRENT_USERS,1,2,15214,15214,0,3,663,7,,13,24,126,496M,
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,Java-Quarkus,Cloud,vm1,OpenShift,2,simple,pool&workers=100,mongo,id-index,CONST_CONCURRENT_USERS,1,2,10694,10694,0,5,267,10,,20,39,89,600M,
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,Java-Quarkus,Cloud,vm1,OpenShift,5,simple,pool&workers=100,mongo,id-index,CONST_CONCURRENT_USERS,1,2,9223,9223,0,6,233,12,,22,40,76,1.2G,
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,Java-Quarkus,Cloud,vm1,OpenShift,1,simple,pool&workers=100,mongo,id-index,CONST_CONCURRENT_USERS,4,2,41376,41376,0,3,1756,11,,21,47,344,680M,
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,Java-Quarkus,Cloud,vm1,OpenShift,2,simple,pool&workers=100,mongo,id-index,CONST_CONCURRENT_USERS,4,2,29132,29132,0,5,802,15,,40,60,242,1G,
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,Java-Quarkus,Cloud,vm1,OpenShift,5,simple,pool&workers=100,mongo,id-index,CONST_CONCURRENT_USERS,4,2,20958,20958,0,7,726,22,,48,84,174,1.4G,
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,Java-Quarkus,Cloud,vm1,OpenShift,1,simple,pool&workers=100,mongo,id-index,CONST_CONCURRENT_USERS,8,2,59936,59936,0,4,1783,15,,32,74,499,1.23G,
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,Java-Quarkus,Cloud,vm1,OpenShift,2,simple,pool&workers=100,mongo,id-index,CONST_CONCURRENT_USERS,8,2,46515,46515,0,5,1365,20,,42,63,387,1.4G,
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,Java-Quarkus,Cloud,vm1,OpenShift,5,simple,pool&workers=100,mongo,id-index,CONST_CONCURRENT_USERS,8,2,26142,26142,0,7,2269,36,,83,178,217,1.4G,
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,Java-Quarkus,Cloud,vm1,OpenShift,1,simple,pool&workers=100,mongo,id-index,CONST_CONCURRENT_USERS,100,2,117212,117212,0,7,5536,102,,307,716,971,1.9G,
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,Java-Quarkus,Cloud,vm1,OpenShift,2,simple,pool&workers=100,mongo,id-index,CONST_CONCURRENT_USERS,100,2,118294,118294,0,6,2756,100,,305,571,985,2.6G,
+1.11.0.Final,openjdk 11.0.12 2021-07-20 LTS,Java-Quarkus,Cloud,vm1,OpenShift,5,simple,pool&workers=100,mongo,id-index,CONST_CONCURRENT_USERS,100,2,47730,47730,0,11,4983,250,,755,1547,397,1.8G,
