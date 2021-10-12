@@ -110,3 +110,5 @@ Mainly 2 options were tested:
 |   Java-Quarkus	|  simple ➙ pool&workers=100 |  ✅ Mongo DB ➙ id-index	|  1 	|  100 	|   2 min	|  117212 	|  117212/0 	|  102 ms 	|   971/sec	|
 |   Java-Quarkus	|  simple ➙ pool&workers=100 |  ✅ Mongo DB ➙ id-index	|  2 	|  100 	|   2 min	|  118294 	|  118294/0 	|  100 ms 	|   985/sec	|
 |   Java-Quarkus	|  simple ➙ pool&workers=100 |  ✅ Mongo DB ➙ id-index	|  5 	|  100 	|   2 min	|  47730 	|  47730/0 	|  250 ms 	|   397/sec	|
+
+For detailed info -> [download the csv file](benchmark_detailed_info.csv)
