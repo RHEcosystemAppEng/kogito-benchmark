@@ -60,6 +60,7 @@ Mainly 2 options were tested:
 |  Java-Quarkus 	|  simple ➙ pool&workers=100 |  ✅ Mongo DB ➙ id-index	|  1 	|  40 	|   2 min	|  130201 	|  130201/0 	|  36 ms 	|  1084/sec 	|
 |  Java-Quarkus 	|  simple ➙ pool&workers=100 |  ✅ Mongo DB ➙ id-index	|  1 	|  60 	|   2 min	|  127817 	|  127817/0 	|  55 ms 	|  1063/sec 	|
 
+----
 
 ## Red Hat Openshift deployment
 
