@@ -1,7 +1,7 @@
 # Benchmark Results
 
 Following numbers were gathered targeting the [forked version of process-quarkus-example](https://github.com/RHEcosystemAppEng/kogito-benchmark/tree/main/test/process-quarkus-example) on different compute environments.
-The reason we use a forked version is we have added 2 additional business process definitions 
+The reason we use a forked version is we have added 3 additional business process definitions 
 _([emptyProcess, notPersistedProcess](https://github.com/RHEcosystemAppEng/kogito-benchmark/tree/main/test/process-quarkus-example/src/main/resources/org/kie/kogito/examples), [SimpleHT](https://github.com/RHEcosystemAppEng/kogito-benchmark/tree/main/test/process-quarkus-example/src/main/resources/com/redhat/fsi))_ for our testing purposes.
 
 Mainly 2 options were tested:
