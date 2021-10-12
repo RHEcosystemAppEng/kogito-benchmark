@@ -94,6 +94,10 @@ Mainly 2 options were tested:
 |   Java-Quarkus	|  simple ➙ default |  ✅ Mongo DB ➙ clean-before	|  1 	|  100 	|   2 min	|  25624 	|  25624/0 	|  469 ms 	|   212/sec	|
 |   Java-Quarkus	|  simple ➙ default |  ✅ Mongo DB ➙ clean-before	|  2 	|  100 	|   2 min	|  25525 	|  25525/0 	|  470 ms 	|   211/sec	|
 |   Java-Quarkus	|  simple ➙ default |  ✅ Mongo DB ➙ clean-before	|  5 	|  100 	|   2 min	|  23237 	|  23237/0 	|  519 ms 	|   191/sec	|
+|   Java-Quarkus	|  simple ➙ default |  ✅ Mongo DB ➙ id-index	|  1 	|  1 	|   2 min	|  8129 	|  8129/0 	|  14 ms 	|   67/sec	|
+|   Java-Quarkus	|  simple ➙ default |  ✅ Mongo DB ➙ id-index	|  1 	|  4 	|   2 min	|  20711 	|  20711/0 	|  22 ms 	|   172/sec	|
+|   Java-Quarkus	|  simple ➙ default |  ✅ Mongo DB ➙ id-index	|  1 	|  8 	|   2 min	|  34749 	|  34749/0 	|  27 ms 	|   289/sec	|
+|   Java-Quarkus	|  simple ➙ default |  ✅ Mongo DB ➙ id-index	|  1 	|  100 	|   2 min	|  35653 	|  35653/0 	|  336 ms 	|   296/sec	|
 |   Java-Quarkus	|  simple ➙ pool&workers=100 |  ✅ Mongo DB ➙ id-index	|  1 	|  1 	|   2 min	|  15214 	|  15214/0 	|  7 ms 	|   126/sec	|
 |   Java-Quarkus	|  simple ➙ pool&workers=100 |  ✅ Mongo DB ➙ id-index	|  2 	|  1 	|   2 min	|  10694 	|  10694/0 	|  10 ms 	|   89/sec	|
 |   Java-Quarkus	|  simple ➙ pool&workers=100 |  ✅ Mongo DB ➙ id-index	|  5 	|  1 	|   2 min	|  9223 	|  9223/0 	|  12 ms 	|   76/sec	|
