@@ -8,7 +8,9 @@ Mainly 2 options were tested:
 
 
 #### VM Details: 🖥️
-TBD
+- Intel Core i7 9xx (Nehalem Class Core i7) @2.4GHz z (4 cores / 4 threads)
+- 16GB Memory
+- Red Hat Enterprise Linux Server release 7.9 (Maipo)
 
 #### Config Details: ⚒️
 
