@@ -14,12 +14,15 @@ Mainly 2 options were tested:
 - 16GB Memory
 - Red Hat Enterprise Linux Server release 7.9 (Maipo)
 
-#### Config Details: ⚒️
-
+#### Common Config Details: ⚒️
 - Java version: openjdk 11.0.12 2021-07-20 LTS
 - Persistence: Mongo DB v4.4.9
 - Kogito version: 1.11.0.Final
-- Concurrence Strategy: CONST_CONCURRENT_USERS
+- Concurrence Strategy: CONST_CONCURRENT_USERS (Only for Gatling)
+
+#### Mongodb Caveats 🗄️
+- **clean-before**: Delete all mongodb collections before the test
+- **id-index**: Manually create some missing mongodb indexes before the test
 
 ## VM deployment
 
