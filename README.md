@@ -55,10 +55,7 @@ Tests were run for a duration of 2 minutes.
 
 ## Results
 
-A warmup run needs to be executed before each test after an application pod is new created.
-The warmup test results should be verified to return valid data.
-
-TODO Integrate: Jude Results
+[📣 Click here to view benchmark results](./benchmark_results.md)
 
 ## Procedures
 * [Deployment on OCP](test-envs/deploy-OCP/deploy-app/README.md)
