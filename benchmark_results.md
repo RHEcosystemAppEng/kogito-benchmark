@@ -1,8 +1,10 @@
 # Benchmark Results
 
-Following numbers were gathered targeting the [forked version of process-quarkus-example](https://github.com/RHEcosystemAppEng/kogito-benchmark/tree/main/test/process-quarkus-example) on different compute environments.
+Following numbers were gathered targeting the [forked version of process-quarkus-example](https://github.com/RHEcosystemAppEng/kogito-benchmark/tree/main/test-apps/process-quarkus-example) on different compute environments.
 The reason we use a forked version is we have added 3 additional business process definitions 
-_([emptyProcess, notPersistedProcess](https://github.com/RHEcosystemAppEng/kogito-benchmark/tree/main/test/process-quarkus-example/src/main/resources/org/kie/kogito/examples), [SimpleHT](https://github.com/RHEcosystemAppEng/kogito-benchmark/tree/main/test/process-quarkus-example/src/main/resources/com/redhat/fsi))_ for our testing purposes.
+_([emptyProcess, notPersistedProcess](https://github.com/RHEcosystemAppEng/kogito-benchmark/tree/main/test-apps/process-quarkus-example/src/main/resources/org/kie/kogito/examples), [SimpleHT](https://github.com/RHEcosystemAppEng/kogito-benchmark/tree/main/test-apps/process-quarkus-example/src/main/resources/com/redhat/fsi))_ for our testing purposes.
+
+A warmup test run have executed before each test to make sure intended test is not affected by any initialization processes.
 
 Mainly 2 options were tested:
 1. Kogito application deployed in a Virtual machine
