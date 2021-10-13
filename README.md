@@ -1,6 +1,8 @@
 # Table of Contents
 * [Kogito Benchmark](#kogito-benchmark)
   * [System Architecture](#system-architecture)
+    * [OpenShift Deployment Architecture](#openshift-deployment-architecture)
+    * [On-Premise Deployment Architecture](#on-premise-deployment-architecture)
   * [Business Process Model](#business-process-model)  
   * [Test strategy](#test-strategy)
   * [Metrics specifications](#metrics-specifications)
@@ -13,8 +15,9 @@
 
 Purpose of this project is benchmarking [Kogito](https://kogito.kie.org/) application for a defined business process model 
 using MongoDB as persistence store.
-The objective is to define a repeatable procedure to generate structured data for the metrics defined in [Metrics specifications and results](#metrics-specifications-and-results),
-to easily monitor system performance as the product evolves.  
+
+The objective is to define a repeatable procedure to generate structured data for the metrics defined in 
+[Metrics specifications](#metrics-specifications), to easily monitor system performance as the product evolves.  
 
 The following table shows the configuration of the test environment
 
@@ -27,17 +30,20 @@ The following table shows the configuration of the test environment
 | Test Client | [Quarkus Client](test-clients/quarkus-client) / [JMeter](test-clients/jmeter-client) |
 
 ## System Architecture
-The following diagram illustrates the basic architecture of the testing scenario:
+### OpenShift Deployment Architecture
+The following diagram illustrates the basic architecture of the OpenShift deployment scenario:
 
 ![Test Architecture](test-envs/BenchmarkArchitecture-VM1-OCP.png)
 
-For establishing of a baseline the following architecture was used:
+### On-Premise Deployment Architecture
+The following diagram illustrates the basic architecture of the on-premise deployment scenario:
 
 ![Test Architecture](test-envs/BenchmarkArchitecture-VM1-VM2.png)
 
 ## Business Process Model
-Originally the process-quarkus-example from the Kogito-Examples repository was used.
-It was then decided to use a model with only one process instead of the above model which contains a subprocess therefore persisting 2 instead of 1 processes per test run.
+Originally the [process-quarkus-example](https://github.com/kiegroup/kogito-examples/blob/stable/process-quarkus-example/README.md) from the `Kogito-Examples` repository was used.
+It was then decided to use a custom model with only one process instead of the previous model, which contains a subprocess 
+and was persisting 2 Data Objects per test run.
 
 The Business Process Model under test consists of 1 script task and 1 human task.
 In particular, we  will create new instances of the `TestData` data element using a GET REST request.
@@ -45,12 +51,16 @@ In particular, we  will create new instances of the `TestData` data element usin
 
 ## Test strategy
 
-Constant concurrent users - a constant number of users is repeatedly invoking the test scenario. Each time a request finishes a new request is done.
+Constant concurrent users: a constant number of users is repeatedly invoking the test scenario. 
+Each time a request finishes a new request is done.
 
 ## Metrics specifications
 
-The test scenario were executed with varying pod numbers (# of replicas, in case of testing application on VM, all tests were on 1 app container) and number of users. 
-Tests were run for a duration of 2 minutes. 
+The test scenario were executed with varying: 
+* The number of pods (`# replicas`): in case of on-premise scenario, a single app served all the requests
+* The number of users. 
+
+All tests were performed for a duration of 2 minutes. 
 
 ## Results
 
