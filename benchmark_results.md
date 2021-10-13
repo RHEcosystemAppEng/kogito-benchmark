@@ -39,8 +39,8 @@ Mainly 2 options were tested:
 - Concurrence Strategy: CONST_CONCURRENT_USERS (Only for Gatling)
 
 ## Mongodb Caveats 🗄️
-- **clean-before**: Delete all mongodb collections before the test
-- **id-index**: Manually create some missing mongodb indexes before the test
+- **clean-before**: Clean all mongodb collection data before the every test
+- **id-index**: Ensure that mongodb index(named as `id`) that is specific to kogito exists
 
 ## Results for On-Premise Deployment
 See [tabular view](./benchmark_results_table.md#on-premise-deployment)
