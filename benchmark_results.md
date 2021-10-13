@@ -42,7 +42,7 @@ Mainly 2 options were tested:
 - **clean-before**: Clean all mongodb collection data before the every test
 - **id-index**: Ensure that mongodb index(named as `id`) that is specific to kogito exists
 
-## Results for On-Premise Deployment
+## Results for On-Premise(VM) Deployment
 See [tabular view](./benchmark_results_table.md#on-premise-deployment)
 
 ![](./images/On-PremiseBenchmarking.png)
