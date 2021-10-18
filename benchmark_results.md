@@ -5,7 +5,9 @@
   * [Test Engines](#test-engines-)
   * [Common Configuration](#common-configuration-)
   * [Mongodb Caveats](#mongodb-caveats-)
-  * [Results for On-Premise Deployment](#results-for-on-premise-deployment)
+  * [Results for On-Premise(VM) Deployment](#results-for-on-premisevm-deployment)
+    * [On-Premise MongoDB](#on-premise-mongodb)
+    * [On-Premise PostgreSQL](#on-premise-postgresql)
   * [Results for Red Hat Openshift Deployment](#results-for-red-hat-openshift-deployment)
     * [Default Configuration](#default-configuration)
     * [Performance Tuning](#performance-tuning)
@@ -43,13 +45,13 @@ Mainly 2 options were tested:
 - **id-index**: Ensure that mongodb index(named as `id`) that is specific to kogito exists
 
 ## Results for On-Premise(VM) Deployment
-### MongoDB
+### On-Premise MongoDB
 See [tabular view](./benchmark_results_table.md#on-premise-deployment)
 
 ![](./images/On-PremiseBenchmarking.png)
 
 ----
-### PostgreSQL
+### On-Premise PostgreSQL
 For what concerns PostgrSQL DB, we compared the execution from different clients: 
 * `vm01` is a remote client connected to the Kogito applicatino running on `vm02`
 * `vm02` is a local client connected to the Kogito applicatino running on the same server
