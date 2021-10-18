@@ -43,11 +43,20 @@ Mainly 2 options were tested:
 - **id-index**: Ensure that mongodb index(named as `id`) that is specific to kogito exists
 
 ## Results for On-Premise(VM) Deployment
+### MongoDB
 See [tabular view](./benchmark_results_table.md#on-premise-deployment)
 
 ![](./images/On-PremiseBenchmarking.png)
 
 ----
+### PostgreSQL
+For what concerns PostgrSQL DB, we compared the execution from different clients: 
+* `vm01` is a remote client connected to the Kogito applicatino running on `vm02`
+* `vm02` is a local client connected to the Kogito applicatino running on the same server
+
+![](./images/MeanResponseTime-PostgreSQL.png)
+![](./images/MeanRequestsperSecond-PostgreSQL.png)
+
 
 ## Results for Red Hat Openshift Deployment
 See [tabular view](./benchmark_results_table.md#red-hat-openshift-deployment)
