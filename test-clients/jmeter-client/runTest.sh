@@ -1,65 +1,81 @@
 #!/bin/sh
 
-ENV=$1
-function prop {
-    grep "${1}=" ${ENV}.properties|cut -d'=' -f2
-}
+TEST_DATA=$1
+TEST_DATA='{"replicas":1, "users":1, "requests":2}'
+TEST_NO=1
+#save as file since needed later for report
+echo $TEST_DATA >> test-run/test$TEST_NO.json
 
-JMETER_HOME=$(prop 'jmeter_home')
-EP_SCHEMA=$(prop 'schema')
-EP_URL=$(prop 'url')
-EP_PORT=$(prop 'port')
+TEST_FILE=test-run/batch.json
+JMETER_HOME=$( cat jmeterHome.txt )
 
-TEST_TYPE=$(prop 'test_type')
-TEST_APP=$(prop 'test_app')
-TEST_CASE=
-if [ $TEST_TYPE = "duration" ]
+#echo $JMETER_HOME $TEST_DATA $TEST_FILE
+
+EP_SCHEMA=$(jq '.Process .schema' $TEST_FILE)
+EP_URL=$(jq '.Process .url' $TEST_FILE)
+EP_PORT=$(jq '.Process .port' $TEST_FILE)
+TEST_APP=$(jq -r '.Process .app' $TEST_FILE)
+
+#echo $EP_SCHEMA $EP_URL $EP_PORT $TEST_APP
+
+TEST_TYPE="NOT SET"
+REPLICAS=$(echo $TEST_DATA | jq '.replicas')
+USERS=$(echo $TEST_DATA | jq '.users')
+REQUESTS=0
+DURATION=0
+hasRequests=$(echo $TEST_DATA | jq 'has("requests")')
+hasDuration=$(echo $TEST_DATA | jq 'has("duration")')
+if [ $hasRequests = "true" ]
 then
-   if [ $TEST_APP = "order" ]
-   then
-      TEST_CASE="UsersDurationOrder.jmx"
-   elif [ $TEST_APP = "notPersist" ]
-   then
-      echo "not implemented yet"$TEST_APP
-      exit
-   else
-      echo "not a valid test_app"$TEST_APP
-      exit
-   fi
-elif [ $TEST_TYPE = "requests" ]
+  TEST_TYPE="requests"
+  REQUESTS=$(echo $TEST_DATA | jq '.requests')
+elif [ $hasDuration = "true" ]
 then
-    if [ $TEST_APP = "order" ]
-    then
-       TEST_CASE="UsersRequestsOrder.jmx"
-    elif [ $TEST_APP = "notPersist" ]
-    then
-       echo "not implemented yet"$TEST_APP
-       exit
-    else
-       echo "not a valid test_app"$TEST_APP
-       exit
-    fi
+  TEST_TYPE="duration"
+  DURATION=$(echo $TEST_DATA | jq '.duration')
 else
-   echo "not a valid test_type"$TEST_TYPE
-   exit
+  echo "not a valid test_type found - expected requests or duration data"
+  exit
 fi
+#echo $TEST_TYPE
 
-echo "************* used parameters and properties: "$JMETER_HOME $TEST_CASE $EP_SCHEMA $EP_URL $EP_PORT $(prop 'users')  $(prop 'duration')  $(prop 'requests') $(prop 'results_location')/$(prop 'results_file')
+if [ $TEST_APP != "order" ] && [ $TEST_APP != "simpleHT" ]
+then
+  echo "not a valid TEST_APP found - expected order, simpleHT"
+  exit
+fi
+#echo $TEST_APP
+
+#all test files need to be named according to the following schema: hardcoded "Users"
+# + the test type which is either Duration or Requests
+# and then the test application which is order or simple
+TEST_CASE="Users"${TEST_TYPE^}${TEST_APP^}".jmx"
+#echo $TEST_CASE
 
 echo "**********************************************"
 echo "************* starting run *******************"
-TEST_RUN="$JMETER_HOME/bin/jmeter -n -t $TEST_CASE -Jschema=$EP_SCHEMA -Jurl=$EP_URL -Jport=$EP_PORT \
--Jusers=$(prop 'users') -Jduration=$(prop 'duration') -Jrequests=$(prop 'requests') \
--l $(prop 'results_location')/$(prop 'results_file').jtl"
+
+TEST_RUN="$JMETER_HOME/bin/jmeter -n -t $TEST_CASE \
+-Jschema=$EP_SCHEMA \
+-Jurl=$EP_URL \
+-Jport=$EP_PORT \
+-Jusers=$USERS \
+-Jduration=$DURATION \
+-Jrequests=$REQUESTS \
+-l test-run/results/res$TEST_NO.jtl"
 echo $TEST_RUN
 $TEST_RUN
 
 echo "**********************************************"
 echo "************* finished run *******************"
-TEST_AGG="$JMETER_HOME/bin/JMeterPluginsCMD.sh --generate-csv $(prop 'results_location')/$(prop 'results_file').csv \
---input-jtl $(prop 'results_location')/$(prop 'results_file').jtl \
+
+TEST_AGG="$JMETER_HOME/bin/JMeterPluginsCMD.sh \
+--generate-csv test-run/results/res$TEST_NO.csv \
+--input-jtl test-run/results/res$TEST_NO.jtl \
 --plugin-type AggregateReport"
 echo $TEST_AGG
+
 $TEST_AGG
+
 echo "**********************************************"
 echo "******* after aggregate file creation ********"
