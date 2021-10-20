@@ -69,7 +69,7 @@ oc adm policy add-scc-to-user anyuid system:serviceaccount:`oc project -q`:mongo
 We create the MongoDB instance using the given [kogito-mongodb.yml](kogito-mongodb.yml) YAML configuration from 
 the root of the `kogito-benchmark` repository:
 ```shell
-oc create -f deploy/kogito-mongodb.yml
+oc create -f test-envs/deploy-OCP/deploy-app/kogito-mongodb.yml
 ```
 This creates one instance `kogito-mongodb` of type `MongoDB` named in the OCP cluster.
 In case of successful deployment, you can see 3 Pods named `kogito-mongodb-[0-2]` in `Running` state.
@@ -78,7 +78,7 @@ In case of issues, start troubleshooting from the log of the Pod named `mongodb-
 ### Delete MongoDB
 In case we need to redeploy MongoDB, we need to first delete the old deployment:
 ```shell
-oc delete -f deploy/kogito-mongodb.yaml
+oc delete -f test-envs/deploy-OCP/deploy-app/kogito-mongodb.yaml
 ```
 Make sure all pods were deleted.
 If we are trying to reinstall because of some node problem (node where mongo pds are deployed is e.g "Nor Ready" and needs to be restarted), make sure all
@@ -106,7 +106,7 @@ in the project namespace.
 Once the Kafka operator is installed, we create one instance `kogito-kafla` of the managed type `Kafka`, from the given [kogito-kafka.yml](kogito-kafka.yml)
 YAML configuration, starting from the root of the `kogito-benchmark` repository::
 ```shell
-oc create -f deploy/kogito-kafka.yml --namespace `oc project -q`
+oc create -f test-envs/deploy-OCP/deploy-app/kogito-kafka.yml --namespace `oc project -q`
 ```
 In case of successful deployment, you can see 2 Pods named `kogito-kafka-[0-1]` and 2 Pods `kogito-kafka-zookeeper-[0-1]`
 in `Running` state.
@@ -114,7 +114,7 @@ in `Running` state.
 ### Delete Kafka
 In case we need to redeploy Kafka, we need to first delete the old deployment:
 ```shell
-oc delete -f deploy/kogito-kafka.yaml
+oc delete -f test-envs/deploy-OCP/deploy-app/kogito-kafka.yaml
 ```
 Make sure all pods were deleted. See [Mongo delete deployment](#delete-mongodb) for more details.
 
