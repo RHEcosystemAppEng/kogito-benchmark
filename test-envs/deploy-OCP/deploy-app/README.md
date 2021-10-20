@@ -130,27 +130,35 @@ kogito install infra kogito-kafka-infra --kind Kafka --apiVersion kafka.strimzi.
 kogito install data-index --image kogito-data-index-mongodb --infra kogito-mongodb-infra --infra kogito-kafka-infra
 ```
 
-# Deploying the Kogito App
-Starting from any folder, we can checkout the `kogito-examples` repository and then build and deploy the application leveraging on
-the s2i feature of OCP:
-```shell
-git clone git@github.com:kiegroup/kogito-examples.git
-cd kogito-examples
-git checkout 1.8.0.Final
-cd process-quarkus-example
+---
+
+# Deploying the Kogito App 
+
+
+Starting from any folder, we can checkout the `kogito-benchmark` repository and then use kogito-cli to deploy the application.
+
 ```
+git clone https://github.com/RHEcosystemAppEng/kogito-benchmark.git
+cd kogito-benchmark/test-apps/process-quarkus-example
+```
+
 ### Create Process Application
-```shell
+
+```
 kogito deploy-service process-quarkus-example . --infra kogito-mongodb-infra --infra kogito-kafka-infra \
 --build-env MAVEN_ARGS_APPEND="-Dquarkus.profile=mongo -Pmongo" --replicas 2 
 ```
-Once the builds succeeds, you should see one Pod named `process-quarkus-example-NNN` in `Running` state, and one Route named 
-`process-quarkus-example` to expose the REST APIs outside the OCP cluster.
+
+Once the builds succeeds, you should see number of pods that we specified in our previous kogito command(`--replicas`). 
+Pods will be named similar to `process-quarkus-example-NNN` in `Running` state, and a [Route](https://docs.openshift.com/enterprise/3.0/architecture/core_concepts/routes.html) named 
+`process-quarkus-example` to expose the  kogito application REST APIs outside the OCP cluster.
+
 You can access the Swagger API by adding `/q/swagger-ui` to the route location, and test them out.
 
 ### Delete Process Application
+
 Before redeploying the service, it should be first deleted:
-```shell
+```
 kogito delete-service process-quarkus-example
 ```
 
