@@ -65,7 +65,8 @@ we have to execute the following command:
 oc adm policy add-scc-to-user anyuid system:serviceaccount:`oc project -q`:mongodb-kubernetes-operator
 ```
 ## Deploy the MongoDB instance
-### Create MongoDB
+
+#### Create MongoDB
 We create the MongoDB instance using the given [kogito-mongodb.yml](kogito-mongodb.yml) YAML configuration from 
 the root of the `kogito-benchmark` repository:
 ```shell
@@ -75,7 +76,7 @@ This creates one instance `kogito-mongodb` of type `MongoDB` named in the OCP cl
 In case of successful deployment, you can see 3 Pods named `kogito-mongodb-[0-2]` in `Running` state.
 In case of issues, start troubleshooting from the log of the Pod named `mongodb-kubernetes-operator-NNN`.
 
-### Delete MongoDB
+#### Delete MongoDB
 In case we need to redeploy MongoDB, we need to first delete the old deployment:
 ```shell
 oc delete -f test-envs/deploy-OCP/deploy-app/kogito-mongodb.yaml
@@ -97,12 +98,15 @@ kogito install infra kogito-mongodb-infra --kind MongoDB \
 If the creation is successfull, you can see the `kogito-mongodb` instance in the `Kogito Infra` tab of the Kogito operator,
 with Status equal to `Condition: Configured`
 
+
 ## Install the Kafka operator
 We install the Kafka operator from the OCP console: select the operator `Strimzi 0.22.1 provided by Strimzi` and install it
 in the project namespace.
 
+
 ## Deploy the Kafka instance
-### Create Kafka
+
+#### Create Kafka
 Once the Kafka operator is installed, we create one instance `kogito-kafla` of the managed type `Kafka`, from the given [kogito-kafka.yml](kogito-kafka.yml)
 YAML configuration, starting from the root of the `kogito-benchmark` repository::
 ```shell
@@ -111,38 +115,44 @@ oc create -f test-envs/deploy-OCP/deploy-app/kogito-kafka.yml --namespace `oc pr
 In case of successful deployment, you can see 2 Pods named `kogito-kafka-[0-1]` and 2 Pods `kogito-kafka-zookeeper-[0-1]`
 in `Running` state.
 
-### Delete Kafka
+#### Delete Kafka
 In case we need to redeploy Kafka, we need to first delete the old deployment:
 ```shell
 oc delete -f test-envs/deploy-OCP/deploy-app/kogito-kafka.yaml
 ```
 Make sure all pods were deleted. See [Mongo delete deployment](#delete-mongodb) for more details.
 
+
 ## Install Kafka infra in Kogito operator
 Once the Kafka instance has been created, we can set up the Kogito infrastructure with:
-```shell
-kogito install infra kogito-kafka-infra --kind Kafka --apiVersion kafka.strimzi.io/v1beta2 --resource-name kogito-kafka
+```
+kogito install infra kogito-kafka-infra \
+--kind Kafka \
+--apiVersion kafka.strimzi.io/v1beta2 \
+--resource-name kogito-kafka
 ```
 
 ** WIP***
 ## Install Data-Index infra in Kogito operator
-```shell
-kogito install data-index --image kogito-data-index-mongodb --infra kogito-mongodb-infra --infra kogito-kafka-infra
 ```
+kogito install data-index \
+--image kogito-data-index-mongodb \
+--infra kogito-mongodb-infra \
+--infra kogito-kafka-infra
+```
+
 
 ---
 
-# Deploying the Kogito App 
+# Deploying the Kogito App
 
-
+#### Deploy Process Application
 Starting from any folder, we can checkout the `kogito-benchmark` repository and then use kogito-cli to deploy the application.
 
 ```
 git clone https://github.com/RHEcosystemAppEng/kogito-benchmark.git
 cd kogito-benchmark/test-apps/process-quarkus-example
 ```
-
-### Create Process Application
 
 ```
 kogito deploy-service process-quarkus-example . --infra kogito-mongodb-infra --infra kogito-kafka-infra \
@@ -155,7 +165,7 @@ Pods will be named similar to `process-quarkus-example-NNN` in `Running` state, 
 
 You can access the Swagger API by adding `/q/swagger-ui` to the route location, and test them out.
 
-### Delete Process Application
+#### Delete Process Application
 
 Before redeploying the service, it should be first deleted:
 ```
