@@ -29,8 +29,8 @@ The following diagram illustrates the infrastructural components of the testing 
 ![Kogito Architecture](KogitoArchitecture.png)
 
 ## Prerequisites
-* Install [oc cli](https://docs.openshift.com/container-platform/4.7/cli_reference/openshift_cli/getting-started-cli.html)
-and [kogito cliCLI](https://github.com/kiegroup/kogito-operator/releases)
+* Install [oc-cli](https://docs.openshift.com/container-platform/4.7/cli_reference/openshift_cli/getting-started-cli.html)
+and [kogito-cli](https://github.com/kiegroup/kogito-operator/releases)
 * Login to OCP with `oc login` to the target OCP platform [TDB] 
 * Create a new project `PROJECT_NAME` with `oc new-project` or `kogito new-project`
 * Install the Kogito operator from the OCP console in the `PROJECT_NAME` namespace.
