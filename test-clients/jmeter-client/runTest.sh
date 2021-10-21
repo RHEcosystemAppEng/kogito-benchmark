@@ -1,5 +1,6 @@
 #!/bin/sh
 
+
 TEST_IDX=$1
 TEST_FILE=test-run/batch.json
 JMETER_HOME=$( cat jmeterHome.txt )
