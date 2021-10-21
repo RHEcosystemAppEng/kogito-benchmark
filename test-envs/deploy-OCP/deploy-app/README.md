@@ -29,9 +29,8 @@ The following diagram illustrates the infrastructural components of the testing 
 ![Kogito Architecture](KogitoArchitecture.png)
 
 ## Prerequisites
-* Have [oc](https://docs.openshift.com/container-platform/4.7/cli_reference/openshift_cli/getting-started-cli.html)
-and [kogito](https://docs.jboss.org/kogito/release/latest/html_single/#con-kogito-on-ocp_kogito-deploying-on-openshift)
-CLI tools
+* Install [oc-cli](https://docs.openshift.com/container-platform/4.7/cli_reference/openshift_cli/getting-started-cli.html)
+and [kogito-cli](https://github.com/kiegroup/kogito-operator/releases)
 * Login to OCP with `oc login` to the target OCP platform [TDB] 
 * Create a new project `PROJECT_NAME` with `oc new-project` or `kogito new-project`
 * Install the Kogito operator from the OCP console in the `PROJECT_NAME` namespace.
@@ -65,14 +64,28 @@ we have to execute the following command:
 oc adm policy add-scc-to-user anyuid system:serviceaccount:`oc project -q`:mongodb-kubernetes-operator
 ```
 ## Deploy the MongoDB instance
+
+#### Create MongoDB
 We create the MongoDB instance using the given [kogito-mongodb.yml](kogito-mongodb.yml) YAML configuration from 
 the root of the `kogito-benchmark` repository:
 ```shell
-oc create -f deploy/kogito-mongodb.yml
+oc create -f test-envs/deploy-OCP/deploy-app/kogito-mongodb.yml
 ```
 This creates one instance `kogito-mongodb` of type `MongoDB` named in the OCP cluster.
 In case of successful deployment, you can see 3 Pods named `kogito-mongodb-[0-2]` in `Running` state.
 In case of issues, start troubleshooting from the log of the Pod named `mongodb-kubernetes-operator-NNN`.
+
+#### Delete MongoDB
+In case we need to redeploy MongoDB, we need to first delete the old deployment:
+```shell
+oc delete -f test-envs/deploy-OCP/deploy-app/kogito-mongodb.yaml
+```
+Make sure all pods were deleted.
+If we are trying to reinstall because of some node problem (node where mongo pds are deployed is e.g "Nor Ready" and needs to be restarted), make sure all
+pods were removed. If we have some stuck in "Terminating" on the problematic node, we can try to delete them one by one without waiting for node restart with:
+```shell
+oc delete pod kogito-mongodb-<pod number> -n fsi-kogito-benchmarking --grace-period=0 --force
+```
 
 ## Install MongoDB infra in Kogito operator
 Once the MongoDB instance has been created, we can set up the Kogito infrastructure with:
@@ -84,49 +97,77 @@ kogito install infra kogito-mongodb-infra --kind MongoDB \
 If the creation is successfull, you can see the `kogito-mongodb` instance in the `Kogito Infra` tab of the Kogito operator,
 with Status equal to `Condition: Configured`
 
+
 ## Install the Kafka operator
 We install the Kafka operator from the OCP console: select the operator `Strimzi 0.22.1 provided by Strimzi` and install it
 in the project namespace.
 
+
 ## Deploy the Kafka instance
+
+#### Create Kafka
 Once the Kafka operator is installed, we create one instance `kogito-kafla` of the managed type `Kafka`, from the given [kogito-kafka.yml](kogito-kafka.yml)
 YAML configuration, starting from the root of the `kogito-benchmark` repository::
 ```shell
-oc create -f deploy/kogito-kafka.yml --namespace `oc project -q`
+oc create -f test-envs/deploy-OCP/deploy-app/kogito-kafka.yml --namespace `oc project -q`
 ```
 In case of successful deployment, you can see 2 Pods named `kogito-kafka-[0-1]` and 2 Pods `kogito-kafka-zookeeper-[0-1]`
 in `Running` state.
 
+#### Delete Kafka
+In case we need to redeploy Kafka, we need to first delete the old deployment:
+```shell
+oc delete -f test-envs/deploy-OCP/deploy-app/kogito-kafka.yaml
+```
+Make sure all pods were deleted. See [Mongo delete deployment](#delete-mongodb) for more details.
+
+
 ## Install Kafka infra in Kogito operator
 Once the Kafka instance has been created, we can set up the Kogito infrastructure with:
-```shell
-kogito install infra kogito-kafka-infra --kind Kafka --apiVersion kafka.strimzi.io/v1beta2 --resource-name kogito-kafka
+```
+kogito install infra kogito-kafka-infra \
+--kind Kafka \
+--apiVersion kafka.strimzi.io/v1beta2 \
+--resource-name kogito-kafka
 ```
 
 ** WIP***
 ## Install Data-Index infra in Kogito operator
-```shell
-kogito install data-index --image kogito-data-index-mongodb --infra kogito-mongodb-infra --infra kogito-kafka-infra
+```
+kogito install data-index \
+--image kogito-data-index-mongodb \
+--infra kogito-mongodb-infra \
+--infra kogito-kafka-infra
 ```
 
-# Deploying the Kogito App
-Starting from any folder, we can checkout the `kogito-examples` repository and then build and deploy the application leveraging on
-the s2i feature of OCP:
-```shell
-git clone git@github.com:kiegroup/kogito-examples.git
-cd kogito-examples
-git checkout 1.8.0.Final
-cd process-quarkus-example
 
+---
+
+# Deploying the Kogito App
+
+#### Deploy Process Application
+Starting from any folder, we can checkout the `kogito-benchmark` repository and then use kogito-cli to deploy the application.
+
+```
+git clone https://github.com/RHEcosystemAppEng/kogito-benchmark.git
+cd kogito-benchmark/test-apps/process-quarkus-example
+```
+
+```
 kogito deploy-service process-quarkus-example . --infra kogito-mongodb-infra --infra kogito-kafka-infra \
 --build-env MAVEN_ARGS_APPEND="-Dquarkus.profile=mongo -Pmongo" --replicas 2 
 ```
-Once the builds succeeds, you should see one Pod named `process-quarkus-example-NNN` in `Running` state, and one Route named 
-`process-quarkus-example` to expose the REST APIs outside the OCP cluster.
+
+Once the builds succeeds, you should see number of pods that we specified in our previous kogito command(`--replicas`). 
+Pods will be named similar to `process-quarkus-example-NNN` in `Running` state, and a [Route](https://docs.openshift.com/enterprise/3.0/architecture/core_concepts/routes.html) named 
+`process-quarkus-example` to expose the  kogito application REST APIs outside the OCP cluster.
+
 You can access the Swagger API by adding `/q/swagger-ui` to the route location, and test them out.
 
+#### Delete Process Application
+
 Before redeploying the service, it should be first deleted:
-```shell
+```
 kogito delete-service process-quarkus-example
 ```
 
