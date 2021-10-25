@@ -1,7 +1,9 @@
 #!/bin/sh
 
 TEST_IDX=$1
-TEST_FILE=test-run/batch.json
+TEST_PATH=../../test/test-run
+TEST_FILE=$TEST_PATH/batch.json
+TEST_RESULTS=$TEST_PATH/results
 JMETER_HOME=$( cat jmeterHome.txt )
 
 echo "***JMETER_HOME: "$JMETER_HOME "***TEST_FILE: "$TEST_FILE "***TEST_IDX: "$TEST_IDX
@@ -57,7 +59,7 @@ TEST_RUN="$JMETER_HOME/bin/jmeter -n -t $TEST_CASE \
 -Jusers=$USERS \
 -Jduration=$DURATION \
 -Jrequests=$REQUESTS \
--l test-run/results/res$TEST_IDX.jtl"
+-l $TEST_RESULTS/res$TEST_IDX.jtl"
 echo "***TEST_RUN: "$TEST_RUN
 $TEST_RUN
 
@@ -65,8 +67,8 @@ echo "**********************************************"
 echo "************* finished run *******************"
 
 TEST_AGG="$JMETER_HOME/bin/JMeterPluginsCMD.sh \
---generate-csv test-run/results/res$TEST_IDX.csv \
---input-jtl test-run/results/res$TEST_IDX.jtl \
+--generate-csv $TEST_RESULTS/res$TEST_IDX.csv \
+--input-jtl $TEST_RESULTS/res$TEST_IDX.jtl \
 --plugin-type AggregateReport"
 echo "***TEST_AGG: "$TEST_AGG
 $TEST_AGG

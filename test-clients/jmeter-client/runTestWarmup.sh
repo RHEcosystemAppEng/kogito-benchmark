@@ -1,7 +1,9 @@
 #!/bin/sh
 
 TEST_IDX=$1
-TEST_FILE=test-run/batch.json
+TEST_PATH=../../test/test-run/
+TEST_FILE=$TEST_PATH/batch.json
+TEST_RESULTS=$TEST_PATH/results
 JMETER_HOME=$( cat jmeterHome.txt )
 
 echo "***JMETER_HOME: "$JMETER_HOME "***TEST_FILE: "$TEST_FILE "***TEST_IDX: "$TEST_IDX
@@ -43,7 +45,7 @@ TEST_RUN="$JMETER_HOME/bin/jmeter -n -t $TEST_CASE_WARMUP \
 -Jusers=$WARMUP_USERS \
 -Jduration=$WARMUP_DURATION \
 -Jrequests=0 \
--l test-run/results/res"$TEST_IDX"warmup.jtl"
+-l $TEST_RESULTS/res"$TEST_IDX"warmup.jtl"
 echo "***TEST_RUN: "$TEST_RUN
 $TEST_RUN
 

@@ -150,6 +150,25 @@
 
   <profiles>
     <profile>
+      <id>postgres</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+        <property>
+          <name>postgres</name>
+        </property>
+      </activation>
+      <dependencies>
+        <dependency>
+          <groupId>io.quarkus</groupId>
+          <artifactId>qquarkus-reactive-pg-client</artifactId>
+        </dependency>
+        <dependency>
+          <groupId>org.kie.kogito</groupId>
+          <artifactId>kogito-addons-persistence-postgresql</artifactId>
+        </dependency>
+      </dependencies>
+    </profile>
+    <profile>
       <id>mongo</id>
       <activation>
         <activeByDefault>false</activeByDefault>
