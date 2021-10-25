@@ -32,6 +32,7 @@ Where:
   * `hello`: triggers the `greeting` endpoint of the remote Kogito application
   * `notPersisted`: triggers the `notPersistedProcess` in the remote Kogito application
   * `orders` (default): triggers the `orders` in the remote Kogito application
+  * `simple`: triggers the `simpleHT` in the remote Kogito application
 * DURATION is the duration in seconds of the test
 * THREADS is the number of parallel threads to spawn
 
