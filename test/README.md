@@ -9,5 +9,5 @@ Use `test-run/batch-example.json` as template - update only values apart from fo
 ```
 runTests.sh arg1 arg2
 ```
-arg1: the test client to be used - JMETER or QUARKUS
-arg2: the index of the test to run or `ALL` to run all configured tests straight 
+- `arg1`: the test client to be used - JMETER or QUARKUS
+- `arg2`: the index of the test to run or `ALL` to run all configured tests straight 
