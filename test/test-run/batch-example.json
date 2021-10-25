@@ -1,0 +1,15 @@
+{
+  "Tester": "VM1",
+  "App": "VM2",
+  "Infrasetup": "docker",
+  "Infra": {"Mongo":"no", "PostgresQL":"yes", "DataIndex":"no", "Kafka":"no"},
+  "Process": {"schema":"http", "url":"localhost", "port":8080, "app":"simpleHT"},
+  "Warmup": {"enabled":"yes", "users":10, "duration":1},
+  "Tests": [
+    {"replicas":1, "users":1, "duration":2},
+    {"replicas":1, "users":4, "duration":2},
+    {"replicas":1, "users":4, "duration":2},
+    {"replicas":1, "users":4, "duration":2},
+    {"replicas":1, "users":4, "duration":2}
+  ]
+}
