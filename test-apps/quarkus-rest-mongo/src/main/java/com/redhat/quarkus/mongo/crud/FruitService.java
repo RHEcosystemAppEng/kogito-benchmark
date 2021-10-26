@@ -27,6 +27,7 @@ public class FruitService {
                 Document document = cursor.next();
                 Fruit fruit = new Fruit();
                 fruit.setName(document.getString("name"));
+                fruit.setId(String.valueOf(document.getObjectId("_id")));
                 fruit.setDescription(document.getString("description"));
                 list.add(fruit);
             }
@@ -44,6 +45,6 @@ public class FruitService {
     }
 
     private MongoCollection getCollection() {
-        return mongoClient.getDatabase("kogito_dataindex").getCollection("fruit");
+        return mongoClient.getDatabase("kogito_dataindex").getCollection("demo.fruit");
     }
 }
