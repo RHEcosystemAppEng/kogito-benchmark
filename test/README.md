@@ -3,7 +3,7 @@ Create `test-run/batch.json` containing all the configurations needed to run 1+ 
 
 Use `test-run/batch-example.json` as template - update only values apart from for the `Tests` part where complete lines can be added/removed 
 
-`Tester`, `App`, `Infrasetup` definitions are only relevant when running tests from benchmark automation
+`Tester`, `App`, `Infrasetup`, `Infra` definitions are only relevant when running tests from benchmark automation
 
 ### Run tests
 ```
