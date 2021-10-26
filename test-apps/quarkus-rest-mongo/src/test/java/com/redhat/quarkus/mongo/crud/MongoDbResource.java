@@ -1,4 +1,4 @@
-package org.acme.mongodb;
+package com.redhat.quarkus.mongo.crud;
 
 import java.util.HashMap;
 import java.util.Map;

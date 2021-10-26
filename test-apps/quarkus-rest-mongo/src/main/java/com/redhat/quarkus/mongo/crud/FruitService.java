@@ -1,4 +1,4 @@
-package org.acme.mongodb;
+package com.redhat.quarkus.mongo.crud;
 
 import java.util.ArrayList;
 import java.util.List;

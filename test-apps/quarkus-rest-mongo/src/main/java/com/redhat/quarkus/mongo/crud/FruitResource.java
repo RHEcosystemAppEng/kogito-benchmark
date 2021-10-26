@@ -1,4 +1,4 @@
-package org.acme.mongodb;
+package com.redhat.quarkus.mongo.crud;
 
 import java.util.List;
 
@@ -10,24 +10,22 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import io.smallrye.mutiny.Uni;
-
-@Path("/reactive_fruits")
+@Path("/fruits")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class ReactiveFruitResource {
+public class FruitResource {
 
     @Inject
-    ReactiveFruitService fruitService;
+    FruitService fruitService;
 
     @GET
-    public Uni<List<Fruit>> list() {
+    public List<Fruit> list() {
         return fruitService.list();
     }
 
     @POST
-    public Uni<List<Fruit>> add(Fruit fruit) {
-        return fruitService.add(fruit)
-                .onItem().ignore().andSwitchTo(this::list);
+    public List<Fruit> add(Fruit fruit) {
+        fruitService.add(fruit);
+        return list();
     }
 }

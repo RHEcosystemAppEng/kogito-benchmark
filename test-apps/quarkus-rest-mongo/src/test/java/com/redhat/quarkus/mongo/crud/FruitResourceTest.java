@@ -1,4 +1,4 @@
-package org.acme.mongodb;
+package com.redhat.quarkus.mongo.crud;
 
 import io.quarkus.test.common.QuarkusTestResource;
 import org.apache.http.HttpStatus;
