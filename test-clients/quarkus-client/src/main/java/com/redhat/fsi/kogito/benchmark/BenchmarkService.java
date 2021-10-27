@@ -27,4 +27,9 @@ public interface BenchmarkService {
     @Path("/simpleHT")
     @Consumes("application/json")
     String simpleHT(TestData testData);
+
+    @POST
+    @Path("/fruits")
+    @Consumes("application/json")
+    String restMongoFruit(RestMongoFruit fruit);
 }

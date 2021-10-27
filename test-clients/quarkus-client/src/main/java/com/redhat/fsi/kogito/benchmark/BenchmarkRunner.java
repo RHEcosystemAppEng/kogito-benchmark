@@ -97,9 +97,28 @@ public class BenchmarkRunner {
         }
 
         private RestExecutor executorOfType() {
-            return "hello".equals(testType) ? hello :
-                    "notPersisted".equals(testType) ? notPersistedProcess :
-                            "simple".equals(testType) ? simpleHT : newOrder;
+            RestExecutor result = null;
+            switch (testType) {
+                case "hello":
+                    result = hello;
+                    break;
+                case "notPersisted":
+                    result = notPersistedProcess;
+                    break;
+
+                case "simple":
+                    result = simpleHT;
+                    break;
+
+                case "fruits":
+                    result = restMongoFruit;
+                    break;
+
+                default:
+                    result = newOrder;
+            }
+            logger.info("Executor Type, RestExecutor: {},{}", testType, result);
+            return result;
         }
 
         private Supplier<OrderItem> newOrderItem = () -> {
@@ -121,6 +140,14 @@ public class BenchmarkRunner {
             return testData;
         };
 
+        private Supplier<RestMongoFruit> restMongoFruitData = () -> {
+            RestMongoFruit data = new RestMongoFruit();
+            data.name = "Apple";
+            data.description = "Daily an apple keeps doctor away..!!";
+            return data;
+        };
+
+
         private final RestExecutor hello = () ->
                 benchmarkService.hello();
         private final RestExecutor newOrder = () ->
@@ -129,6 +156,9 @@ public class BenchmarkRunner {
                 benchmarkService.notPersistedProcess(newOrderItem.get());
         private final RestExecutor simpleHT = () ->
                 benchmarkService.simpleHT(newTestData.get());
+        private final RestExecutor restMongoFruit = () ->
+                benchmarkService.restMongoFruit(restMongoFruitData.get());
+
     }
 
     @FunctionalInterface

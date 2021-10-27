@@ -16,7 +16,7 @@ import io.restassured.http.ContentType;
 public class FruitResourceTest {
 
     @ParameterizedTest
-    @ValueSource(strings = { "/fruits", "/reactive_fruits", "/codec_fruits" })
+    @ValueSource(strings = { "/fruits" })
     public void testAddAndList(String path) {
         final Fruit fruit1 = new Fruit("fruit1", "fruit description 1");
         final Fruit fruit2 = new Fruit("fruit2", "fruit description 2");

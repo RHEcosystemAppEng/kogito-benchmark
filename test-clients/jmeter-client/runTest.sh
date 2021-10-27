@@ -35,9 +35,9 @@ else
 fi
 echo "***TEST_TYPE: "$TEST_TYPE
 
-if [ $TEST_APP != "order" ] && [ $TEST_APP != "simpleHT" ]
+if [ $TEST_APP != "order" ] && [ $TEST_APP != "simpleHT" ] && [ $TEST_APP != "fruits" ]
 then
-  echo "not a valid TEST_APP found - expected order, simpleHT"
+  echo "not a valid TEST_APP found - expected order, simpleHT or fruits"
   exit
 fi
 echo "***TEST_APP: "$TEST_APP
@@ -48,7 +48,7 @@ echo "************* starting run *******************"
 #all test files need to be named according to the following naming convention:
 # they start with hardcoded "Users"
 # + the test type which is either "duration" or "requests", first capital letter in file name
-# + the test application which is "order" or "simpleHT", first letter capital in file name
+# + the test application which is "order" or "simpleHT" or fruits, first letter capital in file name
 TEST_CASE="Users"${TEST_TYPE^}${TEST_APP^}".jmx"
 echo "***TEST_CASE: "$TEST_CASE
 

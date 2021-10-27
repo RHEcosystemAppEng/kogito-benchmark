@@ -11,10 +11,12 @@ import org.bson.Document;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @ApplicationScoped
 public class FruitService {
-
+    private Logger logger = LoggerFactory.getLogger(FruitService.class);
     @Inject
     MongoClient mongoClient;
 
@@ -42,6 +44,7 @@ public class FruitService {
                 .append("name", fruit.getName())
                 .append("description", fruit.getDescription());
         getCollection().insertOne(document);
+        logger.info("Fruit {} is added..!!",document.getObjectId("_id"));
     }
 
     private MongoCollection getCollection() {
