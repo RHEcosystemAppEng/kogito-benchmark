@@ -8,7 +8,7 @@ echo "test client "$TEST_CLIENT
 echo "test index "$TEST_IDX
 
 WITH_WARMUP=$(jq -r '.Warmup .enabled' $BATCH_FILE)
-NO_OF_TESTS=$(jq '.Tests | length' $BATCH_FILE)
+NO_OF_TESTS=$(jq '.Tests.runs | length' $BATCH_FILE)
 
 if [[ $TEST_CLIENT = "JMETER" ]]
 then
@@ -21,34 +21,30 @@ else
   exit
 fi
 
+#run warmup
+if [ $WITH_WARMUP = "yes" ]
+then
+  ./runTest.sh 999 $WITH_WARMUP
+fi
+
 if [[ $TEST_IDX = "ALL" ]]
 then
   TEST_COUNTER=0
   while [ $TEST_COUNTER -lt $NO_OF_TESTS ]
   do
-    #run warmup
-    if [ $WITH_WARMUP = "yes" ]
-    then
-      ./runTestWarmup.sh $TEST_COUNTER
-    fi
     #kickoff metrics collection - call Lokeshs REST API here - send interval for polling metrics on application, env (Vm or OCP) to use
     #TODO
     #run test
-    ./runTest.sh $TEST_COUNTER
+    ./runTest.sh $TEST_COUNTER "no"
     #request accumulated metrics - call Lokeshs REST API here
     #TODO
     TEST_COUNTER=$((TEST_COUNTER+1))
   done
 else
-    #run warmup
-    if [ $WITH_WARMUP = "yes" ]
-    then
-      ./runTestWarmup.sh $TEST_IDX
-    fi
     #kickoff metrics collection - call Lokeshs REST API here - send interval for polling metrics on application, env (Vm or OCP) to use
     #TODO
     #run test
-    ./runTest.sh $TEST_IDX
+    ./runTest.sh $TEST_IDX "no"
     #request accumulated metrics - call Lokeshs REST API here
     #TODO
 fi

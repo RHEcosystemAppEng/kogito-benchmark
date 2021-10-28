@@ -1,15 +1,25 @@
 {
-  "Tester": "VM1",
-  "App": "VM2",
-  "Infrasetup": "docker",
-  "Infra": {"Mongo":"no", "PostgresQL":"yes", "DataIndex":"no", "Kafka":"no"},
+  "InfraSetup": {
+    "appVersion":"CoreFix-mem-idx-2.0.0-snap",
+    "tester": {"name":"VM1","hostname": "appeng-vm01.cloud.lab.eng.bos.redhat.com"},
+    "app": {"name":"VM2","hostname": "appeng-vm02.cloud.lab.eng.bos.redhat.com"},
+    "container":"docker"
+  },
+  "AppInfra": {"Mongo":"no", "PostgresQL":"yes", "DataIndex":"no", "Kafka":"no"},
   "Process": {"schema":"http", "url":"localhost", "port":8080, "app":"simpleHT"},
-  "Warmup": {"enabled":"yes", "users":10, "duration":1},
-  "Tests": [
-    {"replicas":1, "users":1, "duration":2},
-    {"replicas":1, "users":4, "duration":2},
-    {"replicas":1, "users":4, "duration":2},
-    {"replicas":1, "users":4, "duration":2},
-    {"replicas":1, "users":4, "duration":2}
-  ]
+  "Warmup": {
+    "enabled":"yes",
+    "type":"duration",
+    "timeOrCount":1,
+    "replicas":1,
+    "users":10
+  },
+  "Tests": {
+    "type":"duration",
+    "timeOrCount":2,
+    "runs": [
+      {"replicas":1, "users":1},
+      {"replicas":1, "users":4}
+    ]
+  }
 }
