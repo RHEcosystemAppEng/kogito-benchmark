@@ -24,8 +24,7 @@ public class FruitResource {
     }
 
     @POST
-    public List<Fruit> add(Fruit fruit) {
+    public void add(Fruit fruit) {
         fruitService.add(fruit);
-        return list();
     }
 }
