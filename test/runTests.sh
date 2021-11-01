@@ -24,7 +24,7 @@ fi
 #run warmup
 if [ $WITH_WARMUP = "yes" ]
 then
-  ./runTest.sh 999 $WITH_WARMUP
+  ./runTest.sh $TEST_IDX $WITH_WARMUP
 fi
 
 if [[ $TEST_IDX = "ALL" ]]
@@ -32,19 +32,11 @@ then
   TEST_COUNTER=0
   while [ $TEST_COUNTER -lt $NO_OF_TESTS ]
   do
-    #kickoff metrics collection - call Lokeshs REST API here - send interval for polling metrics on application, env (Vm or OCP) to use
-    #TODO
     #run test
     ./runTest.sh $TEST_COUNTER "no"
-    #request accumulated metrics - call Lokeshs REST API here
-    #TODO
     TEST_COUNTER=$((TEST_COUNTER+1))
   done
 else
-    #kickoff metrics collection - call Lokeshs REST API here - send interval for polling metrics on application, env (Vm or OCP) to use
-    #TODO
     #run test
     ./runTest.sh $TEST_IDX "no"
-    #request accumulated metrics - call Lokeshs REST API here
-    #TODO
 fi

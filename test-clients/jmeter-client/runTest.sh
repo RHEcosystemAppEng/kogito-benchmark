@@ -76,12 +76,12 @@ then
      then
        sleep 10
      else
+       # trying to take the metrics somewhere towards the end but not right at the end
        sleep $((DURATION-20))
      fi
      cd ../../test-apps/process-quarkus-example
-     ./extractMetrics.sh "../../$TEST_RESULTS/metrics$TEST_IDX.txt"
+     ./extractMetrics.sh "$TEST_RESULTS" "$TEST_IDX"
    }&
-   sleep 2
 fi
 
 TEST_RUN="$JMETER_HOME/bin/jmeter -n -t $TEST_CASE \
