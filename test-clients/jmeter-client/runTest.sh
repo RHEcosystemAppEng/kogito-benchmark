@@ -67,6 +67,23 @@ then
   WARMUP_POSTFIX="warmup"
 fi
 
+if [ $IS_WARMUP = "no" ]
+then
+  echo "**********************************************"
+  echo "************* running metrics request in background *******************"
+ {
+     if [ "$TYPE" = "requests" ]
+     then
+       sleep 10
+     else
+       sleep $((DURATION-20))
+     fi
+     cd ../../test-apps/process-quarkus-example
+     ./extractMetrics.sh "../../$TEST_RESULTS/metrics$TEST_IDX.txt"
+   }&
+   sleep 2
+fi
+
 TEST_RUN="$JMETER_HOME/bin/jmeter -n -t $TEST_CASE \
 -Jschema=$EP_SCHEMA \
 -Jurl=$EP_URL \
