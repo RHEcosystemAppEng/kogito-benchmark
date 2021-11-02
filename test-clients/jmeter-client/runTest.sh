@@ -71,17 +71,16 @@ if [ $IS_WARMUP = "no" ]
 then
   echo "**********************************************"
   echo "************* running metrics request in background *******************"
- {
-     if [ "$TYPE" = "requests" ]
-     then
-       sleep 10
-     else
-       # trying to take the metrics somewhere towards the end but not right at the end
-       sleep $((DURATION-20))
-     fi
-     cd ../../test-apps/process-quarkus-example
-     ./extractMetrics.sh "$TEST_RESULTS" "$TEST_IDX"
-   }&
+
+  DELAY=10
+  if [ "$TYPE" = "duration" ]
+  then
+    # trying to take the metrics somewhere towards the end but not right at the end
+    DELAY=$((DURATION-20))
+  fi
+  DELAY=$((DELAY*1000)) # in milliseconds
+  CURL_CMD=$EP_SCHEMA"://"$EP_URL":"$EP_PORT"/appmetrics/collect"
+  curl -d "{\"delay\":$DELAY,\"idx\":$TEST_IDX}" -H "Content-Type: application/json" -X POST $CURL_CMD
 fi
 
 TEST_RUN="$JMETER_HOME/bin/jmeter -n -t $TEST_CASE \
@@ -109,4 +108,11 @@ then
 
   echo "**********************************************"
   echo "******* after aggregate file creation ********"
+
+  echo "**********************************************"
+  echo "******* getting system and usage metrics from app server ********"
+
+  CURL_CMD=$EP_SCHEMA"://"$EP_URL":"$EP_PORT"/appmetrics"
+  curl -o $TEST_RESULTS/system-data.csv -d "{\"returnType\":\"system\",\"idx\":$TEST_IDX}" -H "Content-Type: application/json" -X POST $CURL_CMD
+  curl -o $TEST_RESULTS/usage$TEST_IDX.csv -d "{\"returnType\":\"usage\",\"idx\":$TEST_IDX}" -H "Content-Type: application/json" -X POST $CURL_CMD
 fi

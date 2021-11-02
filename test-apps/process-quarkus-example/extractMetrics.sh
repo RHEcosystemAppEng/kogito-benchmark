@@ -1,13 +1,14 @@
-TEST_PATH=$1
-TEST_IDX=$2
+TEST_IDX=$1
 SYSTEM_DATA=system-data.csv
 USAGE_DATA=usage$TEST_IDX.csv
-echo $TEST_PATH $USAGE_DATA $SYSTEM_DATA
+echo $USAGE_DATA $SYSTEM_DATA
 
 if [[ -f save_pid.txt ]]
 then
   PID=$(cat save_pid.txt)
   echo "Extracting system metrics for process(id) : "$PID
+  rm -r metrics
+  mkdir metrics
 
   JAVA_VERSION=$(java -version 2>&1 | head -1 )
 
@@ -29,11 +30,11 @@ then
 
   SYSTEM_MEMORY_USAGE_PERCENTAGE=$(echo "$SYSTEM_MEMORY_USAGE * 100" | xargs -I {} echo "scale=2; {}/$TOTAL_MEMORY_IN_MB" | bc)
 
-  echo "java-version, total-CPUs, total-Memory-GB" > $TEST_PATH/$SYSTEM_DATA
-  echo "$JAVA_VERSION, $TOTAL_CPU, ${TOTAL_MEMORY}" >> $TEST_PATH/$SYSTEM_DATA
+  echo "java-version, total-CPUs, total-Memory-GB" > metrics/$SYSTEM_DATA
+  echo "$JAVA_VERSION, $TOTAL_CPU, ${TOTAL_MEMORY}" >> metrics/$SYSTEM_DATA
 
-  echo "app-CPU-usage, system-CPU-usage, app-Memory-usage, app-Memory-usage-percentage, system-Memory-usage, system-Memory-usage-percentage" > $TEST_PATH/$USAGE_DATA
-  echo "$APP_CPU_USAGE%, $SYSTEM_CPU_USAGE_PERCENTAGE%, ${APP_MEMORY_USAGE}MB, $APP_MEMORY_USAGE_PERCENTAGE%, ${SYSTEM_MEMORY_USAGE}MB, $SYSTEM_MEMORY_USAGE_PERCENTAGE%" >> $TEST_PATH/$USAGE_DATA
+  echo "app-CPU-usage, system-CPU-usage, app-Memory-usage, app-Memory-usage-percentage, system-Memory-usage, system-Memory-usage-percentage" > metrics/$USAGE_DATA
+  echo "$APP_CPU_USAGE%, $SYSTEM_CPU_USAGE_PERCENTAGE%, ${APP_MEMORY_USAGE}MB, $APP_MEMORY_USAGE_PERCENTAGE%, ${SYSTEM_MEMORY_USAGE}MB, $SYSTEM_MEMORY_USAGE_PERCENTAGE%" >> metrics/$USAGE_DATA
 
 else
   echo "save_pid.txt file not found. Application has not properly started. Please run the application to collect metrics..."
