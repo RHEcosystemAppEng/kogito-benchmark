@@ -2,13 +2,8 @@
 
 WHEN=$1   # before or after
 CONTAINER_ENGINE=$2   # docker or podman
-if [ "$WHEN" = 'before' ]
-then
-  $CONTAINER_ENGINE cp mongoBefore.js kogito-mongodb:/tmp
-#  podman exec -it kogito-mongodb "mongo -u developer -p mypass < /tmp/mongoBefore.js"
-  $CONTAINER_ENGINE exec -it kogito-mongodb /bin/bash -c "mongo < /tmp/mongoBefore.js"
-  exit
-fi
+
+# no before check here since in this kogito version no application index is set and so no db is created until first request
 
 if [ "$WHEN" = 'after' ]
 then
