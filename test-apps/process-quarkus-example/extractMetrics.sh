@@ -17,6 +17,7 @@ then
   TOTAL_MEMORY=$(grep MemTotal /proc/meminfo | awk '{print $2}' | xargs -I {} echo "scale=2; {}/1024^2" | bc)
 
   APP_CPU_USAGE=$(top -b -p $PID -n 1 | tail -n 1 | awk '{print $9}')
+  APP_CPU_USAGE=$((APP_CPU_USAGE/4))
 
   SYSTEM_CPU_USAGE_PERCENTAGE=$(top -b -n2 -p 1 | fgrep "Cpu(s)" | tail -1 | awk -F'id,' -v prefix="$prefix" '{ split($1, vs, ","); v=vs[length(vs)]; sub("%", "", v); printf "%s%.2f\n", prefix, 100 - v }')
 
