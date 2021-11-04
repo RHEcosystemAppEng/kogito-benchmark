@@ -79,7 +79,7 @@ then
     DELAY=$((DURATION-20))
   fi
   DELAY=$((DELAY*1000)) # in milliseconds
-  CURL_CMD=$EP_SCHEMA"://"$EP_URL":"$EP_PORT"/appmetrics/collect"
+  CURL_CMD="$EP_SCHEMA://$EP_URL:$EP_PORT/appmetrics/collect"
   curl -d "{\"delay\":$DELAY,\"idx\":$TEST_IDX}" -H "Content-Type: application/json" -X POST $CURL_CMD
 fi
 
@@ -112,7 +112,7 @@ then
   echo "**********************************************"
   echo "******* getting system and usage metrics from app server ********"
 
-  CURL_CMD=$EP_SCHEMA"://"$EP_URL":"$EP_PORT"/appmetrics"
+  CURL_CMD="$EP_SCHEMA://$EP_URL:$EP_PORT/appmetrics"
   curl -o $TEST_RESULTS/system-data.csv -d "{\"returnType\":\"system\",\"idx\":$TEST_IDX}" -H "Content-Type: application/json" -X POST $CURL_CMD
   curl -o $TEST_RESULTS/usage$TEST_IDX.csv -d "{\"returnType\":\"usage\",\"idx\":$TEST_IDX}" -H "Content-Type: application/json" -X POST $CURL_CMD
 fi
