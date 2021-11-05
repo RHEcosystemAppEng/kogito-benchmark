@@ -3,6 +3,7 @@ SYSTEM_DATA=system-data.csv
 USAGE_DATA=usage$TEST_IDX.csv
 echo $USAGE_DATA $SYSTEM_DATA
 
+
 if [[ -f save_pid.txt ]]
 then
   PID=$(cat save_pid.txt)
