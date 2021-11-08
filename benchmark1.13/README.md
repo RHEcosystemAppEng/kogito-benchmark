@@ -192,3 +192,11 @@ The token comes from:
 ```shell
 oc whoami -t
 ```
+
+# Evaluating test results
+* Resources of MongoDB deployment affect the overall performance:
+  * Throughput improved from 1.2Krps to 6Krps
+* Memory usage in the Kogito app does not degrade with subsequent runs
+* Mongo instances with default resources use almost all of the allocated resources (1CPU, 500Mi)
+  * At the 6th test execution, the mongo istances are restarted
+* Higher measured througput was 12025 rps with 200 users and `quarkus.mongodb.max-pool-size = 100` 
