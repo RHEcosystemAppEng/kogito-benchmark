@@ -14,7 +14,7 @@
 # Kogito Benchmark
 
 Purpose of this project is benchmarking [Kogito](https://kogito.kie.org/) application for a defined business process model 
-using MongoDB as a persistence store.
+using MongoDB as the persistence store.
 
 The objective is to define a repeatable procedure to generate structured data for the metrics defined in 
 [Metrics specifications](#metrics-specifications), to easily monitor system performance as the product evolves.  
