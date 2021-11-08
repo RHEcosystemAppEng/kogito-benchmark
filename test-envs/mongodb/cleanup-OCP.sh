@@ -1,4 +1,4 @@
 #!/bin/sh
-oc cp clean-mongo.js  -c mongod kogito-mongodb-0:/tmp
-oc exec  -c mongod kogito-mongodb-0 -- bash -c "mongo -u developer -p mypass < /tmp/clean-mongo.js"
+oc cp `dirname "$0"`/clean-mongo.js  -c mongod kogito-mongodb-1:/tmp
+oc exec  -c mongod kogito-mongodb-1 -- bash -c "mongo -u developer -p password < /tmp/clean-mongo.js" > /dev/null
 

@@ -42,20 +42,14 @@ repository:
 ```shell
 git clone git@github.com:mongodb/mongodb-kubernetes-operator.git
 cd mongodb-kubernetes-operator
-git checkout v0.2.2
-```
-
-To properly deploy on OpenShift, we have to add the following property to the file `deploy/operator.yaml`,
-under the `spec.template.spec.env` section:
-```yaml
-            - name: MANAGED_SECURITY_CONTEXT
-              value: 'true'
+git checkout main
 ```
 
 Finally, we can install the `CustomResourceDefinition` of kind `MongoDB`  and all the resources of the operator:
 ```sh
-oc create -f deploy/crds/mongodb.com_mongodb_crd.yaml
-oc create -f deploy/
+oc apply -f config/crd/bases/mongodbcommunity.mongodb.com_mongodbcommunity.yaml
+oc apply -k config/rbac/ --namespace kogito-benchmark
+oc apply -f deploy/openshift/operator_openshift.yaml --namespace kogito-benchmark
 ```
 
 To fix the issue [Unable to deploy Mongodb Replica Set on Openshift](https://github.com/mongodb/mongodb-kubernetes-operator/issues/212#issuecomment-704744307),

@@ -1,0 +1,1 @@
+sum(container_memory_working_set_bytes{container!="", namespace='kogito-benchmark', pod=~'kogito-mongodb.*'}) by (deployment)

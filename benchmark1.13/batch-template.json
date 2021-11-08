@@ -1,0 +1,33 @@
+{
+  "InfraSetup": {
+    "appVersion":"_VERSION_",
+    "tester": {"name":"OCP","hostname": "_OCP_"},
+    "app": {"name":"OCP","hostname": "_OCP_"},
+    "container":"podman"
+  },
+  "ProcessProperties": [
+    {"key":"quarkus.vertx.worker-pool-size", "val":_WORKER_POOL_SIZE_},
+    {"key":"quarkus.mongodb.min-pool-size", "val":_MIN_POOL_},
+    {"key":"quarkus.mongodb.max-pool-size", "val":_MAX_POOL_}
+  ],
+  "Comments": [
+    "Kogito resources: _KOGITO_LIMITS_",
+    "Mongo DB resources: _MONGODB_LIMITS_"],
+  "AppInfra": {"Mongo":"yes", "PostgresQL":"no", "DataIndex":"no", "Kafka":"no"},
+  "Process": {"schema":"http", "url":"localhost", "port":8080, "app":"simpleHT"},
+  "Warmup": {
+    "enabled":"yes",
+    "type":"duration",
+    "timeOrCount":10,
+    "replicas":1,
+    "users":10
+  },
+  "Tests": {
+    "type":"duration",
+    "timeOrCount":60,
+    "repeats": 6,
+    "runs": [
+      {"replicas":20, "users":60}
+    ]
+  }
+}

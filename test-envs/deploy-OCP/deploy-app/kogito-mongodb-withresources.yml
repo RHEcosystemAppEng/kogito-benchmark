@@ -29,15 +29,33 @@ spec:
     spec:
       template:
         spec:
+          # resources can be specified by applying an override
+          # per container name.
           containers:
             - name: mongod
               env:
                 - name: MANAGED_SECURITY_CONTEXT
                   value: "true"
+              resources:
+                limits:
+                  cpu: "6"
+                  memory: 12Gi
+                requests:
+                  cpu: "6"
+                  memory: 12Gi
             - name: mongodb-agent
               env:
                 - name: MANAGED_SECURITY_CONTEXT
                   value: "true"
+              resources:
+                limits:
+                  cpu: "2"
+                  memory: 2Gi
+                requests:
+                  cpu: "2"
+                  memory: 2Gi
+# the user credentials will be generated from this secret
+# once the credentials are generated, this secret is no longer required
 ---
 apiVersion: v1
 kind: Secret
