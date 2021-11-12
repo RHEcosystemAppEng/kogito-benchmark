@@ -1,16 +1,12 @@
 # Table of Contents
 * [Mongodb Sharded Cluster Setup on Open Shift](#Mongodb Sharded Cluster Setup on Open Shift)
-    * [System Architecture](#system-architecture)
-        * [OpenShift Deployment Architecture](#openshift-deployment-architecture)
-        * [On-Premise Deployment Architecture](#on-premise-deployment-architecture)
-    * [Business Process Model](#business-process-model)
-    * [Test strategy](#test-strategy)
-    * [Metrics specifications](#metrics-specifications)
-    * [Results](#results)
-    * [How to run benchmark tests](#how-to-run-benchmark-tests)
-    * [References](#references)
-    * [Troubleshooting](#troubleshooting)
-
+    * [Mongodb Sharded Cluster Setup on Open Shift](#mongodb-sharded-cluster-setup-on-open-shift)
+    * [Create the MongoDB Enterprise Operator](#create-the-mongodb-enterprise-operator)
+    * [Install the MongoDB Operations Manager](#install-the-mongodb-operations-manager)
+    * [Setting up the Mongo DB Sharded Cluster.](#setting-up-the-mongo-db-sharded-cluster)
+    * [Accessing the database in Kogito Application](#accessing-the-database-in-kogito-application)
+    * [Sharding the collection on Mongo](#sharding-the-collection-on-mongo)
+    * [Kogito Benchmarking Results using Sharded Cluster.](#kogito-benchmarking-results-using-sharded-cluster)
 
 # Mongodb Sharded Cluster Setup on Open Shift
 
@@ -167,13 +163,13 @@ oc get pods -w
 
 # Accessing the database in Kogito Application
 
-Step 1: Enable the authentication and create user name and passwords using Ops Manager GUI
+Step 1: Enable the authentication to mongo cluster and create user name and passwords to access the mongo cluster using Ops Manager GUI
 
-Step 2: Publish all the changes on Ops Manager GUI. Your changes won't reflect until you publish the changes. This may take some time.
+Step 2: Publish all the changes on Ops Manager GUI. Your changes won't reflect until you publish the changes. You can find publish button on top of the Ops Manager GUI. This may take some time.
 
-Step3: Update the yaml file - [kogito-mongo-secret.yml](setup/kogito-mongo-secret.yml) with the user name and password you created in above steps.
+Step 3: Update the yaml file - [kogito-mongo-secret.yml](setup/kogito-mongo-secret.yml) with the user name and password you created in above steps.
 
-Step4: Create resource on the Openshift. 
+Step 4: Create resource on the Openshift. 
 ```shell
 oc apply -f kogito-mongo-secret.yml
 ```
@@ -216,3 +212,7 @@ Step 4: Enable sharding on the database and collection. We have to create hashed
 ```
 
 # Kogito Benchmarking Results using Sharded Cluster.
+
+* [3 shards - Default pods memory limits](./benchmarking-results/benchmarkReport-3shards-default.html)
+* [3 Shards - Memory Limits - 2CPU, 5G memory](./benchmarking-results/benchmarkReport-3shards-mongo2CPU5G.html)
+* [3 Shards - Memory Limits - 4CPU, 8G memory](./benchmarking-results/benchmarkReport-3shards-mongo4CPU8G.html)
