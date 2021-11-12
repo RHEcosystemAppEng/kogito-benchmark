@@ -213,6 +213,6 @@ Step 4: Enable sharding on the database and collection. We have to create hashed
 
 # Kogito Benchmarking Results using Sharded Cluster.
 
-* [3 shards - Default pods memory limits](./benchmarking-results/benchmarkReport-3shards-default.html)
-* [3 Shards - Memory Limits - 2CPU, 5G memory](./benchmarking-results/benchmarkReport-3shards-mongo2CPU5G.html)
-* [3 Shards - Memory Limits - 4CPU, 8G memory](./benchmarking-results/benchmarkReport-3shards-mongo4CPU8G.html)
+* [3 shards - Default pods memory limits](https://htmlpreview.github.io/?https://github.com/RHEcosystemAppEng/kogito-benchmark/blob/main/sharded-mongodb/benchmarking-results/benchmarkReport-3shards-default.html)
+* [3 Shards - Memory Limits - 2CPU, 5G memory](https://htmlpreview.github.io/?https://github.com/RHEcosystemAppEng/kogito-benchmark/blob/main/sharded-mongodb/benchmarking-results/benchmarkReport-3shards-mongo2CPU5G.html)
+* [3 Shards - Memory Limits - 4CPU, 8G memory](https://htmlpreview.github.io/?https://github.com/RHEcosystemAppEng/kogito-benchmark/blob/main/sharded-mongodb/benchmarking-results/benchmarkReport-3shards-mongo4CPU8G.html)
