@@ -17,6 +17,8 @@ oc login https://<api-endpoint-url>
 oc new-project mongodb
 ```
 
+**NOTE**: All the configurations used in this document can be found in the [enterprise operator Github repository](https://github.com/mongodb/mongodb-enterprise-kubernetes) project. Please refer the `mongodb-enterprise-operator` project for any updated configurations.  
+
 Going forward we will be forking the mongo database [enterprise operator Github repository](https://github.com/mongodb/mongodb-enterprise-kubernetes) and modifying to our needs.
 
 ```shell
@@ -37,7 +39,7 @@ You may see the pods start with the name ```enterprise-operator-xxxx-yyy```. Mak
 
 MongoDB operations manager is an application will let you manage the sharded cluster. We have to deploy/setup this application before setting up the actual cluster.
 
-Step1: Create the super admin user for operations manager. Store the file name called ```opsman-admin-credentials.yaml``` The choosen password must match the Operations manager's passowrd policy. It has to be 8 chars minimum, one letter minimum, one digit minimum, one special character minimum.
+Step1: Create the super admin user for operations manager. Store the file name called [opsman-admin-credentials.yaml](./setup/opsman-admin-credentials.yaml). The chosen password must match the Operations manager's password policy. It has to be 8 chars minimum, one letter minimum, one digit minimum, one special character minimum.
 
 ```yaml
 apiVersion: v1
@@ -52,7 +54,7 @@ metadata:
   name: opsman-admin-credentials
 ```
 
-Step 2: another secret with the password Operations Manager uses to access its own database called appdb. Store this file in ```opsman.db-password.yaml```
+Step 2: another secret with the password Operations Manager uses to access its own database called appdb. Store this file in [opsman-db-password.yaml](./setup/opsman-db-password.yaml).
 
 ```yaml
 apiVersion: v1
@@ -64,27 +66,8 @@ metadata:
   name: opsman-db-password
 ```
 
-Step 3: create a custom resource of type ```MongoDBOpsManager``` that will trigger the MongoDB Enterprise Operator and make it install the Operations Manager. Save this file with the name ```opsman-instance.yaml```
-
-```yaml
-apiVersion: mongodb.com/v1
-kind: MongoDBOpsManager
-metadata:
-  name: ops-manager
-spec:
-  replicas: 1
-  version: 4.2.4
-  adminCredentials: opsman-admin-credentials
-
-  backup:
-    enabled: false
-
-  applicationDatabase:
-    members: 3
-    version: 4.2.0
-    passwordSecretKeyRef:
-      name: opsman-db-password
-```
+Step 3: create a custom resource of type ```MongoDBOpsManager``` that will trigger the MongoDB Enterprise Operator and make it install the Operations Manager. We got the template from the location - [ops-manager.yaml](https://github.com/mongodb/mongodb-enterprise-kubernetes/blob/1.13.0/samples/ops-manager/ops-manager.yaml) and updated to our needs. Save this file with the name [opsman-instance.yaml](./setup/opsman-instance.yaml)
+**Note:** In future you may need to get correct mongo version yaml file from different github tag.
 
 Step 4: Create all the resources from above steps on Openshift cluster.
 
@@ -102,7 +85,7 @@ Step 6: Create a route to make the Operations Manager’s GUI accessible from th
 oc expose svc ops-manager-svc
 ```
 
-Step 7: Access the route/Ops manager GUI application on the browser for the first time. You can login with the credentials given in the secret file ```opsman-admin-credentials.yaml```
+Step 7: Access the route/Ops manager GUI application on the browser for the first time. You can login with the credentials given in the secret file [opsman-admin-credentials.yaml](./setup/opsman-admin-credentials.yaml).
 You need to provide all the info as per your organization. With this setup MongoDB operations manager should be in a running state and usable. 
 
 
@@ -110,15 +93,18 @@ You need to provide all the info as per your organization. With this setup Mongo
 All these steps have to be performed on the MongoDB Operations manager GUI. We need to link this Ops Manager app with Kubernetes application using the API keys and configmaps.
 
 Step 1: Create an org so that all the clusters are associated in this organization. Click on the very top right Operations and Organizations. Click the green Button NEW ORGANIZATION. Copy the organization ID from the organization details page.
-
-Step 2: Create an API key that allows the Operator to access the Operations Manager. Note down the 8 character code below Public Key. Give a name to the API key and choose a permission - either Organization Owner or Organization Project Creator. Click Next. Here is the only time when you see the private key completely in clear text. Write it down - you will need it shortly
+![Ops-manager-create-org](./screenshots/ops-manager-create-org.png)
+Step 2: You need to setup Kubernetes on Ops-manager so that your cluster can be controlled by the ops-manager. Create an API key that allows the Operator to access the Operations Manager. Note down the 8 character code below Public Key. Give a name to the API key and choose a permission - either Organization Owner or Organization Project Creator. Click Next. Here is the only time when you see the private key completely in clear text. Write it down - you will need it shortly
+![Ops-manager-setup-k8](./screenshots/ops-manager-setup-k8.png)
 
 Step 3: whitelist entry to allow the operator to access the Operations Manager API. Use the Operations Manager pod ID address. You can get it with
 
 ```shell
 oc get pod -l app=enterprise-operator -o jsonpath='{.items[0].status.podIP}'
 ```
-You may have realized that this white list doesn’t work any more as soon as the Operator gets restarted, i.e. it’s run in a pod with a different IP address. You may specify the IP address range used for pods (e.g. 10.0.0.0/8). The problem is that it’s impossible for mere mortals to determine this IP address range.
+You may have realized that this white list does not work any more as soon as the Operator gets restarted, i.e. it’s run in a pod with a different IP address. You may specify the IP address range used for pods (e.g. 10.0.0.0/8). The problem is that it’s impossible for mere mortals to determine this IP address range.
+
+![Ops-manager-white-list-ips](./screenshots/Ops-manager-whitelist.png)
 
 Step 4: create a secret and a config map in preparation of the deployment of a real MongoDB instance. The secret holds the credentials to access the Operations Manager API. Save this file as ```test-orga-api-key.yaml``` 
 
@@ -133,7 +119,7 @@ metadata:
   name: test-orga-api-key
 ```
 
-Step 5: The config map has information about the project to create (provided it doesn’t already exist), the organization where the project resides in and the URL to access the Operations Manager. Store this in a file named ```test-project-config.yaml```.
+Step 5: The config map has information about the project to create (provided it does not already exist), the organization where the project resides in and the URL to access the Operations Manager. Store this in a file named ```test-project-config.yaml```.
 
 ```yaml
 apiVersion: v1
@@ -155,26 +141,30 @@ oc create -f test-orga-api-key.yaml
 oc create -f test-project-config.yaml
 oc create -f sharded-cluster.yaml
 ```
-Step 8: It will take signficantly long time to create all the required pods. Monitor the progress.
+Step 8: It will take significantly long time to create all the required pods. Monitor the progress.
 
 ```shell
 oc get pods -w
 ```
 
-# Accessing the database in Kogito Application
+# Accessing the database in Openshift Kogito Application
 
-Step 1: Enable the authentication to mongo cluster and create user name and passwords to access the mongo cluster using Ops Manager GUI
+Step 1: Enable the authentication to mongo cluster and create username and passwords to access the mongo cluster using Ops Manager GUI.
 
 Step 2: Publish all the changes on Ops Manager GUI. Your changes won't reflect until you publish the changes. You can find publish button on top of the Ops Manager GUI. This may take some time.
 
-Step 3: Update the yaml file - [kogito-mongo-secret.yml](setup/kogito-mongo-secret.yml) with the user name and password you created in above steps.
+![Ops-manager-review-and-publish](./screenshots/ops-manager-review-deploy.png)
+
+Step 3: Update the yaml file - [kogito-mongo-secret.yml](setup/kogito-mongo-secret.yml) with the username and password you created in above steps. You can get service names of the `mongos` pods from the `ops-manager` gui.
+
+![Ops-manager-connect-to-instance](./screenshots/ops-manager-connect-to-instance.png)
 
 Step 4: Create resource on the Openshift. 
 ```shell
 oc apply -f kogito-mongo-secret.yml
 ```
 
-Step 5: Start the Quarkus application so that application will create the kogito database on the cluster.
+Step 5: Start the Quarkus application on OpenShift by referencing above secret so that application will create the kogito database on the sharded cluster.
 
 # Sharding the collection on Mongo
 
@@ -216,3 +206,7 @@ Step 4: Enable sharding on the database and collection. We have to create hashed
 * [3 shards - Default pods memory limits](https://htmlpreview.github.io/?https://github.com/RHEcosystemAppEng/kogito-benchmark/blob/main/sharded-mongodb/benchmarking-results/benchmarkReport-3shards-default.html)
 * [3 Shards - Memory Limits - 2CPU, 5G memory](https://htmlpreview.github.io/?https://github.com/RHEcosystemAppEng/kogito-benchmark/blob/main/sharded-mongodb/benchmarking-results/benchmarkReport-3shards-mongo2CPU5G.html)
 * [3 Shards - Memory Limits - 4CPU, 8G memory](https://htmlpreview.github.io/?https://github.com/RHEcosystemAppEng/kogito-benchmark/blob/main/sharded-mongodb/benchmarking-results/benchmarkReport-3shards-mongo4CPU8G.html)
+
+
+# References
+* https://labs.consol.de/devops/2020/01/14/installing-mongodb-on-openshift.html
