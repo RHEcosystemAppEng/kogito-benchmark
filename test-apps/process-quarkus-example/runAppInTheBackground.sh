@@ -1,7 +1,7 @@
 # 'to make application accessible as localhost, set -Dquarkus.http.host=0.0.0.0'
 
-PROFILE=$1  # mongo or postgres
-if [ "$PROFILE" != 'mongo' ] && [ "$PROFILE" != 'postgres' ]
+PROFILE=$1  # mongo or postgres or jdbc
+if [ "$PROFILE" != 'mongo' ] && [ "$PROFILE" != 'postgres' ] && [ "$PROFILE" != 'jdbc' ]
 then
   echo "invalid profile: "$PROFILE
   exit
