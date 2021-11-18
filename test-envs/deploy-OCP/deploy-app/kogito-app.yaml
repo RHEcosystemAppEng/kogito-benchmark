@@ -16,7 +16,7 @@ spec:
         - name: private-reg-cred
       containers:
         - name: process-quarkus-example
-          image: quay.io/dmartino/process-quarkus-example:1.13.0.Final
+          image: quay.io/dmartino/process-quarkus-example:dbz3
           imagePullPolicy: Always
           resources:
             limits:
@@ -33,10 +33,7 @@ spec:
             - name: WORKER_POOL_SIZE
               value: "10"
             - name: MONGODB_URL
-              valueFrom:
-                secretKeyRef:
-                  name: kogito-mongodb-admin-developer
-                  key: connectionString.standardSrv
+              value: mongodb://developer:password@kogito-sharded-mongo-mongos-0.kogito-sharded-mongo-svc.mongodb.svc.cluster.local,kogito-sharded-mongo-mongos-1.kogito-sharded-mongo-svc.mongodb.svc.cluster.local:27017/admin?ssl=false
           ports:
             - containerPort: 8080
 ---
