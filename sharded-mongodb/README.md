@@ -1,13 +1,13 @@
 # Table of Contents
-* [Mongodb Sharded Cluster Setup on Open Shift](#Mongodb Sharded Cluster Setup on Open Shift)
-    * [Mongodb Sharded Cluster Setup on Open Shift](#mongodb-sharded-cluster-setup-on-open-shift)
-    * [Create the MongoDB Enterprise Operator](#create-the-mongodb-enterprise-operator)
-    * [Install the MongoDB Operations Manager](#install-the-mongodb-operations-manager)
-    * [Setting up the Mongo DB Sharded Cluster.](#setting-up-the-mongo-db-sharded-cluster)
-    * [Setting up data to pre-Split into all Shards.](#setting-up-the-data-to-pre-split-into-all-shards)
-    * [Accessing the database in Kogito Application](#accessing-the-database-in-kogito-application)
-    * [Sharding the collection on Mongo](#sharding-the-collection-on-mongo)
-    * [Kogito Benchmarking Results using Sharded Cluster.](#kogito-benchmarking-results-using-sharded-cluster)
+- [Mongodb Sharded Cluster Setup on Open Shift](#mongodb-sharded-cluster-setup-on-open-shift)
+- [Create the MongoDB Enterprise Operator](#create-the-mongodb-enterprise-operator)
+- [Install the MongoDB Operations Manager](#install-the-mongodb-operations-manager)
+- [Setting up the Mongo DB Sharded Cluster.](#setting-up-the-mongo-db-sharded-cluster)
+- [Setting up data to pre-Split into all Shards](#setting-up-data-to-pre-split-into-all-shards)
+- [Accessing the database in Openshift Kogito Application](#accessing-the-database-in-openshift-kogito-application)
+- [Sharding the collection on Mongo](#sharding-the-collection-on-mongo)
+- [Kogito Benchmarking Results using Sharded Cluster.](#kogito-benchmarking-results-using-sharded-cluster)
+- [References](#references)
 
 # Mongodb Sharded Cluster Setup on Open Shift
 
