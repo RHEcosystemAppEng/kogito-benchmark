@@ -4,6 +4,7 @@
     * [Create the MongoDB Enterprise Operator](#create-the-mongodb-enterprise-operator)
     * [Install the MongoDB Operations Manager](#install-the-mongodb-operations-manager)
     * [Setting up the Mongo DB Sharded Cluster.](#setting-up-the-mongo-db-sharded-cluster)
+    * [Setting up data to pre-Split into all Shards.](#setting-up-the-data-to-pre-split-into-all-shards)
     * [Accessing the database in Kogito Application](#accessing-the-database-in-kogito-application)
     * [Sharding the collection on Mongo](#sharding-the-collection-on-mongo)
     * [Kogito Benchmarking Results using Sharded Cluster.](#kogito-benchmarking-results-using-sharded-cluster)
@@ -146,6 +147,9 @@ Step 8: It will take significantly long time to create all the required pods. Mo
 ```shell
 oc get pods -w
 ```
+
+# Setting up data to pre-Split into all Shards
+Please refer [this documentation](./Mongo-Sharding-Setup-with-Pre-split.md)
 
 # Accessing the database in Openshift Kogito Application
 
