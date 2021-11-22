@@ -20,7 +20,7 @@ spec:
         - image: quay.io/dmartino/kogito-benchmark-client:4
           env:
             - name: URL
-              value: http://process-quarkus-example:80
+              value: http://kogito-app:8080
             - name: WORKER_POOL_SIZE
               value: "100"
           imagePullPolicy: Always
