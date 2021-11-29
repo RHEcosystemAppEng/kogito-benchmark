@@ -134,6 +134,41 @@ oc  exec -it kogito-kafka-kafka-0  -- bash
 //check if there are any events recieved. 
 ./kafka-console-consumer.sh --bootstrap-server my-kafka-cluster-kafka-bootstrap.debezium-try-out.svc:9092 --topic kogito-usertaskinstances-events --from-beginning
 ```
+
+# Application updates
+* The application properties must include the property `kogito.persistence.transaction.enabled=true` and all the
+other properties starting with prefix `kogito.events.` as in [application-mongo.properties](../test-apps/process-quarkus-example/src/main/resources/application-mongo.properties)
+* The application can be deployed using the given [kogito-app.yaml](../test-envs/deploy-OCP/deploy-app/kogito-app.yaml)
+* The `Quarkus client` can be deployed using the sample [quarkus-client.yaml](../test-clients/quarkus-client/quarkus-client.yaml)]
+
+# Execution results
+* Command executed on the deployed `Quarkus client`:
+```shell
+curl localhost://benchmark/simple/120/60
+```
+* Executes 120" of tests against the usual `SimpleHT` process with 60 threads
+* The result is documented by the following JSON document:
+```json
+{
+  "noOfExecutions" : 66333,
+  "noOfFailures" : 0,
+  "minResponseTime" : {
+    "index" : 1960,
+    "responseTime" : 10
+  },
+  "maxResponseTime" : {
+    "index" : 4,
+    "responseTime" : 4022
+  },
+  "averageResponseTime" : 108,
+  "percentile95" : 224,
+  "percentile99" : 293,
+  "totalTimeMillis" : 7168407,
+  "elapsedTimeMillis" : 120087,
+  "requestsPerSecond" : 552.0
+}
+```
+
 # References
 
 * https://strimzi.io/docs/operators/latest/full/deploying.html#kafka-connect-str

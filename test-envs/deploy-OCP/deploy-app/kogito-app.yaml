@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: process-quarkus-example
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: process-quarkus-example
+  template:
+    metadata:
+      labels:
+        app: process-quarkus-example
+    spec:
+      imagePullSecrets:
+        - name: private-reg-cred
+      containers:
+        - name: process-quarkus-example
+          image: quay.io/dmartino/process-quarkus-example:1.13.Final.db.kogito
+          imagePullPolicy: Always
+          resources:
+            limits:
+              cpu: "500m"
+              memory: 500Mi
+            requests:
+              cpu: "500m"
+              memory: 500Mi
+          env:
+            - name: MIN_POOL
+              value: "10"
+            - name: MAX_POOL
+              value: "10"
+            - name: WORKER_POOL_SIZE
+              value: "10"
+            - name: MONGODB_URL
+              value: mongodb://developer:password@kogito-sharded-mongo-mongos-0.kogito-sharded-mongo-svc.mongodb.svc.cluster.local,kogito-sharded-mongo-mongos-1.kogito-sharded-mongo-svc.mongodb.svc.cluster.local:27017/admin?ssl=false
+          ports:
+            - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: process-quarkus-example
+spec:
+  selector:
+    app: process-quarkus-example
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 8080

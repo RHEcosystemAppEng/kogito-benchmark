@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/name: kogito-benchmark-client
+  name: kogito-benchmark-client
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: kogito-benchmark-client
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: kogito-benchmark-client
+    spec:
+      imagePullSecrets:
+        - name: private-reg-cred
+      containers:
+        - image: quay.io/dmartino/kogito-benchmark-client:4
+          env:
+            - name: URL
+              value: http://process-quarkus-example:80
+            - name: WORKER_POOL_SIZE
+              value: "100"
+          imagePullPolicy: Always
+          name: kogito-benchmark-client
+          ports:
+            - containerPort: 9090
+              name: http
+              protocol: TCP

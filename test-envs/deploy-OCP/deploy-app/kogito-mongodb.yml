@@ -6,7 +6,7 @@ metadata:
 spec:
   members: 3
   type: ReplicaSet
-  version: "4.4.1"
+  version: "4.2.6"
   security:
     authentication:
       modes: ["SCRAM"]
@@ -17,21 +17,24 @@ spec:
         name: kogito-mongodb-secret
       roles:
         - name: dbOwner
-          db: kogito_dataindex
+          db: kogito
         - name: clusterAdmin
-          db: kogito_dataindex
+          db: kogito
         - name: userAdminAnyDatabase
-          db: kogito_dataindex
+          db: kogito
+      scramCredentialsSecretName: my-scram
+  additionalMongodConfig:
+    storage.wiredTiger.engineConfig.journalCompressor: zlib
   statefulSet:
     spec:
       template:
         spec:
           containers:
-            - name: "mongodb-agent"
+            - name: mongod
               env:
                 - name: MANAGED_SECURITY_CONTEXT
                   value: "true"
-            - name: "mongod"
+            - name: mongodb-agent
               env:
                 - name: MANAGED_SECURITY_CONTEXT
                   value: "true"
@@ -42,4 +45,4 @@ metadata:
   name: kogito-mongodb-secret
 type: Opaque
 stringData:
-  password: mypass
+  password: password
