@@ -1,7 +1,33 @@
+#!/bin/bash
+
 TEST_IDX=$1
 SYSTEM_DATA=system-data.csv
 USAGE_DATA=usage$TEST_IDX.csv
 echo $USAGE_DATA $SYSTEM_DATA
+
+function getValueInMegaBytes {
+  input=$1
+  GB="g"
+  MB="mb"
+  KiB="kb"
+  if [[ "$input" == *$GB ]]; then
+    res=$input
+    res=${res/$GB/}
+    res=$(echo "scale=2; $res * 1024 * 1.00" | bc)
+    echo $res;
+  elif [[ "$input" == *$MB ]]; then
+    res=$input
+    res=${res/$MB/}
+    echo $res;
+  elif [[ "$input" == *$KiB ]]; then
+    res=$input
+    res=${res/$KiB/}
+    res=$(echo "scale=2; $res / 1024 * 1.00" | bc)
+    echo $res;
+  else
+    echo $input
+  fi
+}
 
 if [[ -f save_pid.txt ]]
 then
@@ -16,15 +42,15 @@ then
 
   TOTAL_MEMORY=$(grep MemTotal /proc/meminfo | awk '{print $2}' | xargs -I {} echo "scale=2; {}/1024^2" | bc)
 
-  APP_CPU_USAGE=$(top -b -p $PID -n 1 | tail -n 1 | awk '{print $9}')
-  APP_CPU_USAGE=${APP_CPU_USAGE%.*}
-  APP_CPU_USAGE=$((APP_CPU_USAGE/4))
+  APP_CPU_USAGE=$(top -b -p $PID -n 1 | tail -n 1 | awk '{print $9}' | xargs -I {} echo "{}/4" | bc)
 
   SYSTEM_CPU_USAGE_PERCENTAGE=$(top -b -n2 -p 1 | fgrep "Cpu(s)" | tail -1 | awk -F'id,' -v prefix="$prefix" '{ split($1, vs, ","); v=vs[length(vs)]; sub("%", "", v); printf "%s%.2f\n", prefix, 100 - v }')
 
-  APP_MEMORY_USAGE=$(top -b -p $PID -n 1 | tail -n 1 | awk '{print $6}' | xargs -I {} echo "scale=2; {}/1024" | bc)
+  APP_MEMORY_USAGE=$(top -b -p $PID -n 1 | tail -n 1 | awk '{print $6}')
+  APP_MEMORY_USAGE="$(getValueInMegaBytes $APP_MEMORY_USAGE)"
 
-  TOTAL_MEMORY_IN_MB=$(grep MemTotal /proc/meminfo | awk '{print $2}' | xargs -I {} echo "scale=2; {}/1024" | bc)
+  TOTAL_MEMORY_IN_MB=$(grep MemTotal /proc/meminfo | awk '{print $2}')
+  TOTAL_MEMORY_IN_MB="$(getValueInMegaBytes $TOTAL_MEMORY_IN_MB)"
 
   APP_MEMORY_USAGE_PERCENTAGE=$(echo "$APP_MEMORY_USAGE * 100" | xargs -I {} echo "scale=2; {}/$TOTAL_MEMORY_IN_MB" | bc)
 
